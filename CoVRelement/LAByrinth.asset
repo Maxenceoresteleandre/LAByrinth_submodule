@@ -18,8 +18,9 @@ MonoBehaviour:
   TangibleSurfaceStartPos: {x: 0, y: 0, z: 0}
   TangibleSurfaceStartSpeedX: 0.2
   TangibleSurfaceStartSpeedY: 0.7
-  trackStatus: 0
-  ppStatus: 0
+  trackStatus: 1
+  ppStatus: 1
+  radiusSecureView: 0.1
   T: {fileID: 0}
   visiblityDistance: 1
   sceneDescription: "Demo:\t DemoNameAbstract:\n\tthis demo demonstrate the use of
