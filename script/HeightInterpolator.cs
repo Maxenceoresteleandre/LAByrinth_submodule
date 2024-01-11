@@ -40,6 +40,5 @@ public class HeightInterpolator : MonoBehaviour
     void InterpolationFinished()
     {
         interpolationFinished.Invoke();
-        Debug.Log("Custom event triggered!");
     }
 }
