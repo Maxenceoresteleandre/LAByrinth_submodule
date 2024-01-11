@@ -21,6 +21,6 @@ public class HoveringObject : MonoBehaviour
         float verticalOffset = Mathf.Sin(Time.time * hoverSpeed) * hoverHeight;
 
         // Apply the hover effect to the object's position
-        transform.position = initialPosition + new Vector3(0.0f, verticalOffset, 0.0f);
+        transform.position = transform.position + new Vector3(0.0f, verticalOffset, 0.0f);
     }
 }
