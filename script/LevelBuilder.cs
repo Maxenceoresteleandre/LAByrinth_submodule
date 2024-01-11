@@ -8,6 +8,8 @@ public class LevelBuilder : MonoBehaviour
     public const bool SIZE_4x4 = true;
     public Vector3 min_4x4_pos;
     public Vector3 min_3x3_pos;
+    public double pillar_size_x;
+    public double pillar_size_z;
     
     public GameObject pillarPrefab;
 
@@ -24,11 +26,18 @@ public class LevelBuilder : MonoBehaviour
     }
 
     void createLevelPillars(bool size) {
+        Vector3 initialPos;
+        int nbOfPillars;
         if (size == SIZE_3x3) {
-
+            initialPos = min_3x3_pos;
+            nbOfPillars = 3;
         } else {
-            for (int i=0; i<4; i++) {
-                Instantiate(pillarPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            initialPos = min_4x4_pos;
+            nbOfPillars = 4;
+        }
+        for (int i=0; i<nbOfPillars; i++) {
+            for (int j=0; j<nbOfPillars; j++) {
+                Instantiate(pillarPrefab, initialPos + new Vector3(), Quaternion.identity);
             }
         }
     }

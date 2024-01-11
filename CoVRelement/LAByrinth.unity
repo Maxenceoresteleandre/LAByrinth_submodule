@@ -532,6 +532,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 9119043175256313107, guid: deccceb71f3818c438c01387a963d6ec,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3f2d82971e7deb942b5beece72fa2a31, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: deccceb71f3818c438c01387a963d6ec, type: 3}
 --- !u!4 &382312933 stripped
@@ -1358,6 +1363,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b892580ad9652b4d912d0a6c1215964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  min_4x4_pos: {x: 0, y: 0, z: 0}
+  min_3x3_pos: {x: 0, y: 0, z: 0}
+  pillar_size_x: 0
+  pillar_size_z: 0
   pillarPrefab: {fileID: 7587664689611192297, guid: deccceb71f3818c438c01387a963d6ec,
     type: 3}
 --- !u!4 &1323785763
@@ -1456,6 +1465,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pillar (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 9119043175256313107, guid: deccceb71f3818c438c01387a963d6ec,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d79e32bee9ccff4d8d53076c42be75a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: deccceb71f3818c438c01387a963d6ec, type: 3}
 --- !u!4 &1354053652 stripped
