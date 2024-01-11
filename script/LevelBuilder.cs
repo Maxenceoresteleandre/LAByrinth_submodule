@@ -8,24 +8,19 @@ public class LevelBuilder : MonoBehaviour
     public const bool SIZE_4x4 = true;
     public Vector3 min_4x4_pos;
     public Vector3 min_3x3_pos;
-    public double pillar_size_x;
-    public double pillar_size_z;
+    public double pillar_offset_x;
+    public double pillar_offset_z;
+    public float end_pos_z_4x4;
+    public float end_pos_z_3x3;
+    public float start_pos_z;
+    public float start_min_x_pos;
+    public float end_min_x_pos;
     
     public GameObject pillarPrefab;
+    public GameObject startPlatform;
+    public GameObject endPlatform;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void createLevelPillars(bool size) {
+    public void CreateLevelPillars(bool size) {
         Vector3 initialPos;
         int nbOfPillars;
         if (size == SIZE_3x3) {
@@ -41,4 +36,10 @@ public class LevelBuilder : MonoBehaviour
             }
         }
     }
+
+    public void CreateStart(int position_offset) {
+
+    }
+
+    private void AddStartOrEnd(GameObject go, int pos_)
 }
