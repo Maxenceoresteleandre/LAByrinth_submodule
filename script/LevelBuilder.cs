@@ -36,10 +36,10 @@ public class LevelBuilder : MonoBehaviour
         }
         for (int i=0; i<nbOfPillars; i++) {
             for (int j=0; j<nbOfPillars; j++) {
-                yield return new WaitForSeconds(1.0f);
+                yield return new WaitForSeconds(0.25f);
                 GameObject newChild = Instantiate(pillarPrefab, new Vector3(), Quaternion.identity);
                 newChild.transform.parent = pillarsParent.transform;
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.25f);
                 newChild.transform.position = ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset);
                 newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 Debug.Log("pillar["+i.ToString()+","+j.ToString()+"]: "+newChild.transform.position.ToString());
@@ -52,12 +52,12 @@ public class LevelBuilder : MonoBehaviour
         yield return new WaitForSeconds(15.0f);
         if (size == SIZE_3x3) {
             Vector3 min_3x3_pos = origin_3x3.transform.position;
-            pos.z = min_3x3_pos.z + 3*pillar_offset;
+            pos.z = min_3x3_pos.z + 4*pillar_offset;
             pos.y = min_3x3_pos.y;
             pos.x = min_3x3_pos.x + position_offset*pillar_offset;
         } else {
             Vector3 min_4x4_pos = origin_4x4.transform.position;
-            pos.z = min_4x4_pos.z + 3*pillar_offset;
+            pos.z = min_4x4_pos.z + 4*pillar_offset;
             pos.y = min_4x4_pos.y;
             pos.x = min_4x4_pos.x + position_offset*pillar_offset;
         }
