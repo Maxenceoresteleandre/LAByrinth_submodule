@@ -16,9 +16,14 @@ public class LevelBuilder : MonoBehaviour
     public GameObject pillarPrefab;
     public GameObject startPlatform;
     public GameObject endPlatform;
+    public int[,] pillarTypes = new int[4, 4];
+
 
     void Start()
     {
+        for (int i=0; i<4; i++) {
+            pillarTypes[2, i] = 2;
+        }
         StartCoroutine(CreateLevelPillars(SIZE_4x4));
         StartCoroutine(CreateStart(3, SIZE_4x4));
         StartCoroutine(CreateEnd(0, SIZE_4x4));
@@ -42,6 +47,7 @@ public class LevelBuilder : MonoBehaviour
                 newChild.transform.position = ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset);
                 newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 newChild.GetComponent<HeightInterpolator>().StartInterpolation();
+                newChild.GetComponent<PillarType>().SetPillarType(pillarTypes[i, j]);
             }
         }
     }
