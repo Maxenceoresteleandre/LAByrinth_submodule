@@ -20,8 +20,8 @@ public class LevelBuilder : MonoBehaviour
     void Start()
     {
         StartCoroutine(CreateLevelPillars(SIZE_4x4));
-        StartCoroutine(CreateStart(2, SIZE_4x4));
-        StartCoroutine(CreateEnd(1, SIZE_4x4));
+        StartCoroutine(CreateStart(3, SIZE_4x4));
+        StartCoroutine(CreateEnd(0, SIZE_4x4));
     }
 
     IEnumerator CreateLevelPillars(bool size) {
@@ -36,20 +36,19 @@ public class LevelBuilder : MonoBehaviour
         }
         for (int i=0; i<nbOfPillars; i++) {
             for (int j=0; j<nbOfPillars; j++) {
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(0.5f);
                 GameObject newChild = Instantiate(pillarPrefab, new Vector3(), Quaternion.identity);
                 newChild.transform.parent = pillarsParent.transform;
-                yield return new WaitForSeconds(0.25f);
                 newChild.transform.position = ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset);
                 newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                Debug.Log("pillar["+i.ToString()+","+j.ToString()+"]: "+newChild.transform.position.ToString());
+                newChild.GetComponent<HeightInterpolator>().StartInterpolation();
             }
         }
     }
 
     IEnumerator CreateStart(int position_offset, bool size) {
         Vector3 pos = new Vector3();
-        yield return new WaitForSeconds(15.0f);
+        yield return new WaitForSeconds(1.0f);
         if (size == SIZE_3x3) {
             Vector3 min_3x3_pos = origin_3x3.transform.position;
             pos.z = min_3x3_pos.z + 4*pillar_offset;
@@ -66,7 +65,7 @@ public class LevelBuilder : MonoBehaviour
 
     IEnumerator CreateEnd(int position_offset, bool size) {
         Vector3 pos = new Vector3();
-        yield return new WaitForSeconds(15.0f);
+        yield return new WaitForSeconds(1.0f);
         if (size == SIZE_3x3) {
             Vector3 min_3x3_pos = origin_3x3.transform.position;
             pos.z = min_3x3_pos.z - pillar_offset;

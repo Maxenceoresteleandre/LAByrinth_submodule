@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEngine.Events;
 
 public class HeightInterpolator : MonoBehaviour
 {
     public float appearDuration = 3.0f;
-    public float startHeight = -25.0f;
+    public float startHeight = -15.0f;
+    public UnityEvent interpolationFinished;
 
-    void Start()
-    {
+    public void StartInterpolation() {
         // Store the initial and target positions
         Vector3 initialPosition = new Vector3(transform.position.x, startHeight, transform.position.z);
         Vector3 targetPosition = transform.position;
@@ -31,5 +33,13 @@ public class HeightInterpolator : MonoBehaviour
 
         // Ensure the final position is exactly the target position
         transform.position = targetPosition;
+
+        InterpolationFinished();
+    }
+
+    void InterpolationFinished()
+    {
+        interpolationFinished.Invoke();
+        Debug.Log("Custom event triggered!");
     }
 }
