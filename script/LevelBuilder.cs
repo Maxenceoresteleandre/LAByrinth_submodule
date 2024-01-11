@@ -19,6 +19,8 @@ public class LevelBuilder : MonoBehaviour
 
     void Start()
     {
+        min_3x3_pos *= -0.5f;
+        min_4x4_pos *= -0.5f;
         StartCoroutine(CreateLevelPillars(SIZE_4x4));
         StartCoroutine(CreateStart(2, SIZE_4x4));
         StartCoroutine(CreateEnd(1, SIZE_4x4));
@@ -39,7 +41,8 @@ public class LevelBuilder : MonoBehaviour
                 yield return new WaitForSeconds(1.0f);
                 GameObject newChild = Instantiate(pillarPrefab, new Vector3(), Quaternion.identity);
                 newChild.transform.parent = pillarsParent.transform;
-                newChild.transform.position = initialPos - new Vector3(i*pillar_offset, 0f, j*pillar_offset);
+                yield return new WaitForSeconds(0.5f);
+                newChild.transform.position = initialPos + new Vector3(i*pillar_offset, 0f, j*pillar_offset);
                 newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 Debug.Log("pillar["+i.ToString()+","+j.ToString()+"]: "+newChild.transform.position.ToString());
             }
