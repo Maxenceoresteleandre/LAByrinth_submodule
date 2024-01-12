@@ -13,9 +13,11 @@ public class GridLab : MonoBehaviour
     void Update(){
         // Log the player's grid position when it changes
         Tuple<int, int> gridPosition = GetGridPosition(Camera.main.transform.position);
-        if (gridPosition.First != lastGridPosition.First || gridPosition.Second != lastGridPosition.Second){
-            Debug.Log("Player is in grid cell: " + gridPosition.First + ", " + gridPosition.Second);
-            lastGridPosition = gridPosition;
+        if (gridPosition.First != -1 && gridPosition.Second != -1){
+            if (gridPosition.First != lastGridPosition.First || gridPosition.Second != lastGridPosition.Second){
+                Debug.Log("Player is in grid cell: " + gridPosition.First + ", " + gridPosition.Second);
+                lastGridPosition = gridPosition;
+            }
         }
     }
 
