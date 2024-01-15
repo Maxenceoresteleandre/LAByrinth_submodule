@@ -150,7 +150,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7587664689611192296}
-  - component: {fileID: 7196062329630997827}
   m_Layer: 0
   m_Name: Pillar
   m_TagString: Untagged
@@ -176,35 +175,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7196062329630997827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7587664689611192297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d853b36448892e04c96cabdcd779d7a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  appearDuration: 3
-  startHeight: -25
-  interpolationFinished:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7587664690129743074}
-        m_TargetAssemblyTypeName: HoveringObject, Assembly-CSharp
-        m_MethodName: StartHovering
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &7587664690829497187
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +188,7 @@ GameObject:
   - component: {fileID: 7587664690829497180}
   - component: {fileID: 7587664690829497181}
   m_Layer: 0
-  m_Name: CylinderBase
+  m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -471,7 +441,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bcbba5fb43926ea49a54fe404fdeac1d,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcbba5fb43926ea49a54fe404fdeac1d, type: 3}
