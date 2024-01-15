@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3569063040211975058}
+  - component: {fileID: 5872562322671656115}
   m_Layer: 0
   m_Name: grid3x3
   m_TagString: Untagged
@@ -70,6 +71,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5872562322671656115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4298118983087201480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410885403f8747e488eb32aa7a07392b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingX: 0
+  startingY: 0
+  endingX: 6
+  endingY: 6
 --- !u!1001 &278111019556352950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2037,6 +2054,11 @@ PrefabInstance:
       propertyPath: x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6607345176620987980, guid: e01e36488ca33a840802af9f8dc6f2ef,
+        type: 3}
+      propertyPath: y
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7331726410488647563, guid: e01e36488ca33a840802af9f8dc6f2ef,
         type: 3}
       propertyPath: m_RootOrder
@@ -3446,6 +3468,11 @@ PrefabInstance:
         type: 3}
       propertyPath: x
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6607345176620987980, guid: e01e36488ca33a840802af9f8dc6f2ef,
+        type: 3}
+      propertyPath: y
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7331726410488647563, guid: e01e36488ca33a840802af9f8dc6f2ef,
         type: 3}
