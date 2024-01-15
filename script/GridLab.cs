@@ -4,41 +4,85 @@ using UnityEngine;
 
 public class GridLab : MonoBehaviour
 {
-    private Tuple<int, int> lastGridPosition = Tuple.New(-1, -1);
+    // initialized at none
+    private Tuple<int,int> lastGridPosition = Tuple.New(-1,-1);
+    private List<Tuple<int,int>> currentSequenceOfPositions = new List<Tuple<int,int>>();
+    
+    private Tuple<int,int> startingPosition;
+    private Tuple<int,int> endingPosition;
+
+    public int startingX;
+    public int startingY;
+    public int endingX;
+    public int endingY;
+    
     void Start()
     {
-
+        startingPosition = Tuple.New(startingX, startingY);
+        endingPosition = Tuple.New(endingX, endingY);
     }
 
     void Update(){
-        // Log the player's grid position when it changes
-        Tuple<int, int> gridPosition = GetGridPosition(Camera.main.transform.position);
-        if (gridPosition.First != -1 && gridPosition.Second != -1){
+        if (IsInGrid(Camera.main.transform.position)){
+            Tuple<int,int> gridPosition = GetGridPosition(Camera.main.transform.position);
             if (gridPosition.First != lastGridPosition.First || gridPosition.Second != lastGridPosition.Second){
                 Debug.Log("Player is in grid cell: " + gridPosition.First + ", " + gridPosition.Second);
+                if (gridPosition.First == endingPosition.First && gridPosition.Second == endingPosition.Second){
+                    Debug.Log("Player has reached the end of the maze!");
+                    List<Tuple<int,int>> sequence = stopRecordingSequence();
+                    string sequenceString = "";
+                    foreach (Tuple<int,int> position in sequence){
+                        sequenceString += position.First + "," + position.Second + ";";
+                    }
+                    Debug.Log("Player's sequence of positions: " + sequenceString);
+                }
+                if (gridPosition.First == startingPosition.First && gridPosition.Second == startingPosition.Second){
+                    Debug.Log("Player has reached the start of the maze!");
+                    startRecordingSequence();
+                }
                 lastGridPosition = gridPosition;
+                currentSequenceOfPositions.Add(gridPosition);
             }
         }
     }
 
-    public Tuple<int, int> GetGridPosition(Vector3 position)
+    public Tuple<int,int> GetGridPosition(Vector3 position)
     {
         // Return the grid cell that the player is currently in
         // Test for each grid cell in the grid
         for (int x = 0; x < transform.childCount; x++)
         {
-            for (int z = 0; z < transform.GetChild(x).childCount; z++)
+            Transform cell = transform.GetChild(x);
+            if (cell.GetComponent<Collider>().bounds.Contains(position))
             {
-                // Get the current grid cell
-                Transform cell = transform.GetChild(x).GetChild(z);
-                if (cell.GetComponent<Collider>().bounds.Contains(position))
-                {
-                    // Return the grid cell's position
-                    return Tuple.New(x, z);
-                }
+                // Return the grid cell's position
+                Cell c = cell.GetComponent<Cell>();
+                return Tuple.New(c.x, c.y);
             }
         }
         return Tuple.New(-1, -1);
+    }
+    public bool IsInGrid(Vector3 position)
+    {
+        // Return the grid cell that the player is currently in
+        // Test for each grid cell in the grid
+        for (int x = 0; x < transform.childCount; x++)
+        {
+            Transform cell = transform.GetChild(x);
+            if (cell.GetComponent<Collider>().bounds.Contains(position))
+            {
+                // Return the grid cell's position
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void startRecordingSequence(){
+        currentSequenceOfPositions.Clear();
+    }
+    public List<Tuple<int,int>> stopRecordingSequence(){
+        return currentSequenceOfPositions;
     }
 }
 
