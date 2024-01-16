@@ -9,12 +9,16 @@ public class ForceFieldManager : MonoBehaviour
     public List<Vector3> obstaclePositions = new List<Vector3>();
     private Vector3 doorPosition;
     private GameObject player;
+    private bool isClosestObstacleDoor = false;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         GameObject door = GameObject.FindGameObjectWithTag("TangibleDoor");
         doorPosition = door.transform.position;
+
+        obstaclePositions.Insert(0, doorPosition);
+
         GameObject secu = GameObject.FindGameObjectWithTag("ColumControl");
         if (secu != null)
         {
@@ -31,7 +35,8 @@ public class ForceFieldManager : MonoBehaviour
         float minDistance = Mathf.Infinity;
         Vector3 playerPos = player.transform.position;
         Vector3 closestObstacle = Vector3.zero;
-        for (int i = 0; i < obstaclePositions.Count; i++)
+        int i;
+        for (i = 0; i < obstaclePositions.Count; i++)
         {
             float distance = Vector3.Distance(obstaclePositions[i], playerPos);
             if (distance < minDistance)
@@ -39,6 +44,7 @@ public class ForceFieldManager : MonoBehaviour
                 minDistance = distance;
             }
         }
+        isClosestObstacleDoor = (i == 0);
         return closestObstacle;
     }
 
@@ -47,5 +53,11 @@ public class ForceFieldManager : MonoBehaviour
     {
         targetPosition = FindClosestObstacle();
         Sm.ChangeDefaultTrackedObjectPos(targetPosition);
+        if (isClosestObstacleDoor)
+        {
+            // passer en mode "locked" ou "can_open" selon l'état de la porte
+        } else {
+            // passer en mode "locked"
+        }
     }
 }
