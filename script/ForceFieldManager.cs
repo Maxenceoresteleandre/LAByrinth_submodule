@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ForceFieldManager : MonoBehaviour
 {
-    public Vector3 targetPosition;
-    public SecurityManager Sm=null;
+    private Vector3 targetPosition;
+    private SecurityManager Sm=null;
     public List<Vector3> obstaclePositions = new List<Vector3>();
     private Vector3 doorPosition;
     private GameObject player;
