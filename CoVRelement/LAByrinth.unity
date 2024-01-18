@@ -849,7 +849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &807123913
 Transform:
   m_ObjectHideFlags: 0
@@ -1418,7 +1418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pillarsParent: {fileID: 2054776974}
-  dim: 3
+  dim: 4
   origin_4x4: {fileID: 773112275}
   origin_3x3: {fileID: 504799935}
   origin_grid_4x4: {fileID: 1024247768}
@@ -1434,7 +1434,7 @@ MonoBehaviour:
   endPlatform: {fileID: 6313905040306165968, guid: bc601d4fa922c4446af1c2f0b0accc6d,
     type: 3}
   startingX: 1
-  endingX: 2
+  endingX: 3
 --- !u!4 &1323785763
 Transform:
   m_ObjectHideFlags: 0
