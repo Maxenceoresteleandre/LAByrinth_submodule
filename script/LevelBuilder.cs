@@ -14,6 +14,9 @@ public class LevelBuilder : MonoBehaviour
     public GameObject origin_3x3;
     public GameObject origin_grid_4x4;
     public GameObject origin_grid_3x3;
+    public GameObject hexPrefab;
+
+    public List<Vector2> hexPositions;
 
     private float pillar_offset = 1.17f;
     // z c'est dans le sens sortie (petit) vers entrée (grand)
@@ -102,6 +105,9 @@ public class LevelBuilder : MonoBehaviour
         newChild.GetComponent<GridLab>().endingX = endingX * 2;
 
         newChild.GetComponent<GridLab>().startingY = 0;
+        for (int i=0; i<hexPositions.Count; i++){
+            newChild.GetComponent<GridLab>().instantiateAt((int)hexPositions[i].x, (int)hexPositions[i].y, hexPrefab);
+        }
         
         Debug.Log("grid created");
     }
