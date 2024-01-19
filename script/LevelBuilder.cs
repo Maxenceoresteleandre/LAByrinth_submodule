@@ -71,7 +71,7 @@ public class LevelBuilder : MonoBehaviour
         }
         for (int i=0; i<nbOfPillars; i++) {
             for (int j=0; j<nbOfPillars; j++) {
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.15f);
                 GameObject newChild = Instantiate(pillarPrefab, new Vector3(), pillarsParent.transform.rotation);
                 newChild.transform.parent = pillarsParent.transform;
                 newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
