@@ -92,6 +92,7 @@ public class LevelBuilder : MonoBehaviour
         } else {
             ref_obj = origin_grid_4x4;
             newChild = Instantiate(grid4x4Prefab, new Vector3(), pillarsParent.transform.rotation);
+            newChild.transform.Translate(new Vector3(0.264f, 0.0f, -0.738f ), Space.Self);
             newChild.GetComponent<GridLab>().endingY = 8;
         }
         newChild.transform.parent = pillarsParent.transform;
