@@ -53,17 +53,17 @@ public class LevelBuilder : MonoBehaviour
             for (int j=0; j<=nbOfPillars; j++) {
                 if(i==nbOfPillars){
                     if(j==startingX){
-                        GameObject newChild = Instantiate(startPlatform, new Vector3(), Quaternion.identity);
+                        GameObject newChild = Instantiate(startPlatform, new Vector3(), pillarsParent.transform.rotation);
                         newChild.transform.parent = pillarsParent.transform;
-                        newChild.transform.position = ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset-0.5f*pillar_offset);
+                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset-0.5f*pillar_offset), Space.Self);
                         newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                     }
                 }
                 else if(i==-1){
                     if(j==endingX){
-                        GameObject newChild = Instantiate(endPlatform, new Vector3(), Quaternion.identity);
+                        GameObject newChild = Instantiate(endPlatform, new Vector3(), pillarsParent.transform.rotation);
                         newChild.transform.parent = pillarsParent.transform;
-                        newChild.transform.position = ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset-0.5f*pillar_offset);
+                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset-0.5f*pillar_offset), Space.Self);
                         newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                     }
                 }
@@ -72,9 +72,9 @@ public class LevelBuilder : MonoBehaviour
         for (int i=0; i<nbOfPillars; i++) {
             for (int j=0; j<nbOfPillars; j++) {
                 yield return new WaitForSeconds(0.5f);
-                GameObject newChild = Instantiate(pillarPrefab, new Vector3(), Quaternion.identity);
+                GameObject newChild = Instantiate(pillarPrefab, new Vector3(), pillarsParent.transform.rotation);
                 newChild.transform.parent = pillarsParent.transform;
-                newChild.transform.position = ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset);
+                newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
                 newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 newChild.GetComponent<HeightInterpolator>().StartInterpolation();
             }
@@ -86,16 +86,16 @@ public class LevelBuilder : MonoBehaviour
         GameObject newChild;
         if (size == SIZE_3x3) {
             ref_obj = origin_grid_3x3;
-            newChild = Instantiate(grid3x3Prefab, new Vector3(), Quaternion.identity);
+            newChild = Instantiate(grid3x3Prefab, new Vector3(), pillarsParent.transform.rotation);
             newChild.GetComponent<GridLab>().endingY = 6;
             
         } else {
             ref_obj = origin_grid_4x4;
-            newChild = Instantiate(grid4x4Prefab, new Vector3(), Quaternion.identity);
+            newChild = Instantiate(grid4x4Prefab, new Vector3(), pillarsParent.transform.rotation);
             newChild.GetComponent<GridLab>().endingY = 8;
         }
         newChild.transform.parent = pillarsParent.transform;
-        newChild.transform.position = ref_obj.transform.position;
+        newChild.transform.Translate(ref_obj.transform.position, Space.Self);
         
         newChild.GetComponent<GridLab>().startingX = startingX * 2;
         newChild.GetComponent<GridLab>().endingX = endingX * 2;
