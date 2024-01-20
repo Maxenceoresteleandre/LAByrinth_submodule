@@ -91,9 +91,9 @@ public class GridLab : MonoBehaviour
             Cell c = cell.GetComponent<Cell>();
             if (c.x == x && c.y == y){
                 GameObject newChild = Instantiate(prefab, new Vector3(), Quaternion.identity);
+                newChild.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                 newChild.transform.parent = cell.transform;
                 newChild.transform.position = cell.transform.position;
-                newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             }
         }
     }

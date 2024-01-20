@@ -924,36 +924,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &823626886
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 823626887}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &823626887
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 823626886}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.87, y: 0, z: 2.29}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &953965636
 GameObject:
   m_ObjectHideFlags: 0
@@ -1454,10 +1424,20 @@ MonoBehaviour:
   origin_grid_4x4: {fileID: 1024247768}
   origin_grid_3x3: {fileID: 1239367215}
   hexPrefab: {fileID: 1864742499577446, guid: 4aa7f4f0acab60742bea9a9f6a3bb144, type: 3}
+  squarePrefab: {fileID: 7587664689611192297, guid: 35e199e94922aea40ae7f9226258987f,
+    type: 3}
+  sunPrefab: {fileID: 7587664689611192297, guid: 399e9a4f78af9914a962d10a3031ff4c,
+    type: 3}
   hexPositions:
-  - {x: 3, y: 2}
+  - {x: 3, y: 0}
   - {x: 0, y: 4}
   - {x: 2, y: 6}
+  squarePositions:
+  - {x: 1, y: 1}
+  - {x: 2, y: 2}
+  sunPositions:
+  - {x: 0, y: 1}
+  - {x: 2, y: 0}
   pillarPrefab: {fileID: 7587664689611192297, guid: deccceb71f3818c438c01387a963d6ec,
     type: 3}
   grid3x3Prefab: {fileID: 4298118983087201480, guid: 4de46e4c8e73a2b4ebb34ffbad3b51eb,

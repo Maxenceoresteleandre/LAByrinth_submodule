@@ -15,8 +15,12 @@ public class LevelBuilder : MonoBehaviour
     public GameObject origin_grid_4x4;
     public GameObject origin_grid_3x3;
     public GameObject hexPrefab;
+    public GameObject squarePrefab;
+    public GameObject sunPrefab;
 
     public List<Vector2> hexPositions;
+    public List<Vector2> squarePositions;
+    public List<Vector2> sunPositions;
 
     private float pillar_offset = 1.17f;
     // z c'est dans le sens sortie (petit) vers entrée (grand)
@@ -75,7 +79,34 @@ public class LevelBuilder : MonoBehaviour
         for (int i=0; i<nbOfPillars; i++) {
             for (int j=0; j<nbOfPillars; j++) {
                 yield return new WaitForSeconds(0.15f);
-                GameObject newChild = Instantiate(pillarPrefab, new Vector3(), pillarsParent.transform.rotation);
+                // Test if the current position is a sun
+                bool instantiated = false;
+                GameObject newChild = null;
+                
+                foreach (Vector2 sunPos in sunPositions)
+                {
+                    if (sunPos.x == nbOfPillars - i - 1 && sunPos.y == j)
+                    {
+                        newChild = Instantiate(sunPrefab, new Vector3(), pillarsParent.transform.rotation);
+                        instantiated = true;
+                        break;
+                    }
+                }
+                // Test if the current position is a square
+                if (!instantiated){
+                    foreach (Vector2 squarePos in squarePositions)
+                    {
+                        if (squarePos.x == nbOfPillars - i - 1 && squarePos.y == j)
+                        {
+                            newChild = Instantiate(squarePrefab, new Vector3(), pillarsParent.transform.rotation);
+                            instantiated = true;
+                            break;
+                        }
+                    }
+                }
+                if(!instantiated){
+                    newChild = Instantiate(pillarPrefab, new Vector3(), pillarsParent.transform.rotation);
+                }
                 newChild.transform.parent = pillarsParent.transform;
                 newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
                 newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
