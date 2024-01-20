@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: b709a9919bd4047b58bb05887b4faad3, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: d51a2253cd79945d08fbe9589d8cb631, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0011351202, g: 0.0031264166, b: 0.0022876433, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1335,13 +1335,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261256568}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 4.2, y: 0.97, z: -0.52}
+  m_LocalRotation: {x: -0, y: 0.8169241, z: -0.5767452, w: 0}
+  m_LocalPosition: {x: 2.84, y: 6.74, z: 2.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 70.444, y: 180, z: 0}
 --- !u!1 &1279327201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,20 +1424,38 @@ MonoBehaviour:
   origin_grid_4x4: {fileID: 1024247768}
   origin_grid_3x3: {fileID: 1239367215}
   hexPrefab: {fileID: 1864742499577446, guid: 4aa7f4f0acab60742bea9a9f6a3bb144, type: 3}
-  squarePrefab: {fileID: 7587664689611192297, guid: 35e199e94922aea40ae7f9226258987f,
-    type: 3}
-  sunPrefab: {fileID: 7587664689611192297, guid: 399e9a4f78af9914a962d10a3031ff4c,
-    type: 3}
   hexPositions:
   - {x: 3, y: 0}
   - {x: 0, y: 4}
   - {x: 2, y: 6}
-  squarePositions:
-  - {x: 1, y: 1}
-  - {x: 2, y: 2}
-  sunPositions:
-  - {x: 0, y: 1}
-  - {x: 2, y: 0}
+  sunPositionsByColor:
+  - positions:
+    - {x: 1, y: 3}
+  - positions:
+    - {x: 5, y: 5}
+  - positions:
+    - {x: 3, y: 1}
+  - positions:
+    - {x: 1, y: 1}
+  squarePositionsByColor:
+  - positions:
+    - {x: 5, y: 3}
+  - positions:
+    - {x: 3, y: 5}
+  - positions:
+    - {x: 3, y: 3}
+  - positions:
+    - {x: 1, y: 5}
+  squarePrefabsByColor:
+  - {fileID: 7587664689611192297, guid: bcc425849ae50c247b4e671cfb44cf0d, type: 3}
+  - {fileID: 7587664689611192297, guid: 3f8d931290689214ba0cc32edc0e05c3, type: 3}
+  - {fileID: 7587664689611192297, guid: 9adc47c60a8673842be416fb01f81292, type: 3}
+  - {fileID: 7587664689611192297, guid: 6362a99a4724aa34fb01c6bbb6125130, type: 3}
+  sunPrefabsByColor:
+  - {fileID: 7587664689611192297, guid: 812f0f5d2727ccb4bb33bc1b88d30c1c, type: 3}
+  - {fileID: 7587664689611192297, guid: f06e89f1f0c70d24eaecdc0c9a8ae39c, type: 3}
+  - {fileID: 7587664689611192297, guid: 4495d0e74fcde8e4083d3b9943cd83f4, type: 3}
+  - {fileID: 7587664689611192297, guid: d27af85a94b678e48a20799ff8d69776, type: 3}
   pillarPrefab: {fileID: 7587664689611192297, guid: deccceb71f3818c438c01387a963d6ec,
     type: 3}
   grid3x3Prefab: {fileID: 4298118983087201480, guid: 4de46e4c8e73a2b4ebb34ffbad3b51eb,

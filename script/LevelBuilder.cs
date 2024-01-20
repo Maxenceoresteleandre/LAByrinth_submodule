@@ -8,6 +8,11 @@ public class LevelBuilder : MonoBehaviour
     public const bool SIZE_3x3 = false;
     public const bool SIZE_4x4 = true;
 
+    public const int BLUE = 0;
+    public const int RED = 1;
+    public const int WHITE = 2;
+    public const int YELLOW = 3;
+
     public int dim;
     private bool levelSize = SIZE_3x3;
     public GameObject origin_4x4;
@@ -15,12 +20,13 @@ public class LevelBuilder : MonoBehaviour
     public GameObject origin_grid_4x4;
     public GameObject origin_grid_3x3;
     public GameObject hexPrefab;
-    public GameObject squarePrefab;
-    public GameObject sunPrefab;
 
     public List<Vector2> hexPositions;
-    public List<Vector2> squarePositions;
-    public List<Vector2> sunPositions;
+    public List<ListOfVector2> sunPositionsByColor;
+    public List<ListOfVector2> squarePositionsByColor;
+
+    public List<GameObject> squarePrefabsByColor;
+    public List<GameObject> sunPrefabsByColor;
 
     private float pillar_offset = 1.17f;
     // z c'est dans le sens sortie (petit) vers entrée (grand)
@@ -76,32 +82,40 @@ public class LevelBuilder : MonoBehaviour
                 }
             }
         }
+        int colorindex;
         for (int i=0; i<nbOfPillars; i++) {
             for (int j=0; j<nbOfPillars; j++) {
                 yield return new WaitForSeconds(0.15f);
                 // Test if the current position is a sun
                 bool instantiated = false;
                 GameObject newChild = null;
-                
-                foreach (Vector2 sunPos in sunPositions)
-                {
-                    if (sunPos.x == nbOfPillars - i - 1 && sunPos.y == j)
+                colorindex = BLUE;
+                foreach (ListOfVector2 sunPositions in sunPositionsByColor){
+                    foreach (Vector2 sunPos in sunPositions.positions)
                     {
-                        newChild = Instantiate(sunPrefab, new Vector3(), pillarsParent.transform.rotation);
-                        instantiated = true;
-                        break;
-                    }
-                }
-                // Test if the current position is a square
-                if (!instantiated){
-                    foreach (Vector2 squarePos in squarePositions)
-                    {
-                        if (squarePos.x == nbOfPillars - i - 1 && squarePos.y == j)
+                        if (sunPos.x == (nbOfPillars - i) * 2 - 1 && sunPos.y == j * 2 + 1)
                         {
-                            newChild = Instantiate(squarePrefab, new Vector3(), pillarsParent.transform.rotation);
+                            newChild = Instantiate(sunPrefabsByColor[colorindex], new Vector3(), pillarsParent.transform.rotation);
                             instantiated = true;
                             break;
                         }
+                    }
+                    colorindex++;
+                }
+                // Test if the current position is a square
+                if (!instantiated){
+                    colorindex = BLUE;
+                    foreach (ListOfVector2 squarePositions in squarePositionsByColor){
+                        foreach (Vector2 squarePos in squarePositions.positions)
+                        {
+                            if (squarePos.x == (nbOfPillars - i) * 2 - 1 && squarePos.y == j * 2 + 1)
+                            {
+                                newChild = Instantiate(squarePrefabsByColor[colorindex], new Vector3(), pillarsParent.transform.rotation);
+                                instantiated = true;
+                                break;
+                            }
+                        }
+                        colorindex++;
                     }
                 }
                 if(!instantiated){
@@ -143,3 +157,9 @@ public class LevelBuilder : MonoBehaviour
         Debug.Log("grid created");
     }
 }
+
+[System.Serializable]
+    public class ListOfVector2
+    {
+        public List<Vector2> positions;
+    }
