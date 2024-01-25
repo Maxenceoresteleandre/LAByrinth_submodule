@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000002, guid: 003d4a735657c1248924363b8ae5d47d,
+  m_LightingDataAsset: {fileID: 112000002, guid: b1cf47247e5eeb74596e89e5f25ce403,
     type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
@@ -1419,7 +1419,6 @@ MonoBehaviour:
   dim: 4
   nWalls: 0
   nHexagon: 2
-  nColors: 1
   nSquareByColor: 01000000
   nSunByColor: 00000000
   pillarsParent: {fileID: 2054776974}
