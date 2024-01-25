@@ -604,7 +604,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 504799935}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.66630894, y: -2.3035142, z: 1.866058}
+  m_LocalPosition: {x: 0.15, y: -2.3035142, z: 1.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2054776975}
@@ -1253,7 +1253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1239367215}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.74, y: -3.131, z: 0.195}
+  m_LocalPosition: {x: 0.655, y: -3.131, z: 1.5365}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2054776975}
@@ -1276,7 +1276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &1261256569
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1284,7 +1284,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261256568}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1261256570
 Camera:
   m_ObjectHideFlags: 0
@@ -1397,7 +1397,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1323785763}
   - component: {fileID: 1323785762}
-  - component: {fileID: 1323785764}
   m_Layer: 0
   m_Name: LevelBuilder
   m_TagString: Untagged
@@ -1417,35 +1416,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b892580ad9652b4d912d0a6c1215964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pillarsParent: {fileID: 2054776974}
   dim: 4
+  nWalls: 0
+  nHexagon: 2
+  nColors: 1
+  nSquareByColor: 01000000
+  nSunByColor: 00000000
+  pillarsParent: {fileID: 2054776974}
   origin_4x4: {fileID: 773112275}
   origin_3x3: {fileID: 504799935}
   origin_grid_4x4: {fileID: 1024247768}
   origin_grid_3x3: {fileID: 1239367215}
+  pillarPrefab: {fileID: 7587664689611192297, guid: deccceb71f3818c438c01387a963d6ec,
+    type: 3}
   hexPrefab: {fileID: 1864742499577446, guid: 4aa7f4f0acab60742bea9a9f6a3bb144, type: 3}
-  hexPositions:
-  - {x: 3, y: 0}
-  - {x: 0, y: 4}
-  - {x: 2, y: 6}
-  sunPositionsByColor:
-  - positions:
-    - {x: 1, y: 3}
-  - positions:
-    - {x: 5, y: 5}
-  - positions:
-    - {x: 3, y: 1}
-  - positions:
-    - {x: 1, y: 1}
-  squarePositionsByColor:
-  - positions:
-    - {x: 5, y: 3}
-  - positions:
-    - {x: 3, y: 5}
-  - positions:
-    - {x: 3, y: 3}
-  - positions:
-    - {x: 1, y: 5}
   squarePrefabsByColor:
   - {fileID: 7587664689611192297, guid: bcc425849ae50c247b4e671cfb44cf0d, type: 3}
   - {fileID: 7587664689611192297, guid: 3f8d931290689214ba0cc32edc0e05c3, type: 3}
@@ -1456,8 +1440,6 @@ MonoBehaviour:
   - {fileID: 7587664689611192297, guid: f06e89f1f0c70d24eaecdc0c9a8ae39c, type: 3}
   - {fileID: 7587664689611192297, guid: 4495d0e74fcde8e4083d3b9943cd83f4, type: 3}
   - {fileID: 7587664689611192297, guid: d27af85a94b678e48a20799ff8d69776, type: 3}
-  pillarPrefab: {fileID: 7587664689611192297, guid: deccceb71f3818c438c01387a963d6ec,
-    type: 3}
   grid3x3Prefab: {fileID: 4298118983087201480, guid: 4de46e4c8e73a2b4ebb34ffbad3b51eb,
     type: 3}
   grid4x4Prefab: {fileID: 1576581343792938396, guid: 06fe43b717a636f428db7c52727f2f71,
@@ -1466,8 +1448,6 @@ MonoBehaviour:
     type: 3}
   endPlatform: {fileID: 6313905040306165968, guid: bc601d4fa922c4446af1c2f0b0accc6d,
     type: 3}
-  startingX: 1
-  endingX: 3
 --- !u!4 &1323785763
 Transform:
   m_ObjectHideFlags: 0
@@ -1482,27 +1462,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1323785764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1323785761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c46d16fc01d1c74ca663993789513b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  n_cols: 4
-  n_rows: 4
-  n_walls: 2
-  n_hex: 3
-  n_colors: 2
-  n_square_by_color: 0200000001000000
-  n_sun_by_color: 0200000001000000
-  level_path: LevelGeneratorConsole/out/level.json
-  solution_path: LevelGeneratorConsole/out/solution.csv
 --- !u!1001 &1354053651
 PrefabInstance:
   m_ObjectHideFlags: 0
