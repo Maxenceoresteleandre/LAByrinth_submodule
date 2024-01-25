@@ -33,7 +33,8 @@ public class LineManager : MonoBehaviour
         } else {
             lineRenderer.material = validLineMaterial;
         }
-        //Debug.Log(lineRenderer.positions);
+        Vector3[] newPos = new Vector3[lineRenderer.positionCount];
+        Debug.Log(lineRenderer.GetPositions(newPos));
     }
 
     private bool DoesLineIntersect(){
