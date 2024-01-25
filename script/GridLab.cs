@@ -7,7 +7,7 @@ public class GridLab : MonoBehaviour
     // initialized at none
     private Tuple<int,int> lastGridPosition = Tuple.New(-1,-1);
     private List<Tuple<int,int>> currentSequenceOfPositions = new List<Tuple<int,int>>();
-    public List<Tuple<int,int>> playerPath = new List<Tuple<int,int>>();
+    public List<Vector3> playerPath = new List<Vector3>();
     public GameObject playerLine;
     private LineRenderer lineRenderer;
     
@@ -47,17 +47,37 @@ public class GridLab : MonoBehaviour
                 }
                 lastGridPosition = gridPosition;
                 currentSequenceOfPositions.Add(gridPosition);
-                if ( (playerPath.Count>3) && gridPosition == (playerPath[playerPath.Count-1]) ){
-                    playerPath.RemoveAt(playerPath.Count);
-                    playerPath.RemoveAt(playerPath.Count);
-                    lineRenderer.positionCount = playerPath.Count+1;
-                } else {
-                    playerPath.Add(gridPosition);
-                    lineRenderer.positionCount = playerPath.Count+1;
-                    lineRenderer.SetPosition(playerPath.Count, new Vector3(gridPosition.First, 0.1f, gridPosition.Second));
+
+                // Update the line renderer
+                Vector3 gridWorldPosition = GetGridWorldPosition(Camera.main.transform.position);
+                if (gridWorldPosition.y > -100){
+                    if ( (playerPath.Count>3) && gridWorldPosition == (playerPath[playerPath.Count-1]) ){
+                        playerPath.RemoveAt(playerPath.Count);
+                        playerPath.RemoveAt(playerPath.Count);
+                        lineRenderer.positionCount = playerPath.Count+2;
+                    } else {
+                        playerPath.Add(gridWorldPosition);
+                        lineRenderer.positionCount = playerPath.Count+2;
+                        lineRenderer.SetPosition(playerPath.Count, new Vector3(gridWorldPosition.x, 0.1f, gridWorldPosition.z));
+                    }
                 }
             }
         }
+    }
+
+    public Vector3 GetGridWorldPosition(Vector3 position)
+    {
+        // Return the grid cell that the player is currently in
+        // Test for each grid cell in the grid
+        for (int x = 0; x < transform.childCount; x++)
+        {
+            Transform cell = transform.GetChild(x);
+            if (cell.GetComponent<Collider>().bounds.Contains(position))
+            {
+                return cell.position;
+            }
+        }
+        return new Vector3(0, -999, 0);
     }
 
     public Tuple<int,int> GetGridPosition(Vector3 position)
