@@ -10,7 +10,7 @@ public class LineManager : MonoBehaviour
     private GameObject startBlock;
     public bool updatingLine = false;
 
-    void StartDrawingLine()
+    public void StartDrawingLine()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
