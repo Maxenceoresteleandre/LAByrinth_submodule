@@ -15,7 +15,6 @@ public class LevelBuilder : MonoBehaviour
     public int dim;
     public int nWalls;
     public int nHexagon;
-    public int nColors;
     public List<int> nSquareByColor;
     public List<int> nSunByColor;
     public GameObject pillarsParent;
@@ -42,8 +41,15 @@ public class LevelBuilder : MonoBehaviour
     void Start()
     {
         // Generate a random level
-        solution = Generator.GenerateLevel(dim, dim, nWalls, nHexagon, nColors, nSquareByColor, nSunByColor);
+        System.Console.SetOut(new DebugLogWriter());
+        Debug.Log("Generating a random level...");
+        if(nSquareByColor.Count != nSunByColor.Count){
+            throw new System.ArgumentException("The number of colors for squares and suns must be the same");
+        }
+        solution = Generator.GenerateLevel(dim, dim, nWalls, nHexagon, nSquareByColor.Count, nSquareByColor, nSunByColor);
         panel = solution.GetPanel();
+        panel.PrintPanel();
+        Debug.Log("Level generated!");
         CreateGrid();
         StartCoroutine(CreateLevelPillars());
     }
@@ -58,12 +64,12 @@ public class LevelBuilder : MonoBehaviour
             ref_obj = origin_4x4;
         }
         for (int i=-1; i<=dim; i++) {
-            for (int j=0; j<=dim; j++) {
+            for (int j=0; j<dim; j++) {
                 if(i==dim){
                     if(j==(solution.GetPanel().GetStart().Second-1) / 2){
                         GameObject newChild = Instantiate(startPlatform, new Vector3(), pillarsParent.transform.rotation);
                         newChild.transform.parent = pillarsParent.transform;
-                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset-0.5f*pillar_offset), Space.Self);
+                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
                         newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                     }
                 }
@@ -71,7 +77,7 @@ public class LevelBuilder : MonoBehaviour
                     if(j==(solution.GetPanel().GetEnd().Second-1) / 2){
                         GameObject newChild = Instantiate(endPlatform, new Vector3(), pillarsParent.transform.rotation);
                         newChild.transform.parent = pillarsParent.transform;
-                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset-0.5f*pillar_offset), Space.Self);
+                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
                         newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                     }
                 }
@@ -82,17 +88,17 @@ public class LevelBuilder : MonoBehaviour
                     if (squares.Contains(new Tuple<int, int>(pillar_j, pillar_i))) {
                         GameObject newChild = Instantiate(squarePrefabsByColor[solution.GetPanel().GetSymbol(pillar_j, pillar_i).GetColorId()], new Vector3(), pillarsParent.transform.rotation);
                         newChild.transform.parent = pillarsParent.transform;
-                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset-0.5f*pillar_offset), Space.Self);
+                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
                         newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                     } else if (suns.Contains(new Tuple<int, int>(pillar_j, pillar_i))) {
                         GameObject newChild = Instantiate(sunPrefabsByColor[solution.GetPanel().GetSymbol(pillar_j, pillar_i).GetColorId()], new Vector3(), pillarsParent.transform.rotation);
                         newChild.transform.parent = pillarsParent.transform;
-                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset-0.5f*pillar_offset), Space.Self);
+                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
                         newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                     } else {
                         GameObject newChild = Instantiate(pillarPrefab, new Vector3(), pillarsParent.transform.rotation);
                         newChild.transform.parent = pillarsParent.transform;
-                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset-0.5f*pillar_offset), Space.Self);
+                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
                         newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                     }
                 }
