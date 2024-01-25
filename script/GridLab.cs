@@ -7,6 +7,9 @@ public class GridLab : MonoBehaviour
     // initialized at none
     private Tuple<int,int> lastGridPosition = Tuple.New(-1,-1);
     private List<Tuple<int,int>> currentSequenceOfPositions = new List<Tuple<int,int>>();
+    public List<Tuple<int,int>> playerPath = new List<Tuple<int,int>>();
+    public GameObject playerLine;
+    private LineRenderer lineRenderer;
     
     private Tuple<int,int> startingPosition;
     private Tuple<int,int> endingPosition;
@@ -20,6 +23,8 @@ public class GridLab : MonoBehaviour
     {
         startingPosition = Tuple.New(startingX, startingY);
         endingPosition = Tuple.New(endingX, endingY);
+        playerLine = GameObject.Find("PlayerLine");
+        lineRenderer = playerLine.GetComponent<LineRenderer>();
     }
 
     void Update(){
@@ -42,6 +47,15 @@ public class GridLab : MonoBehaviour
                 }
                 lastGridPosition = gridPosition;
                 currentSequenceOfPositions.Add(gridPosition);
+                if ( (playerPath.Count>3) && gridPosition == (playerPath[playerPath.Count-1]) ){
+                    playerPath.RemoveAt(playerPath.Count);
+                    playerPath.RemoveAt(playerPath.Count);
+                    lineRenderer.positionCount = playerPath.Count+1;
+                } else {
+                    playerPath.Add(gridPosition);
+                    lineRenderer.positionCount = playerPath.Count+1;
+                    lineRenderer.SetPosition(playerPath.Count, new Vector3(gridPosition.First, 0.1f, gridPosition.Second));
+                }
             }
         }
     }

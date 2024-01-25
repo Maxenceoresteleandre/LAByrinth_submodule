@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class LineManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public LineRenderer lineRenderer;
+
     void Start()
     {
-        
+        lineRenderer = GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Vector3 playerPosition = Camera.main.transform.position;
+        lineRenderer.SetPosition(lineRenderer.positionCount-1, new Vector3(playerPosition.x, 0.1f, playerPosition.z));
     }
 }
