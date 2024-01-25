@@ -2,7 +2,6 @@ using System.Diagnostics;
 using System.Text;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
 using System;
 static class Generator
@@ -12,7 +11,8 @@ static class Generator
         Panel puzzlePanel = new Panel(nRows, nCols);
         PlayerPath randomPath = new PlayerPath(puzzlePanel);
         bool is_valid = false;
-        int maxIteration = 10000;
+        int maxIteration = 3;
+        
         while(!is_valid && maxIteration-- > 0){
             puzzlePanel = new Panel(nRows, nCols);
             randomPath = new PlayerPath(puzzlePanel);

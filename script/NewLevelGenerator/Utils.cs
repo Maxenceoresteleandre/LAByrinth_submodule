@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System;
 
-public class Utils : MonoBehaviour
+static class Utils
 {
     public static void ShuffleArray<T>(T[] array)
     {

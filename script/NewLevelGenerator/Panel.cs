@@ -2,7 +2,6 @@ using System.Diagnostics;
 using System.Text;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
 using System;
 
@@ -173,6 +172,17 @@ public class Panel
         grid[indexRow, indexCol] = default!;
     }
 
+    public IPuzzleSymbol GetSymbol(int indexRow, int indexCol)
+    {
+        // Check if the placement is within the bounds of the panel
+        if (indexCol < 0 || indexCol > grid.GetLength(1) - 1 || indexRow < 0 || indexRow > grid.GetLength(0) - 1)
+        {
+            throw new ArgumentOutOfRangeException("indexCol, indexRow");
+        }
+
+        // Return the symbol from the panel
+        return grid[indexRow, indexCol];
+    }
     public List<Tuple<int, int>> GetNeighbourNodes(int indexRow, int indexCol)
     {
         // Check if the node is within the bounds of the panel
@@ -231,6 +241,74 @@ public class Panel
         }
         
         return neighbourPillars;
+    }
+
+    public List<Tuple<int, int>> GetHexagonPositions()
+    {
+        // Initialize the list of all hexagon positions
+        List<Tuple<int, int>> hexagonPositions = new List<Tuple<int, int>>();
+        for (int row = 0; row < grid.GetLength(0); row++)
+        {
+            for (int col = 0; col < grid.GetLength(1); col++)
+            {
+                if (grid[row, col] is Hexagon)
+                {
+                    hexagonPositions.Add(new Tuple<int, int>(row, col));
+                }
+            }
+        }
+        return hexagonPositions;
+    }
+
+    public List<Tuple<int, int>> GetWallPositions()
+    {
+        // Initialize the list of all wall positions
+        List<Tuple<int, int>> wallPositions = new List<Tuple<int, int>>();
+        for (int row = 0; row < grid.GetLength(0); row++)
+        {
+            for (int col = 0; col < grid.GetLength(1); col++)
+            {
+                if (grid[row, col] is Wall)
+                {
+                    wallPositions.Add(new Tuple<int, int>(row, col));
+                }
+            }
+        }
+        return wallPositions;
+    }
+
+    public List<Tuple<int, int>> GetSunPositions()
+    {
+        // Initialize the list of all sun positions
+        List<Tuple<int, int>> sunPositions = new List<Tuple<int, int>>();
+        for (int row = 0; row < grid.GetLength(0); row++)
+        {
+            for (int col = 0; col < grid.GetLength(1); col++)
+            {
+                if (grid[row, col] is Sun)
+                {
+                    sunPositions.Add(new Tuple<int, int>(row, col));
+                }
+            }
+        }
+        return sunPositions;
+    }
+
+    public List<Tuple<int, int>> GetSquarePositions()
+    {
+        // Initialize the list of all square positions
+        List<Tuple<int, int>> squarePositions = new List<Tuple<int, int>>();
+        for (int row = 0; row < grid.GetLength(0); row++)
+        {
+            for (int col = 0; col < grid.GetLength(1); col++)
+            {
+                if (grid[row, col] is Square)
+                {
+                    squarePositions.Add(new Tuple<int, int>(row, col));
+                }
+            }
+        }
+        return squarePositions;
     }
 
     public List<List<Tuple<int, int>>> GetRegions(List<Tuple<int,int>> path)

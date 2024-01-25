@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 class PlayerPath{
@@ -86,6 +85,10 @@ class PlayerPath{
 
     public void SetPanel(Panel panel){
         this.panel = panel;
+    }
+
+    public Panel GetPanel(){
+        return panel;
     }
 
     public List<Tuple<int, int>> GetPoints(){
