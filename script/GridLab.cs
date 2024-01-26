@@ -7,7 +7,7 @@ public class GridLab : MonoBehaviour
     // initialized at none
     private Tuple<int,int> lastGridPosition = Tuple.New(-1,-1);
     private List<Tuple<int,int>> currentSequenceOfPositions = new List<Tuple<int,int>>();
-    public List<Vector3> playerPath = new List<Vector3>();
+    public static List<Vector3> playerPath = new List<Vector3>();
     public GameObject playerLine;
     private LineRenderer lineRenderer;
     
@@ -50,19 +50,46 @@ public class GridLab : MonoBehaviour
 
                 // Update the line renderer
                 Vector3 gridWorldPosition = GetGridWorldPosition(Camera.main.transform.position);
+                if (playerPath.Count>8){
+                    Debug.Log("gridWordlPosition = " + gridWorldPosition.ToString());
+                    Debug.Log("playerPath[Count-1] = " + playerPath[playerPath.Count-1].ToString());
+                    Debug.Log("playerPath[Count-2] = " + playerPath[playerPath.Count-2].ToString());
+                    Debug.Log("playerPath[Count-3] = " + playerPath[playerPath.Count-3].ToString());
+                    Debug.Log("playerPath[Count-4] = " + playerPath[playerPath.Count-4].ToString());
+                    Debug.Log("playerPath[Count-5] = " + playerPath[playerPath.Count-5].ToString());
+                    Debug.Log("playerPath[Count-6] = " + playerPath[playerPath.Count-6].ToString());
+                }
                 if (gridWorldPosition.y > -100){
-                    if ( (playerPath.Count>3) && gridWorldPosition == (playerPath[playerPath.Count-1]) ){
-                        playerPath.RemoveAt(playerPath.Count);
-                        playerPath.RemoveAt(playerPath.Count);
+                    // ensure the line is erased if the player backtracks
+                    if (playerPath.Count>1 && gridWorldPosition == (playerPath[playerPath.Count-2])) {
+                        playerPath.RemoveAt(playerPath.Count-1);
+                        // ensure two consecutive points are not the same
+                        for (int i=0; i<playerPath.Count-1; i++){
+                            if (playerPath[i] == playerPath[i+1]){
+                                playerPath.RemoveAt(i);
+                            }
+                        }
+                        // reset the line renderer
                         lineRenderer.positionCount = playerPath.Count+2;
+                        for (int i=0; i<playerPath.Count; i++){
+                            lineRenderer.SetPosition(i+1, new Vector3(playerPath[i].x, 0.1f, playerPath[i].z));
+                        }
                     } else {
                         playerPath.Add(gridWorldPosition);
-                        lineRenderer.positionCount = playerPath.Count+2;
-                        lineRenderer.SetPosition(playerPath.Count, new Vector3(gridWorldPosition.x, 0.1f, gridWorldPosition.z));
                     }
+                    lineRenderer.positionCount = playerPath.Count+2;
+                    lineRenderer.SetPosition(playerPath.Count, new Vector3(gridWorldPosition.x, 0.1f, gridWorldPosition.z));
+                    lineRenderer.SetPosition(playerPath.Count+1, new Vector3(Camera.main.transform.position.x, 0.1f, Camera.main.transform.position.z));
                 }
             }
         }
+    }
+
+    public static void ResetLine(){
+        LineRenderer lineRenderer = GameObject.Find("PlayerLine").GetComponent<LineRenderer>();
+        playerPath.Clear();
+        lineRenderer.positionCount = 2;
+        lineRenderer.SetPosition(1, new Vector3(Camera.main.transform.position.x, 0.1f, Camera.main.transform.position.z));
     }
 
     public Vector3 GetGridWorldPosition(Vector3 position)
