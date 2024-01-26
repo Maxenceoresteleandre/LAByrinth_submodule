@@ -55,7 +55,9 @@ public class LevelBuilder : MonoBehaviour
             return;
         }
         panel = solution.GetPanel();
-        panel.PrintPanel();
+        panel.PrintPanel(true);
+        Debug.Log(panel.GetStart().Second + ", " + panel.GetStart().First);
+        Debug.Log(panel.GetEnd().Second + ", " + panel.GetEnd().First);
         Debug.Log("Level generated!");
         CreateGrid();
         StartCoroutine(CreateLevelPillars());
@@ -65,6 +67,12 @@ public class LevelBuilder : MonoBehaviour
         GameObject ref_obj;
         List<Tuple<int, int>> squares = solution.GetPanel().GetSquarePositions();
         List<Tuple<int, int>> suns = solution.GetPanel().GetSunPositions();
+        foreach(Tuple<int, int> square in squares){
+            Debug.Log("square at " + square.Second + ", " + square.First);
+        }
+        foreach(Tuple<int, int> sun in suns){
+            Debug.Log("sun at " + sun.Second + ", " + sun.First);
+        }
         if (dim == 3) {
             ref_obj = origin_3x3;
         } else {
@@ -73,48 +81,46 @@ public class LevelBuilder : MonoBehaviour
         for (int i=-1; i<=dim; i++) {
             for (int j=0; j<dim; j++) {
                 if(i==dim){
-                    if(j==(solution.GetPanel().GetStart().Second-1) / 2){
+                    int pillar_j = j * 2;
+                    if(pillar_j==solution.GetPanel().GetStart().Second){
                         GameObject newChild = Instantiate(startPlatform, new Vector3(), pillarsParent.transform.rotation);
                         newChild.transform.parent = pillarsParent.transform;
-                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
+                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset - 0.5f*pillar_offset), Space.Self);
                         newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                        InitiatePlayerLine();
+                        GameObject.Find("Player").transform.position = newChild.transform.position + new Vector3(0f, 0.5f, 0f);
                     }
                 }
                 else if(i==-1){
-                    if(j==(solution.GetPanel().GetEnd().Second-1) / 2){
+                    int pillar_j = j * 2;
+                    if(pillar_j==solution.GetPanel().GetEnd().Second){
                         GameObject newChild = Instantiate(endPlatform, new Vector3(), pillarsParent.transform.rotation);
                         newChild.transform.parent = pillarsParent.transform;
-                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
+                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset - 0.5f*pillar_offset), Space.Self);
                         newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                     }
                 }
                 else{
-                    yield return new WaitForSeconds(0.15f);
+                    yield return new WaitForSeconds(0.2f);
                     int pillar_i = i * 2 + 1;
                     int pillar_j = j * 2 + 1;
+                    GameObject newChild;
                     if (squares.Contains(new Tuple<int, int>(pillar_j, pillar_i))) {
-                        GameObject newChild = Instantiate(squarePrefabsByColor[solution.GetPanel().GetSymbol(pillar_j, pillar_i).GetColorId()], new Vector3(), pillarsParent.transform.rotation);
-                        newChild.transform.parent = pillarsParent.transform;
-                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
-                        newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                        newChild = Instantiate(squarePrefabsByColor[solution.GetPanel().GetSymbol(pillar_j, pillar_i).GetColorId()], new Vector3(), pillarsParent.transform.rotation);
                     } else if (suns.Contains(new Tuple<int, int>(pillar_j, pillar_i))) {
-                        GameObject newChild = Instantiate(sunPrefabsByColor[solution.GetPanel().GetSymbol(pillar_j, pillar_i).GetColorId()], new Vector3(), pillarsParent.transform.rotation);
-                        newChild.transform.parent = pillarsParent.transform;
-                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
-                        newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                        newChild = Instantiate(sunPrefabsByColor[solution.GetPanel().GetSymbol(pillar_j, pillar_i).GetColorId()], new Vector3(), pillarsParent.transform.rotation);
                     } else {
-                        GameObject newChild = Instantiate(pillarPrefab, new Vector3(), pillarsParent.transform.rotation);
-                        newChild.transform.parent = pillarsParent.transform;
-                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
-                        newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                        newChild = Instantiate(pillarPrefab, new Vector3(), pillarsParent.transform.rotation);
                     }
+                    newChild.transform.parent = pillarsParent.transform;
+                    newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
+                    newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                    newChild.GetComponent<HeightInterpolator>().StartInterpolation();
                 }
             }
         }
     }
 
-    private void InitiatePlayerLine() {
+    public static void InitiatePlayerLine() {
         GameObject playerLine = GameObject.Find("PlayerLine");
         playerLine.GetComponent<LineManager>().StartDrawingLine();
     }
@@ -141,6 +147,7 @@ public class LevelBuilder : MonoBehaviour
 
         newChild.GetComponent<GridLab>().startingY = 0;
         foreach(Tuple<int, int> hexPos in solution.GetPanel().GetHexagonPositions()){
+            Debug.Log("hexagon at " + hexPos.Second + ", " + hexPos.First);
             newChild.GetComponent<GridLab>().instantiateAt((int)hexPos.Second, (int)hexPos.First, hexPrefab);
         }
         
