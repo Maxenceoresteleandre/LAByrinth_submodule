@@ -63,14 +63,19 @@ public class GridLab : MonoBehaviour
                     // ensure the line is erased if the player backtracks
                     if (playerPath.Count>1 && gridWorldPosition == (playerPath[playerPath.Count-2])) {
                         playerPath.RemoveAt(playerPath.Count-1);
+                        // ensure two consecutive points are not the same
+                        for (int i=0; i<playerPath.Count-1; i++){
+                            if (playerPath[i] == playerPath[i+1]){
+                                playerPath.RemoveAt(i);
+                            }
+                        }
+                        // reset the line renderer
+                        lineRenderer.positionCount = playerPath.Count+2;
+                        for (int i=0; i<playerPath.Count; i++){
+                            lineRenderer.SetPosition(i, new Vector3(playerPath[i].x, 0.1f, playerPath[i].z));
+                        }
                     } else {
                         playerPath.Add(gridWorldPosition);
-                    }
-                    // ensure two consecutive points are not the same
-                    for (int i=0; i<playerPath.Count-1; i++){
-                        if (playerPath[i] == playerPath[i+1]){
-                            playerPath.RemoveAt(i);
-                        }
                     }
                     lineRenderer.positionCount = playerPath.Count+2;
                     lineRenderer.SetPosition(playerPath.Count, new Vector3(gridWorldPosition.x, 0.1f, gridWorldPosition.z));
