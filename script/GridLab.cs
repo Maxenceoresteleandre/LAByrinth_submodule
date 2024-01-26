@@ -79,9 +79,16 @@ public class GridLab : MonoBehaviour
                     }
                     lineRenderer.positionCount = playerPath.Count+2;
                     lineRenderer.SetPosition(playerPath.Count, new Vector3(gridWorldPosition.x, 0.1f, gridWorldPosition.z));
+                    lineRenderer.SetPosition(playerPath.Count+1, new Vector3(Camera.main.transform.position.x, 0.1f, Camera.main.transform.position.z));
                 }
             }
         }
+    }
+
+    public static void ResetLine(){
+        LineRenderer lineRenderer = GameObject.Find("PlayerLine").GetComponent<LineRenderer>();
+        lineRenderer.positionCount = 2;
+        lineRenderer.SetPosition(1, new Vector3(Camera.main.transform.position.x, 0.1f, Camera.main.transform.position.z));
     }
 
     public Vector3 GetGridWorldPosition(Vector3 position)
