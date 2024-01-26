@@ -50,16 +50,35 @@ public class GridLab : MonoBehaviour
 
                 // Update the line renderer
                 Vector3 gridWorldPosition = GetGridWorldPosition(Camera.main.transform.position);
+                if (playerPath.Count>8){
+                    Debug.Log("gridWordlPosition = " + gridWorldPosition.ToString());
+                    Debug.Log("playerPath[Count-1] = " + playerPath[playerPath.Count-1].ToString());
+                    Debug.Log("playerPath[Count-2] = " + playerPath[playerPath.Count-2].ToString());
+                    Debug.Log("playerPath[Count-3] = " + playerPath[playerPath.Count-3].ToString());
+                    Debug.Log("playerPath[Count-4] = " + playerPath[playerPath.Count-4].ToString());
+                    Debug.Log("playerPath[Count-5] = " + playerPath[playerPath.Count-5].ToString());
+                    Debug.Log("playerPath[Count-6] = " + playerPath[playerPath.Count-6].ToString());
+                }
                 if (gridWorldPosition.y > -100){
-                    if ( (playerPath.Count>3) && gridWorldPosition == (playerPath[playerPath.Count-1]) ){
-                        playerPath.RemoveAt(playerPath.Count);
-                        playerPath.RemoveAt(playerPath.Count);
+                    // ensure the line is erased if the player backtracks
+                    if (playerPath.Count>1 && gridWorldPosition == (playerPath[playerPath.Count-2])) {
+                        playerPath.RemoveAt(playerPath.Count-1);
+                        // ensure two consecutive points are not the same
+                        for (int i=0; i<playerPath.Count-1; i++){
+                            if (playerPath[i] == playerPath[i+1]){
+                                playerPath.RemoveAt(i);
+                            }
+                        }
+                        // reset the line renderer
                         lineRenderer.positionCount = playerPath.Count+2;
+                        for (int i=0; i<playerPath.Count; i++){
+                            lineRenderer.SetPosition(i+1, new Vector3(playerPath[i].x, 0.1f, playerPath[i].z));
+                        }
                     } else {
                         playerPath.Add(gridWorldPosition);
-                        lineRenderer.positionCount = playerPath.Count+2;
-                        lineRenderer.SetPosition(playerPath.Count, new Vector3(gridWorldPosition.x, 0.1f, gridWorldPosition.z));
                     }
+                    lineRenderer.positionCount = playerPath.Count+2;
+                    lineRenderer.SetPosition(playerPath.Count, new Vector3(gridWorldPosition.x, 0.1f, gridWorldPosition.z));
                 }
             }
         }
