@@ -14,7 +14,7 @@ public class LineManager : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
-        startBlock = GameObject.Find("StartPlateform");
+        startBlock = GameObject.FindWithTag("Start");
         Vector3 startBlockPosition = startBlock.transform.position;
         lineRenderer.SetPosition(0, new Vector3(startBlockPosition.x, 0.1f, startBlockPosition.z));
         updatingLine = true;

@@ -849,7 +849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &807123913
 Transform:
   m_ObjectHideFlags: 0
@@ -1419,8 +1419,8 @@ MonoBehaviour:
   dim: 4
   nWalls: 0
   nHexagon: 2
-  nSquareByColor: 01000000
-  nSunByColor: 00000000
+  nSquareByColor: 020000000100000001000000
+  nSunByColor: 010000000100000002000000
   pillarsParent: {fileID: 2054776974}
   origin_4x4: {fileID: 773112275}
   origin_3x3: {fileID: 504799935}

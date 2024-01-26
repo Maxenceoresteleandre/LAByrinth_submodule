@@ -46,7 +46,14 @@ public class LevelBuilder : MonoBehaviour
         if(nSquareByColor.Count != nSunByColor.Count){
             throw new System.ArgumentException("The number of colors for squares and suns must be the same");
         }
-        solution = Generator.GenerateLevel(dim, dim, nWalls, nHexagon, nSquareByColor.Count, nSquareByColor, nSunByColor);
+        try{
+            solution = Generator.GenerateLevel(dim, dim, nWalls, nHexagon, nSquareByColor.Count, nSquareByColor, nSunByColor);
+        }
+        catch(System.Exception e){
+            Debug.Log(e.Message);
+            Debug.Log("Level generation failed!");
+            return;
+        }
         panel = solution.GetPanel();
         panel.PrintPanel();
         Debug.Log("Level generated!");
