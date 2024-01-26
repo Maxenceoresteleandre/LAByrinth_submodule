@@ -71,7 +71,7 @@ public class LevelBuilder : MonoBehaviour
                         newChild.transform.parent = pillarsParent.transform;
                         newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
                         newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                        InitiatePlayerLine();
+                        InitiatePlayerLine(newChild);
                     }
                 }
                 else if(i==-1){
@@ -107,9 +107,9 @@ public class LevelBuilder : MonoBehaviour
         }
     }
 
-    private void InitiatePlayerLine() {
+    private void InitiatePlayerLine(GameObject startBlock) {
         GameObject playerLine = GameObject.Find("PlayerLine");
-        playerLine.GetComponent<LineManager>().StartDrawingLine();
+        playerLine.GetComponent<LineManager>().StartDrawingLine(startBlock);
     }
 
     void CreateGrid() {

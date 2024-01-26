@@ -7,14 +7,12 @@ public class LineManager : MonoBehaviour
     private LineRenderer lineRenderer;
     public Material validLineMaterial;
     public Material invalidLineMaterial;
-    private GameObject startBlock;
     public bool updatingLine = false;
 
-    public void StartDrawingLine()
+    public void StartDrawingLine(GameObject startBlock)
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
-        startBlock = GameObject.Find("StartPlateform");
         Vector3 startBlockPosition = startBlock.transform.position;
         lineRenderer.SetPosition(0, new Vector3(startBlockPosition.x, 0.1f, startBlockPosition.z));
         updatingLine = true;
@@ -34,7 +32,7 @@ public class LineManager : MonoBehaviour
             lineRenderer.material = validLineMaterial;
         }
         Vector3[] newPos = new Vector3[lineRenderer.positionCount];
-        Debug.Log(lineRenderer.GetPositions(newPos));
+        //Debug.Log("line positions = " + lineRenderer.GetPositions(newPos).ToString());
     }
 
     private bool DoesLineIntersect(){
