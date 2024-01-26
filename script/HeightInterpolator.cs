@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class HeightInterpolator : MonoBehaviour
 {
+    
     public float appearDuration = 3.0f;
     public float startHeight = -15.0f;
     public UnityEvent interpolationFinished;

@@ -55,6 +55,7 @@ public class ForceFieldManager : MonoBehaviour
         Sm.ChangeDefaultTrackedObjectPos(targetPosition);
         if (isClosestObstacleDoor)
         {
+            
             // passer en mode "locked" ou "can_open" selon l'état de la porte
         } else {
             // passer en mode "locked"

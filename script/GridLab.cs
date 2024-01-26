@@ -7,6 +7,9 @@ public class GridLab : MonoBehaviour
     // initialized at none
     private Tuple<int,int> lastGridPosition = Tuple.New(-1,-1);
     private List<Tuple<int,int>> currentSequenceOfPositions = new List<Tuple<int,int>>();
+    public List<Vector3> playerPath = new List<Vector3>();
+    public GameObject playerLine;
+    private LineRenderer lineRenderer;
     
     private Tuple<int,int> startingPosition;
     private Tuple<int,int> endingPosition;
@@ -20,6 +23,8 @@ public class GridLab : MonoBehaviour
     {
         startingPosition = Tuple.New(startingX, startingY);
         endingPosition = Tuple.New(endingX, endingY);
+        playerLine = GameObject.Find("PlayerLine");
+        lineRenderer = playerLine.GetComponent<LineRenderer>();
     }
 
     void Update(){
@@ -42,8 +47,37 @@ public class GridLab : MonoBehaviour
                 }
                 lastGridPosition = gridPosition;
                 currentSequenceOfPositions.Add(gridPosition);
+
+                // Update the line renderer
+                Vector3 gridWorldPosition = GetGridWorldPosition(Camera.main.transform.position);
+                if (gridWorldPosition.y > -100){
+                    if ( (playerPath.Count>3) && gridWorldPosition == (playerPath[playerPath.Count-1]) ){
+                        playerPath.RemoveAt(playerPath.Count);
+                        playerPath.RemoveAt(playerPath.Count);
+                        lineRenderer.positionCount = playerPath.Count+2;
+                    } else {
+                        playerPath.Add(gridWorldPosition);
+                        lineRenderer.positionCount = playerPath.Count+2;
+                        lineRenderer.SetPosition(playerPath.Count, new Vector3(gridWorldPosition.x, 0.1f, gridWorldPosition.z));
+                    }
+                }
             }
         }
+    }
+
+    public Vector3 GetGridWorldPosition(Vector3 position)
+    {
+        // Return the grid cell that the player is currently in
+        // Test for each grid cell in the grid
+        for (int x = 0; x < transform.childCount; x++)
+        {
+            Transform cell = transform.GetChild(x);
+            if (cell.GetComponent<Collider>().bounds.Contains(position))
+            {
+                return cell.position;
+            }
+        }
+        return new Vector3(0, -999, 0);
     }
 
     public Tuple<int,int> GetGridPosition(Vector3 position)
@@ -96,25 +130,5 @@ public class GridLab : MonoBehaviour
                 newChild.transform.position = cell.transform.position;
             }
         }
-    }
-}
-
-public class Tuple<T1, T2>
-{
-    public T1 First { get; private set; }
-    public T2 Second { get; private set; }
-    internal Tuple(T1 first, T2 second)
-    {
-        First = first;
-        Second = second;
-    }
-}
-
-public static class Tuple
-{
-    public static Tuple<T1, T2> New<T1, T2>(T1 first, T2 second)
-    {
-        var tuple = new Tuple<T1, T2>(first, second);
-        return tuple;
     }
 }

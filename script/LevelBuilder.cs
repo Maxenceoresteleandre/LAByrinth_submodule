@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LevelBuilder : MonoBehaviour
 {
-    public GameObject pillarsParent;
     public const bool SIZE_3x3 = false;
     public const bool SIZE_4x4 = true;
 
@@ -14,125 +13,109 @@ public class LevelBuilder : MonoBehaviour
     public const int YELLOW = 3;
 
     public int dim;
-    private bool levelSize = SIZE_3x3;
+    public int nWalls;
+    public int nHexagon;
+    public List<int> nSquareByColor;
+    public List<int> nSunByColor;
+    public GameObject pillarsParent;
     public GameObject origin_4x4;
     public GameObject origin_3x3;
     public GameObject origin_grid_4x4;
     public GameObject origin_grid_3x3;
+    public GameObject pillarPrefab;
     public GameObject hexPrefab;
-
-    public List<Vector2> hexPositions;
-    public List<ListOfVector2> sunPositionsByColor;
-    public List<ListOfVector2> squarePositionsByColor;
-
     public List<GameObject> squarePrefabsByColor;
     public List<GameObject> sunPrefabsByColor;
-
-    private float pillar_offset = 1.17f;
-    // z c'est dans le sens sortie (petit) vers entrée (grand)
-    // x c'est marcher sur le côté
-    
-    public GameObject pillarPrefab;
-
     public GameObject grid3x3Prefab;
     public GameObject grid4x4Prefab;
     public GameObject startPlatform;
     public GameObject endPlatform;
-    public int startingX;
-    public int endingX;
+
+
+    private float pillar_offset = 1.17f;
+    // z c'est dans le sens sortie (petit) vers entrée (grand)
+    // x c'est marcher sur le côté
+    private PlayerPath solution;
+    private Panel panel;
 
     void Start()
     {
-        if (dim == 3) {
-            levelSize = SIZE_3x3;
-        } else if (dim == 4) {
-            levelSize = SIZE_4x4;
+        // Generate a random level
+        System.Console.SetOut(new DebugLogWriter());
+        Debug.Log("Generating a random level...");
+        if(nSquareByColor.Count != nSunByColor.Count){
+            throw new System.ArgumentException("The number of colors for squares and suns must be the same");
         }
-        StartCoroutine(CreateLevelPillars(levelSize));
-        CreateGrid(levelSize);
+        solution = Generator.GenerateLevel(dim, dim, nWalls, nHexagon, nSquareByColor.Count, nSquareByColor, nSunByColor);
+        panel = solution.GetPanel();
+        panel.PrintPanel();
+        Debug.Log("Level generated!");
+        CreateGrid();
+        StartCoroutine(CreateLevelPillars());
     }
 
-    IEnumerator CreateLevelPillars(bool size) {
+    IEnumerator CreateLevelPillars() {
         GameObject ref_obj;
-        int nbOfPillars;
-        if (size == SIZE_3x3) {
+        List<Tuple<int, int>> squares = solution.GetPanel().GetSquarePositions();
+        List<Tuple<int, int>> suns = solution.GetPanel().GetSunPositions();
+        if (dim == 3) {
             ref_obj = origin_3x3;
-            nbOfPillars = 3;
         } else {
             ref_obj = origin_4x4;
-            nbOfPillars = 4;
         }
-        for (int i=-1; i<=nbOfPillars; i++) {
-            for (int j=0; j<=nbOfPillars; j++) {
-                if(i==nbOfPillars){
-                    if(j==startingX){
+        for (int i=-1; i<=dim; i++) {
+            for (int j=0; j<dim; j++) {
+                if(i==dim){
+                    if(j==(solution.GetPanel().GetStart().Second-1) / 2){
                         GameObject newChild = Instantiate(startPlatform, new Vector3(), pillarsParent.transform.rotation);
                         newChild.transform.parent = pillarsParent.transform;
-                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset-0.5f*pillar_offset), Space.Self);
+                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
                         newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                        InitiatePlayerLine();
                     }
                 }
                 else if(i==-1){
-                    if(j==endingX){
+                    if(j==(solution.GetPanel().GetEnd().Second-1) / 2){
                         GameObject newChild = Instantiate(endPlatform, new Vector3(), pillarsParent.transform.rotation);
                         newChild.transform.parent = pillarsParent.transform;
-                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset-0.5f*pillar_offset), Space.Self);
+                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
+                        newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                    }
+                }
+                else{
+                    yield return new WaitForSeconds(0.15f);
+                    int pillar_i = i * 2 + 1;
+                    int pillar_j = j * 2 + 1;
+                    if (squares.Contains(new Tuple<int, int>(pillar_j, pillar_i))) {
+                        GameObject newChild = Instantiate(squarePrefabsByColor[solution.GetPanel().GetSymbol(pillar_j, pillar_i).GetColorId()], new Vector3(), pillarsParent.transform.rotation);
+                        newChild.transform.parent = pillarsParent.transform;
+                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
+                        newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                    } else if (suns.Contains(new Tuple<int, int>(pillar_j, pillar_i))) {
+                        GameObject newChild = Instantiate(sunPrefabsByColor[solution.GetPanel().GetSymbol(pillar_j, pillar_i).GetColorId()], new Vector3(), pillarsParent.transform.rotation);
+                        newChild.transform.parent = pillarsParent.transform;
+                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
+                        newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                    } else {
+                        GameObject newChild = Instantiate(pillarPrefab, new Vector3(), pillarsParent.transform.rotation);
+                        newChild.transform.parent = pillarsParent.transform;
+                        newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
                         newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                     }
                 }
             }
         }
-        int colorindex;
-        for (int i=0; i<nbOfPillars; i++) {
-            for (int j=0; j<nbOfPillars; j++) {
-                yield return new WaitForSeconds(0.15f);
-                // Test if the current position is a sun
-                bool instantiated = false;
-                GameObject newChild = null;
-                colorindex = BLUE;
-                foreach (ListOfVector2 sunPositions in sunPositionsByColor){
-                    foreach (Vector2 sunPos in sunPositions.positions)
-                    {
-                        if (sunPos.x == (nbOfPillars - i) * 2 - 1 && sunPos.y == j * 2 + 1)
-                        {
-                            newChild = Instantiate(sunPrefabsByColor[colorindex], new Vector3(), pillarsParent.transform.rotation);
-                            instantiated = true;
-                            break;
-                        }
-                    }
-                    colorindex++;
-                }
-                // Test if the current position is a square
-                if (!instantiated){
-                    colorindex = BLUE;
-                    foreach (ListOfVector2 squarePositions in squarePositionsByColor){
-                        foreach (Vector2 squarePos in squarePositions.positions)
-                        {
-                            if (squarePos.x == (nbOfPillars - i) * 2 - 1 && squarePos.y == j * 2 + 1)
-                            {
-                                newChild = Instantiate(squarePrefabsByColor[colorindex], new Vector3(), pillarsParent.transform.rotation);
-                                instantiated = true;
-                                break;
-                            }
-                        }
-                        colorindex++;
-                    }
-                }
-                if(!instantiated){
-                    newChild = Instantiate(pillarPrefab, new Vector3(), pillarsParent.transform.rotation);
-                }
-                newChild.transform.parent = pillarsParent.transform;
-                newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset), Space.Self);
-                newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                newChild.GetComponent<HeightInterpolator>().StartInterpolation();
-            }
-        }
     }
 
-    void CreateGrid(bool size) {
+    private void InitiatePlayerLine() {
+        GameObject playerLine = GameObject.Find("PlayerLine");
+        playerLine.GetComponent<LineManager>().StartDrawingLine();
+    }
+
+    void CreateGrid() {
         GameObject ref_obj;
         GameObject newChild;
-        if (size == SIZE_3x3) {
+        if (dim == 3) {
             ref_obj = origin_grid_3x3;
             newChild = Instantiate(grid3x3Prefab, new Vector3(), pillarsParent.transform.rotation);
             newChild.GetComponent<GridLab>().endingY = 6;
@@ -146,12 +129,12 @@ public class LevelBuilder : MonoBehaviour
         newChild.transform.parent = pillarsParent.transform;
         newChild.transform.Translate(ref_obj.transform.position, Space.Self);
         
-        newChild.GetComponent<GridLab>().startingX = startingX * 2;
-        newChild.GetComponent<GridLab>().endingX = endingX * 2;
+        newChild.GetComponent<GridLab>().startingX = solution.GetPanel().GetStart().Second;
+        newChild.GetComponent<GridLab>().endingX = solution.GetPanel().GetEnd().Second;
 
         newChild.GetComponent<GridLab>().startingY = 0;
-        for (int i=0; i<hexPositions.Count; i++){
-            newChild.GetComponent<GridLab>().instantiateAt((int)hexPositions[i].x, (int)hexPositions[i].y, hexPrefab);
+        foreach(Tuple<int, int> hexPos in solution.GetPanel().GetHexagonPositions()){
+            newChild.GetComponent<GridLab>().instantiateAt((int)hexPos.Second, (int)hexPos.First, hexPrefab);
         }
         
         Debug.Log("grid created");
