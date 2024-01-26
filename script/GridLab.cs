@@ -108,6 +108,22 @@ public class GridLab : MonoBehaviour
         return new Vector3(0, -999, 0);
     }
 
+    public Vector3 GetCellWorldPosition(int x, int y)
+    {
+        // Return the grid cell that the player is currently in
+        // Test for each grid cell in the grid
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform cell = transform.GetChild(i);
+            Cell c = cell.GetComponent<Cell>();
+            if (c.x == x && c.y == y)
+            {
+                return cell.position;
+            }
+        }
+        return new Vector3(0, -999, 0);
+    }
+
     public Tuple<int,int> GetGridPosition(Vector3 position)
     {
         // Return the grid cell that the player is currently in

@@ -7,7 +7,7 @@ public class LineManager : MonoBehaviour
     private LineRenderer lineRenderer;
     public Material validLineMaterial;
     public Material invalidLineMaterial;
-    public bool updatingLine = false;
+    public bool updatingLine = true;
 
     public void StartDrawingLine(GameObject startBlock)
     {
@@ -15,7 +15,6 @@ public class LineManager : MonoBehaviour
         lineRenderer.positionCount = 2;
         Vector3 startBlockPosition = startBlock.transform.position;
         lineRenderer.SetPosition(0, new Vector3(startBlockPosition.x, 0.1f, startBlockPosition.z));
-        updatingLine = true;
     }
 
     // Update is called once per frame
