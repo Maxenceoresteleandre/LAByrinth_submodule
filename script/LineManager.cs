@@ -20,18 +20,21 @@ public class LineManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (! updatingLine){
-            return;
+        if (lineRenderer != null) {
+            if (! updatingLine){
+                return;
+            }
+            Vector3 playerPosition = Camera.main.transform.position;
+            // Debug.Log(lineRenderer == null);
+            lineRenderer.SetPosition(lineRenderer.positionCount-1, new Vector3(playerPosition.x, 0.1f, playerPosition.z));
+            if (DoesLineIntersect()){
+                lineRenderer.material = invalidLineMaterial;
+            } else {
+                lineRenderer.material = validLineMaterial;
+            }
+            Vector3[] newPos = new Vector3[lineRenderer.positionCount];
+            //Debug.Log("line positions = " + lineRenderer.GetPositions(newPos).ToString());
         }
-        Vector3 playerPosition = Camera.main.transform.position;
-        lineRenderer.SetPosition(lineRenderer.positionCount-1, new Vector3(playerPosition.x, 0.1f, playerPosition.z));
-        if (DoesLineIntersect()){
-            lineRenderer.material = invalidLineMaterial;
-        } else {
-            lineRenderer.material = validLineMaterial;
-        }
-        Vector3[] newPos = new Vector3[lineRenderer.positionCount];
-        //Debug.Log("line positions = " + lineRenderer.GetPositions(newPos).ToString());
     }
 
     private bool DoesLineIntersect(){

@@ -99,6 +99,7 @@ public class LevelBuilder : MonoBehaviour
                         newChild.transform.parent = pillarsParent.transform;
                         newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset - 0.5f*pillar_offset), Space.Self);
                         newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                        GameObject.Find("Player").transform.position = newChild.transform.position;
                         InitiatePlayerLine(newChild);
                     }
                 }
@@ -161,7 +162,7 @@ public class LevelBuilder : MonoBehaviour
         
         newChild.GetComponent<GridLab>().startingX = solution.GetPanel().GetStart().Second;
         newChild.GetComponent<GridLab>().endingX = solution.GetPanel().GetEnd().Second;
-
+        newChild.GetComponent<GridLab>().SetPanel(panel);
         newChild.GetComponent<GridLab>().startingY = 0;
         foreach(Tuple<int, int> hexPos in solution.GetPanel().GetHexagonPositions()){
             // Debug.Log("hexagon at " + hexPos.Second + ", " + hexPos.First);

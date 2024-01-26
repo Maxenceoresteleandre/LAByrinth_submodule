@@ -7,6 +7,7 @@ public class GridLab : MonoBehaviour
     // initialized at none
     private Tuple<int,int> lastGridPosition = Tuple.New(-1,-1);
     private List<Tuple<int,int>> currentSequenceOfPositions = new List<Tuple<int,int>>();
+    private Panel panel;
     public static List<Vector3> playerPath = new List<Vector3>();
     public GameObject playerLine;
     private LineRenderer lineRenderer;
@@ -25,21 +26,22 @@ public class GridLab : MonoBehaviour
         endingPosition = Tuple.New(endingX, endingY);
         playerLine = GameObject.Find("PlayerLine");
         lineRenderer = playerLine.GetComponent<LineRenderer>();
+        // Deactivate all cells in the grid except the starting cell
+        ActivateStartingCell();
     }
 
     void Update(){
         if (IsInGrid(Camera.main.transform.position)){
             Tuple<int,int> gridPosition = GetGridPosition(Camera.main.transform.position);
             if (gridPosition.First != lastGridPosition.First || gridPosition.Second != lastGridPosition.Second){
+                ActivateNeighboursOnly(gridPosition.First, gridPosition.Second);
                 Debug.Log("Player is in grid cell: " + gridPosition.First + ", " + gridPosition.Second);
                 if (gridPosition.First == endingPosition.First && gridPosition.Second == endingPosition.Second){
                     Debug.Log("Player has reached the end of the maze!");
+                    currentSequenceOfPositions.Add(gridPosition);
                     List<Tuple<int,int>> sequence = stopRecordingSequence();
-                    string sequenceString = "";
-                    foreach (Tuple<int,int> position in sequence){
-                        sequenceString += position.First + "," + position.Second + ";";
-                    }
-                    Debug.Log("Player's sequence of positions: " + sequenceString);
+                    int[] result = new PlayerPath(panel, Utils.InvertTupleList(sequence)).isPathValid();
+                    Debug.Log("Validity: " + result[0] + ", " + result[1] + ", " + result[2]);
                 }
                 if (gridPosition.First == startingPosition.First && gridPosition.Second == startingPosition.Second){
                     Debug.Log("Player has reached the start of the maze!");
@@ -51,15 +53,15 @@ public class GridLab : MonoBehaviour
 
                 // Update the line renderer
                 Vector3 gridWorldPosition = GetGridWorldPosition(Camera.main.transform.position);
-                if (playerPath.Count>8){
-                    Debug.Log("gridWordlPosition = " + gridWorldPosition.ToString());
-                    Debug.Log("playerPath[Count-1] = " + playerPath[playerPath.Count-1].ToString());
-                    Debug.Log("playerPath[Count-2] = " + playerPath[playerPath.Count-2].ToString());
-                    Debug.Log("playerPath[Count-3] = " + playerPath[playerPath.Count-3].ToString());
-                    Debug.Log("playerPath[Count-4] = " + playerPath[playerPath.Count-4].ToString());
-                    Debug.Log("playerPath[Count-5] = " + playerPath[playerPath.Count-5].ToString());
-                    Debug.Log("playerPath[Count-6] = " + playerPath[playerPath.Count-6].ToString());
-                }
+                // if (playerPath.Count>8){
+                //     Debug.Log("gridWordlPosition = " + gridWorldPosition.ToString());
+                //     Debug.Log("playerPath[Count-1] = " + playerPath[playerPath.Count-1].ToString());
+                //     Debug.Log("playerPath[Count-2] = " + playerPath[playerPath.Count-2].ToString());
+                //     Debug.Log("playerPath[Count-3] = " + playerPath[playerPath.Count-3].ToString());
+                //     Debug.Log("playerPath[Count-4] = " + playerPath[playerPath.Count-4].ToString());
+                //     Debug.Log("playerPath[Count-5] = " + playerPath[playerPath.Count-5].ToString());
+                //     Debug.Log("playerPath[Count-6] = " + playerPath[playerPath.Count-6].ToString());
+                // }
                 if (gridWorldPosition.y > -100){
                     // ensure the line is erased if the player backtracks
                     if (playerPath.Count>1 && gridWorldPosition == (playerPath[playerPath.Count-2])) {
@@ -163,6 +165,18 @@ public class GridLab : MonoBehaviour
         return currentSequenceOfPositions;
     }
 
+    public void SetLastGridPositionNone(){
+        lastGridPosition = Tuple.New(-1,-1);
+    }
+
+    public void SetPanel(Panel panel){
+        this.panel = panel;
+    }
+
+    public Panel GetPanel(){
+        return panel;
+    }
+
     public void instantiateAt(int x, int y, GameObject prefab){
         for (int i=0; i<transform.childCount; i++){
             Transform cell = transform.GetChild(i);
@@ -172,6 +186,38 @@ public class GridLab : MonoBehaviour
                 newChild.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                 newChild.transform.parent = cell.transform;
                 newChild.transform.position = cell.transform.position;
+            }
+        }
+    }
+
+    public void ActivateNeighboursOnly(int x, int y){
+        for (int i=0; i<transform.childCount; i++){
+            Transform cell = transform.GetChild(i);
+            Cell c = cell.GetComponent<Cell>();
+            if (c.x == x && c.y == y){
+                cell.gameObject.GetComponent<Collider>().enabled = true;
+            } else if (c.x == x-1 && c.y == y){
+                cell.gameObject.GetComponent<Collider>().enabled = true;
+            } else if (c.x == x+1 && c.y == y){
+                cell.gameObject.GetComponent<Collider>().enabled = true;
+            } else if (c.x == x && c.y == y-1){
+                cell.gameObject.GetComponent<Collider>().enabled = true;
+            } else if (c.x == x && c.y == y+1){
+                cell.gameObject.GetComponent<Collider>().enabled = true;
+            } else {
+                cell.gameObject.GetComponent<Collider>().enabled = false;
+            }
+        }
+    }
+
+    public void ActivateStartingCell(){
+        for (int i=0; i<transform.childCount; i++){
+            Transform cell = transform.GetChild(i);
+            Cell c = cell.GetComponent<Cell>();
+            if (c.x == startingPosition.First && c.y == startingPosition.Second){
+                cell.gameObject.GetComponent<Collider>().enabled = true;
+            } else {
+                cell.gameObject.GetComponent<Collider>().enabled = false;
             }
         }
     }

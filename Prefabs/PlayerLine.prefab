@@ -72,8 +72,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0.1, z: 0}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -143,3 +142,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   validLineMaterial: {fileID: 2100000, guid: a51c45ba23e98f94b885cbeb0e3c14a4, type: 2}
   invalidLineMaterial: {fileID: 2100000, guid: 7ec19cc729eea30459a3c70e6eda1348, type: 2}
+  updatingLine: 1
