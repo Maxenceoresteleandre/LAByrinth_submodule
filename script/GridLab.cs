@@ -72,7 +72,7 @@ public class GridLab : MonoBehaviour
                         // reset the line renderer
                         lineRenderer.positionCount = playerPath.Count+2;
                         for (int i=0; i<playerPath.Count; i++){
-                            lineRenderer.SetPosition(i, new Vector3(playerPath[i].x, 0.1f, playerPath[i].z));
+                            lineRenderer.SetPosition(i+1, new Vector3(playerPath[i].x, 0.1f, playerPath[i].z));
                         }
                     } else {
                         playerPath.Add(gridWorldPosition);
