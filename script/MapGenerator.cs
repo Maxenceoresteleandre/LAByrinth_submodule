@@ -18,7 +18,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject Starting;
     public GameObject Ending;
 
-    public float pos_z = -0.04f;
+    public float pos_z = 0;
     // Start is called before the first frame update
     public void generateMap(LevelBuilder level, Panel panel)
     {
