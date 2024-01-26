@@ -795,7 +795,7 @@ PrefabInstance:
     - target: {fileID: 8560811161790063135, guid: 250452d41cf55914cad74a52566ce676,
         type: 3}
       propertyPath: pos_z
-      value: -0.08
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8560811161790063135, guid: 250452d41cf55914cad74a52566ce676,
         type: 3}
@@ -1552,7 +1552,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dim: 3
   nWalls: 0
-  nHexagon: 1
+  nHexagon: 3
   nSquareByColor: 010000000100000001000000
   nSunByColor: 010000000100000001000000
   pillarsParent: {fileID: 2054776974}
