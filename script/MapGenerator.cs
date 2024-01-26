@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    public LevelBuilder level;
-
     public GameObject Map3x3;
     public GameObject Map4x4;
 
+    // public Color colorN = Color.pink;
     public Color color0 = Color.blue;
     public Color color1 = Color.red;
     public Color color2 = new Color32(135, 206, 235, 255);
     public Color color3 = Color.yellow;
-    
     public GameObject Hex;
     public GameObject Square;
     public GameObject Sun;
@@ -22,37 +20,44 @@ public class MapGenerator : MonoBehaviour
 
     public float pos_z = -0.04f;
     // Start is called before the first frame update
-    void Start()
+    public void generateMap(LevelBuilder level, Panel panel)
     {
         if (level.dim == 3)
         {
             Map3x3.SetActive(true);
             Map4x4.SetActive(false);
 
-            createStart3x3((float)level.endingX);
-            createEnd3x3((float)level.startingX);
+            Debug.Log("START");
+            Debug.Log(panel.GetStart().Second);
+            Debug.Log(panel.GetStart().First);
+            Debug.Log("END");
+            Debug.Log(panel.GetEnd().Second);
+            createStart3x3((float)panel.GetStart().Second);
+            createEnd3x3((float)panel.GetEnd().Second);
 
-            for (int i=0; i<level.hexPositions.Count; i++)
+            Debug.Log("HERRRREEEEE");
+
+            foreach (Tuple<int, int> hexPos in panel.GetHexagonPositions())
             {
-                createHex3x3((float)level.hexPositions[i].x, (float)level.hexPositions[i].y);
-                // Debug.Log(level.hexPositions[i].x);
-                // Debug.Log(level.hexPositions[i].y);
+                Debug.Log("hex pos");
+                Debug.Log(hexPos.Second);
+                Debug.Log(hexPos.First);
+
+                createHex3x3((float)hexPos.Second, (float)hexPos.First);
+                
             }
-            int colorindex = 0;
-            foreach (ListOfVector2 squarePositions in level.squarePositionsByColor){
-                foreach (Vector2 squarePos in squarePositions.positions)
-                {
-                    createSquare3x3((float)squarePos.x, (float)squarePos.y, colorindex);
-                }
-                colorindex++;
+            foreach (Tuple<int, int> squarePos in panel.GetSquarePositions())
+            {
+                Debug.Log("square couleur");
+                Debug.Log(panel.GetSymbol(squarePos.Second, squarePos.First).GetColorId());
+                Debug.Log("square pos");
+                Debug.Log(squarePos.Second);
+                Debug.Log(squarePos.First);
+                createSquare3x3((float)squarePos.Second, (float)squarePos.First, panel.GetSymbol(squarePos.Second, squarePos.First).GetColorId());
             }
-            colorindex = 0;
-            foreach (ListOfVector2 sunPositions in level.sunPositionsByColor){
-                foreach (Vector2 sunPos in sunPositions.positions)
-                {
-                    createSun3x3((float)sunPos.x, (float)sunPos.y, colorindex);
-                }
-                colorindex++;
+            foreach (Tuple<int, int> sunPos in panel.GetSunPositions())
+            {
+                createSun3x3((float)sunPos.Second, (float)sunPos.First, panel.GetSymbol(sunPos.Second, sunPos.First).GetColorId());
             }
         }
         else
@@ -80,7 +85,7 @@ public class MapGenerator : MonoBehaviour
     {
         // Debug.Log(Map3x3.transform.position.x);
         // Debug.Log(Map3x3.transform.position.y);
-        GameObject hex = Instantiate(Hex, Map3x3.transform.position + new Vector3(-0.3f+gridY*0.1f,-0.3f+gridX*0.1f,pos_z), Hex.transform.rotation, Map3x3.transform);
+        GameObject hex = Instantiate(Hex, Map3x3.transform.position + new Vector3(-0.3f+gridX*0.1f,-0.3f+gridY*0.1f,pos_z), Hex.transform.rotation, Map3x3.transform);
         hex.transform.parent = Map3x3.transform;
     }
 
@@ -95,7 +100,7 @@ public class MapGenerator : MonoBehaviour
             color = color2;
         if (colorindex == 3)
             color = color3;
-        GameObject square = Instantiate(Square, Map3x3.transform.position + new Vector3(-0.3f+gridY*0.1f,-0.3f+gridX*0.1f,pos_z), Square.transform.rotation, Map3x3.transform);
+        GameObject square = Instantiate(Square, Map3x3.transform.position + new Vector3(-0.3f+gridX*0.1f,-0.3f+gridY*0.1f,pos_z), Square.transform.rotation, Map3x3.transform);
         square.GetComponent<Renderer>().material.color = color;
         square.transform.parent = Map3x3.transform;
     }
@@ -111,7 +116,7 @@ public class MapGenerator : MonoBehaviour
             color = color2;
         if (colorindex == 3)
             color = color3;
-        GameObject sun = Instantiate(Sun, Map3x3.transform.position + new Vector3(-0.3f+gridY*0.1f,-0.3f+gridX*0.1f,pos_z), Sun.transform.rotation, Map3x3.transform);
+        GameObject sun = Instantiate(Sun, Map3x3.transform.position + new Vector3(-0.3f+gridX*0.1f,-0.3f+gridY*0.1f,pos_z), Sun.transform.rotation, Map3x3.transform);
         sun.GetComponent<Renderer>().material.color = color;
         sun.transform.parent = Map3x3.transform;
     }

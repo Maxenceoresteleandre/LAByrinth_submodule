@@ -37,6 +37,7 @@ public class LevelBuilder : MonoBehaviour
     // x c'est marcher sur le côté
     private PlayerPath solution;
     private Panel panel;
+    public MapGenerator mapGenerator;
 
     void Start()
     {
@@ -52,6 +53,7 @@ public class LevelBuilder : MonoBehaviour
         Debug.Log("Level generated!");
         CreateGrid();
         StartCoroutine(CreateLevelPillars());
+        mapGenerator.generateMap(this, panel);
     }
 
     IEnumerator CreateLevelPillars() {
@@ -110,6 +112,10 @@ public class LevelBuilder : MonoBehaviour
     private void InitiatePlayerLine() {
         GameObject playerLine = GameObject.Find("PlayerLine");
         playerLine.GetComponent<LineManager>().StartDrawingLine();
+    }
+
+    public Panel GetPanel(){
+        return panel;
     }
 
     void CreateGrid() {
