@@ -43,6 +43,7 @@ public class GridLab : MonoBehaviour
                 }
                 if (gridPosition.First == startingPosition.First && gridPosition.Second == startingPosition.Second){
                     Debug.Log("Player has reached the start of the maze!");
+                    // LevelBuilder.InitiatePlayerLine();
                     startRecordingSequence();
                 }
                 lastGridPosition = gridPosition;

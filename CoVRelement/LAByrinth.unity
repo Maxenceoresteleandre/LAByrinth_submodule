@@ -1410,7 +1410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1261256569
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1492,7 +1492,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1279327202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1552,9 +1552,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dim: 3
   nWalls: 0
-  nHexagon: 1
-  nSquareByColor: 010000000100000001000000
-  nSunByColor: 010000000100000001000000
+  nHexagon: 2
+  nSquareByColor: 0200000001000000
+  nSunByColor: 0100000001000000
   pillarsParent: {fileID: 2054776974}
   origin_4x4: {fileID: 773112275}
   origin_3x3: {fileID: 504799935}

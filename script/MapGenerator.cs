@@ -26,38 +26,24 @@ public class MapGenerator : MonoBehaviour
         {
             Map3x3.SetActive(true);
             Map4x4.SetActive(false);
-
-            Debug.Log("START");
-            Debug.Log(panel.GetStart().Second);
-            Debug.Log(panel.GetStart().First);
-            Debug.Log("END");
-            Debug.Log(panel.GetEnd().Second);
             createStart3x3((float)panel.GetStart().Second);
             createEnd3x3((float)panel.GetEnd().Second);
 
-            Debug.Log("HERRRREEEEE");
-
             foreach (Tuple<int, int> hexPos in panel.GetHexagonPositions())
             {
-                Debug.Log("hex pos");
-                Debug.Log(hexPos.Second);
-                Debug.Log(hexPos.First);
+                // Debug.Log("hex pos: " + hexPos.Second + ", " + hexPos.First);
 
                 createHex3x3((float)hexPos.Second, (float)hexPos.First);
                 
             }
             foreach (Tuple<int, int> squarePos in panel.GetSquarePositions())
             {
-                Debug.Log("square couleur");
-                Debug.Log(panel.GetSymbol(squarePos.Second, squarePos.First).GetColorId());
-                Debug.Log("square pos");
-                Debug.Log(squarePos.Second);
-                Debug.Log(squarePos.First);
-                createSquare3x3((float)squarePos.Second, (float)squarePos.First, panel.GetSymbol(squarePos.Second, squarePos.First).GetColorId());
+                // Debug.Log("square pos: " + squarePos.Second + ", " + squarePos.First);
+                createSquare3x3((float)squarePos.Second, (float)squarePos.First, panel.GetSymbol(squarePos.First, squarePos.Second).GetColorId());
             }
             foreach (Tuple<int, int> sunPos in panel.GetSunPositions())
             {
-                createSun3x3((float)sunPos.Second, (float)sunPos.First, panel.GetSymbol(sunPos.Second, sunPos.First).GetColorId());
+                createSun3x3((float)sunPos.Second, (float)sunPos.First, panel.GetSymbol(sunPos.First, sunPos.Second).GetColorId());
             }
         }
         else
