@@ -43,4 +43,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1101919991f02449e3164de36bc413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFile: {fileID: 4900000, guid: 3839924d49d592042b04f2a1dac8ecb9, type: 3}
+  Map3x3: {fileID: 0}
+  Map4x4: {fileID: 0}
+  color0: {r: 0, g: 0, b: 1, a: 1}
+  color1: {r: 1, g: 0, b: 0, a: 1}
+  color2: {r: 0.5294118, g: 0.80784315, b: 0.92156863, a: 1}
+  color3: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  Hex: {fileID: 0}
+  Square: {fileID: 0}
+  Sun: {fileID: 0}
+  Starting: {fileID: 0}
+  Ending: {fileID: 0}
+  pos_z: -0.02
