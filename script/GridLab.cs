@@ -198,8 +198,11 @@ public class GridLab : MonoBehaviour
                 if(y%2==0){
                     cell.Find("Wall").gameObject.SetActive(true);
                 }
-                else{
+                else if(isTrue){
                     cell.Find("Shield").gameObject.SetActive(true);
+                }
+                else{
+                    cell.Find("FakeShield").gameObject.SetActive(true);
                 }
             }
         }
@@ -226,7 +229,7 @@ public class GridLab : MonoBehaviour
                 else if (c.x == x && c.y == y+1){
                     cell.gameObject.GetComponent<Collider>().enabled = true;
                 }
-                else{
+                else if(c.x != startingPosition.First || c.y != startingPosition.Second){
                     cell.gameObject.GetComponent<Collider>().enabled = false;
                 }
             }

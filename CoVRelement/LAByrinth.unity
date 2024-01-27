@@ -1517,7 +1517,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dim: 3
-  nWalls: 4
+  nWalls: 3
+  nFakeWalls: 2
   nHexagon: 1
   nSquareByColor: 0300000001000000
   nSunByColor: 0100000000000000

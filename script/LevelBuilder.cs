@@ -14,6 +14,7 @@ public class LevelBuilder : MonoBehaviour
 
     public int dim;
     public int nWalls;
+    public int nFakeWalls;
     public int nHexagon;
     public List<int> nSquareByColor;
     public List<int> nSunByColor;
@@ -169,10 +170,40 @@ public class LevelBuilder : MonoBehaviour
             newChild.GetComponent<GridLab>().instantiateAt((int)hexPos.Second, (int)hexPos.First, hexPrefab);
         }
 
-        foreach(Tuple<int, int> wallPos in solution.GetPanel().GetWallPositions()){
+        List<Tuple<int, int>> allwalls = solution.GetPanel().GetWallPositions();
+        foreach(Tuple<int, int> wallPos in allwalls){
             // Debug.Log("wall at " + wallPos.Second + ", " + wallPos.First);
             newChild.GetComponent<GridLab>().ActivateWallFF((int)wallPos.Second, (int)wallPos.First, true);
         }
+        // Create a List with all possible wall positions such as y%2==1
+        List<Tuple<int, int>> wallPositions = new List<Tuple<int, int>>();
+        for (int i = 0; i < dim * 2 + 1; i++)
+        {
+            for (int j = 0; j < dim * 2 + 1; j++)
+            {
+                if (i % 2 == 0 && j % 2 == 1)
+                {
+                    Tuple<int, int> nwallPos = new Tuple<int, int>(i, j);
+                    if (!allwalls.Contains(nwallPos.Invert()))
+                    {
+                        wallPositions.Add(nwallPos);
+                    }
+                }
+            }
+        }
+        // Randomly select nFakeWalls positions from the List
+        List<Tuple<int, int>> fakeWallPositions = new List<Tuple<int, int>>();
+        for (int i = 0; i < nFakeWalls; i++)
+        {
+            if (wallPositions.Count != 0){
+                int index = Random.Range(0, wallPositions.Count);
+                fakeWallPositions.Add(wallPositions[index]);
+                newChild.GetComponent<GridLab>().ActivateWallFF((int)wallPositions[index].First, (int)wallPositions[index].Second, false);
+                wallPositions.RemoveAt(index);
+            }
+        }
+
+        // Create a List with all
         return newChild.GetComponent<GridLab>();
     }
 }
