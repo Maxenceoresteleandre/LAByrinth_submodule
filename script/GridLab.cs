@@ -190,21 +190,48 @@ public class GridLab : MonoBehaviour
         }
     }
 
-    public void ActivateNeighboursOnly(int x, int y){
+    public void ActivateWallFF(int x, int y, bool isTrue){
         for (int i=0; i<transform.childCount; i++){
             Transform cell = transform.GetChild(i);
             Cell c = cell.GetComponent<Cell>();
             if (c.x == x && c.y == y){
-                cell.gameObject.GetComponent<Collider>().enabled = true;
-            } else if (c.x == x-1 && c.y == y){
-                cell.gameObject.GetComponent<Collider>().enabled = true;
-            } else if (c.x == x+1 && c.y == y){
-                cell.gameObject.GetComponent<Collider>().enabled = true;
-            } else if (c.x == x && c.y == y-1){
-                cell.gameObject.GetComponent<Collider>().enabled = true;
-            } else if (c.x == x && c.y == y+1){
-                cell.gameObject.GetComponent<Collider>().enabled = true;
-            } else {
+                if(y%2==0){
+                    cell.Find("Wall").gameObject.SetActive(true);
+                }
+                else{
+                    cell.Find("Shield").gameObject.SetActive(true);
+                }
+            }
+        }
+    }
+
+    public void ActivateNeighboursOnly(int x, int y){
+        for (int i=0; i<transform.childCount; i++){
+            Transform cell = transform.GetChild(i);
+            Cell c = cell.GetComponent<Cell>();
+            if(!cell.Find("Shield").gameObject.activeSelf && !cell.Find("Wall").gameObject.activeSelf)
+            {
+                if (c.x == x && c.y == y){
+                    cell.gameObject.GetComponent<Collider>().enabled = true;
+                } 
+                else if (c.x == x-1 && c.y == y){
+                    cell.gameObject.GetComponent<Collider>().enabled = true;
+                } 
+                else if (c.x == x+1 && c.y == y){
+                    cell.gameObject.GetComponent<Collider>().enabled = true;
+                } 
+                else if (c.x == x && c.y == y-1){
+                    cell.gameObject.GetComponent<Collider>().enabled = true;
+                } 
+                else if (c.x == x && c.y == y+1){
+                    cell.gameObject.GetComponent<Collider>().enabled = true;
+                }
+                else{
+                    cell.gameObject.GetComponent<Collider>().enabled = false;
+                }
+            }
+            else 
+            {
                 cell.gameObject.GetComponent<Collider>().enabled = false;
             }
         }

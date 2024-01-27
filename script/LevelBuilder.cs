@@ -168,6 +168,11 @@ public class LevelBuilder : MonoBehaviour
             // Debug.Log("hexagon at " + hexPos.Second + ", " + hexPos.First);
             newChild.GetComponent<GridLab>().instantiateAt((int)hexPos.Second, (int)hexPos.First, hexPrefab);
         }
+
+        foreach(Tuple<int, int> wallPos in solution.GetPanel().GetWallPositions()){
+            // Debug.Log("wall at " + wallPos.Second + ", " + wallPos.First);
+            newChild.GetComponent<GridLab>().ActivateWallFF((int)wallPos.Second, (int)wallPos.First, true);
+        }
         return newChild.GetComponent<GridLab>();
     }
 }
