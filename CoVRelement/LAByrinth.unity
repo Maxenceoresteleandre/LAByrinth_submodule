@@ -1528,7 +1528,8 @@ MonoBehaviour:
   origin_grid_3x3: {fileID: 1239367215}
   pillarPrefab: {fileID: 7587664689611192297, guid: deccceb71f3818c438c01387a963d6ec,
     type: 3}
-  hexPrefab: {fileID: 1864742499577446, guid: 4aa7f4f0acab60742bea9a9f6a3bb144, type: 3}
+  hexPrefab: {fileID: 5240838479317472360, guid: b27896bf395e37c42bfb91ac368f0e28,
+    type: 3}
   squarePrefabsByColor:
   - {fileID: 7587664689611192297, guid: bcc425849ae50c247b4e671cfb44cf0d, type: 3}
   - {fileID: 7587664689611192297, guid: 3f8d931290689214ba0cc32edc0e05c3, type: 3}
