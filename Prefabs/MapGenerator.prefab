@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8560811161790063134
+--- !u!1 &1138828890005920500
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8560811161790063120}
-  - component: {fileID: 8560811161790063135}
+  - component: {fileID: 3391604742393036075}
+  - component: {fileID: 3562527628866361928}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8560811161790063120
+  m_IsActive: 0
+--- !u!4 &3391604742393036075
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8560811161790063134}
+  m_GameObject: {fileID: 1138828890005920500}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,13 +31,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8560811161790063135
+--- !u!114 &3562527628866361928
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8560811161790063134}
+  m_GameObject: {fileID: 1138828890005920500}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb1101919991f02449e3164de36bc413, type: 3}
@@ -49,9 +49,13 @@ MonoBehaviour:
   color1: {r: 1, g: 0, b: 0, a: 1}
   color2: {r: 0.5294118, g: 0.80784315, b: 0.92156863, a: 1}
   color3: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  Hex: {fileID: 0}
-  Square: {fileID: 0}
-  Sun: {fileID: 0}
-  Starting: {fileID: 0}
-  Ending: {fileID: 0}
-  pos_z: -0.02
+  Hex: {fileID: 983429466807963608, guid: 723b9c4cf095f844ca2cb93f14b63645, type: 3}
+  Square: {fileID: 2722807739691899936, guid: ab4488e4d6c4cd348b6ea934f4a76507, type: 3}
+  Sun: {fileID: 8269362838068114961, guid: a807bbcc43445104db670f98ce1a06aa, type: 3}
+  Wall: {fileID: 1063778964283973778, guid: f5506a39958b2814db909a44ecc5c7e6, type: 3}
+  FakeWall: {fileID: 7812327282815904892, guid: ce4df0ab2b13ad243986928c85482112,
+    type: 3}
+  Starting: {fileID: 8136414617911434166, guid: 68c9e6212486b8046af3555d4294260b,
+    type: 3}
+  Ending: {fileID: 5026586772957100822, guid: a5388da26b324744f9d350bf211c53e2, type: 3}
+  pos_z: 0
