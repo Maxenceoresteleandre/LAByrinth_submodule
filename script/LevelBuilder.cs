@@ -77,6 +77,8 @@ public class LevelBuilder : MonoBehaviour
     }
 
     IEnumerator CreateLevelPillars() {
+        ForceFieldManager ffm = GameObject.Find("ForceFieldManager").GetComponent<ForceFieldManager>();
+        ffm.RemoveAllForceFields();
         GameObject ref_obj;
         List<Tuple<int, int>> squares = solution.GetPanel().GetSquarePositions();
         List<Tuple<int, int>> suns = solution.GetPanel().GetSunPositions();
@@ -133,8 +135,6 @@ public class LevelBuilder : MonoBehaviour
                 }
             }
         }
-        ForceFieldManager ffm = GameObject.Find("ForceFieldManager").GetComponent<ForceFieldManager>();
-        ffm.RemoveAllForceFields();
         ffm.StartComputingForceFields();
     }
 
