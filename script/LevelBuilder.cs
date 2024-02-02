@@ -32,6 +32,7 @@ public class LevelBuilder : MonoBehaviour
     public GameObject startPlatform;
     public GameObject endPlatform;
     public GameObject solutionLine;
+    private GridLab gridLevel;
 
 
     private float pillar_offset = 1.17f;
@@ -62,7 +63,7 @@ public class LevelBuilder : MonoBehaviour
         Debug.Log(panel.GetStart().Second + ", " + panel.GetStart().First);
         Debug.Log(panel.GetEnd().Second + ", " + panel.GetEnd().First);
         Debug.Log("Level generated!");
-        GridLab gridLevel = CreateGrid();
+        gridLevel = CreateGrid();
         mapGenerator.generateMap(this, panel);
         Vector3[] solPoints = new Vector3[solution.GetPoints().Count];
         for (int i = 0; i < solution.GetPoints().Count; i++)
@@ -136,6 +137,9 @@ public class LevelBuilder : MonoBehaviour
             }
         }
         ffm.StartComputingForceFields();
+        Debug.Log("gridLevel = " + gridLevel.ToString());
+        Debug.Log("endDoor = " + GameObject.FindObjectOfType<EndDoor>().ToString());
+        GameObject.FindObjectOfType<EndDoor>().AddGridLab(gridLevel);
     }
 
     public static void InitiatePlayerLine(GameObject startBlock) {
@@ -161,10 +165,9 @@ public class LevelBuilder : MonoBehaviour
             newChild.transform.Translate(new Vector3(0.264f, 0.0f, -0.738f ), Space.Self);
             newChild.GetComponent<GridLab>().endingY = 8;
         }
+
         newChild.transform.parent = pillarsParent.transform;
         newChild.transform.Translate(ref_obj.transform.position, Space.Self);
-
-        GameObject.Find("EndDoor").GetComponent<EndDoor>().AddGridLab(GridLab gridLab);
         
         newChild.GetComponent<GridLab>().startingX = solution.GetPanel().GetStart().Second;
         newChild.GetComponent<GridLab>().endingX = solution.GetPanel().GetEnd().Second;
