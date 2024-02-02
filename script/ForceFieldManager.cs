@@ -25,9 +25,7 @@ public class ForceFieldManager : MonoBehaviour
     {
         iTween.Defaults.easeType = iTween.EaseType.easeInOutQuad;
         player = GameObject.Find("Player");
-        Debug.Log("player = " + player.ToString());
-        door = GameObject.FindGameObjectWithTag("TangibleDoor");
-        Debug.Log("door = " + door.ToString());
+        door = GameObject.FindGameObjectWithTag("EndDoor");
 
         GameObject secu = GameObject.FindGameObjectWithTag("ColumControl");
         if (secu != null)
@@ -110,7 +108,7 @@ public class ForceFieldManager : MonoBehaviour
         if (dummyToMove != null && targetPosition != dummyToMove.transform.position)
         {
             dummyToMove.transform.position = targetPosition;
-            Debug.Log("dummyToMove.transform.position = " + dummyToMove.transform.position.ToString());
+            //Debug.Log("dummyToMove.transform.position = " + dummyToMove.transform.position.ToString());
         }
     }
 }

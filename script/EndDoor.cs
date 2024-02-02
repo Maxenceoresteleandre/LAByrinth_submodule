@@ -15,7 +15,6 @@ public class EndDoor : MonoBehaviour
         playerLine = GameObject.FindGameObjectWithTag("PlayerLine");
         positionDoorClose = transform.position;
         positionDoorOpen = transform.position + new Vector3(1.0f, 0f, 0f);
-        Debug.Log("ADD CHECK FOR LEVEL PATH VALIDITY HERE!");
     }
 
     public void AddGridLab(GridLab gridLab)
