@@ -1507,12 +1507,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b892580ad9652b4d912d0a6c1215964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dim: 4
-  nWalls: 2
-  nFakeWalls: 2
-  nHexagon: 1
-  nSquareByColor: 0300000001000000
-  nSunByColor: 0100000000000000
+  dim: 3
+  nWalls: 1
+  nFakeWalls: 0
+  nHexagon: 0
+  nSquareByColor: 00000000
+  nSunByColor: 06000000
   pillarsParent: {fileID: 2054776974}
   origin_4x4: {fileID: 773112275}
   origin_3x3: {fileID: 504799935}
