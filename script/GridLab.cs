@@ -200,6 +200,7 @@ public class GridLab : MonoBehaviour
                 }
                 else if(isTrue){
                     cell.Find("Shield").gameObject.SetActive(true);
+                    GameObject.Find("ForceFieldManager").GetComponent<ForceFieldManager>().AddForceField(cell.position);
                 }
                 else{
                     cell.Find("FakeShield").gameObject.SetActive(true);

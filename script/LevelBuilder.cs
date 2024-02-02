@@ -147,6 +147,8 @@ public class LevelBuilder : MonoBehaviour
     private GridLab CreateGrid() {
         GameObject ref_obj;
         GameObject newChild;
+        ForceFieldManager ffm = GameObject.Find("ForceFieldManager").GetComponent<ForceFieldManager>();
+        ffm.RemoveAllForceFields();
         if (dim == 3) {
             ref_obj = origin_grid_3x3;
             newChild = Instantiate(grid3x3Prefab, new Vector3(), pillarsParent.transform.rotation);

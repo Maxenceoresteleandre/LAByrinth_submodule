@@ -8,6 +8,7 @@ public class LineManager : MonoBehaviour
     public Material validLineMaterial;
     public Material invalidLineMaterial;
     public bool updatingLine = true;
+    public bool isLineValid = true;
 
     public void StartDrawingLine(GameObject startBlock)
     {
@@ -28,8 +29,10 @@ public class LineManager : MonoBehaviour
             // Debug.Log(lineRenderer == null);
             lineRenderer.SetPosition(lineRenderer.positionCount-1, new Vector3(playerPosition.x, 0.1f, playerPosition.z));
             if (DoesLineIntersect()){
+                isLineValid = false;
                 lineRenderer.material = invalidLineMaterial;
             } else {
+                isLineValid = true;
                 lineRenderer.material = validLineMaterial;
             }
             Vector3[] newPos = new Vector3[lineRenderer.positionCount];
