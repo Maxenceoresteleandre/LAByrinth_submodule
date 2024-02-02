@@ -118,4 +118,26 @@ public class ForceFieldManager : MonoBehaviour
             Debug.Log("dummyToMove.transform.position = " + dummyToMove.transform.position.ToString());
         }
     }
+
+    public void AjarDoor(){
+        bool doorIsMoving = true;
+        UnityEngine.Debug.Log("Door ajar");
+        if (Sm != null)
+        {
+            if (!Sm.IsPPEnabled)
+            {
+                Sm.ChangePPControl(true);
+            }
+            if (!Sm.IsTracking)
+            {
+                Sm.ChangeTrackingStatus(true);
+            }
+            
+
+        }
+        Vector3 ajarPose=doorClosePose+Vector3.right*0.1f;
+        doorIsMoving = true;
+
+           
+    }
 }
