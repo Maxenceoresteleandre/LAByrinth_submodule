@@ -17,6 +17,6 @@ public class RotatingSpidermenAdder : MonoBehaviour
 
     private Vector3 RandomPos()
     {
-        return new Vector3(Random.Range(-5.0f, 5.0f) * 5.0f, Random.Range(-5.0f, 5.0f) * 5.0f, Random.Range(-5.0f, 5.0f) * 5.0f);
+        return new Vector3(Random.Range(-5.0f, 5.0f) * 2.5f, Random.Range(-5.0f, 5.0f) * 2.5f, Random.Range(-5.0f, 5.0f) * 2.5f);
     }
 }
