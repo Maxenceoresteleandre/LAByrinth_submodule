@@ -63,7 +63,6 @@ public class LevelBuilder : MonoBehaviour
         Debug.Log(panel.GetEnd().Second + ", " + panel.GetEnd().First);
         Debug.Log("Level generated!");
         GridLab gridLevel = CreateGrid();
-        mapGenerator.generateMap(this, panel);
         Vector3[] solPoints = new Vector3[solution.GetPoints().Count];
         for (int i = 0; i < solution.GetPoints().Count; i++)
         {
@@ -133,6 +132,8 @@ public class LevelBuilder : MonoBehaviour
                 }
             }
         }
+        mapGenerator.generateMap(this, panel);
+
     }
 
     public static void InitiatePlayerLine(GameObject startBlock) {
