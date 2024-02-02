@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     private float movementSpeed = 1.0f;
-    private float rotationSpeed = 15.0f;
+    private float rotationSpeed = 30.0f;
 
     private bool isMouseButtonDown = false;
     private Vector3 lastMousePosition;

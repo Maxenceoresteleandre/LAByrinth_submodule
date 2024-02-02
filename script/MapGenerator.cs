@@ -52,9 +52,9 @@ public class MapGenerator : MonoBehaviour
             }
             foreach (Tuple<int, int> squarePos in panel.GetSquarePositions())
             {
-                Debug.Log("square couleur: " + panel.GetSymbol(squarePos.First, squarePos.Second).GetColorId());
+                // Debug.Log("square couleur: " + panel.GetSymbol(squarePos.First, squarePos.Second).GetColorId());
 
-                Debug.Log("square pos: " + squarePos.Second + ", " + squarePos.First);
+                // Debug.Log("square pos: " + squarePos.Second + ", " + squarePos.First);
                 createSquare3x3((float)squarePos.Second, (float)squarePos.First, panel.GetSymbol(squarePos.First, squarePos.Second).GetColorId());
             }
             foreach (Tuple<int, int> sunPos in panel.GetSunPositions())

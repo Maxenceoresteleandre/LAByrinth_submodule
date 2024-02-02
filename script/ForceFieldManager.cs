@@ -49,6 +49,7 @@ public class ForceFieldManager : MonoBehaviour
         {
             str += " ; obstaclePositions[" + i + "]=" + obstaclePositions[i].ToString();
         }
+        Debug.Log(str);
     }
 
     private Vector3 FindClosestObstacle()
@@ -74,11 +75,13 @@ public class ForceFieldManager : MonoBehaviour
         {
             closestObstacle = door.transform.position;
             isClosestObstacleDoor = true;
+            //Debug.Log(strDists + "=> DOOR");
         }
         else
         {
             closestObstacle = obstaclePositions[i-1];
             isClosestObstacleDoor = false;
+            //Debug.Log(strDists + "=> FORCEFIELD");
         }
         return closestObstacle;
     }
@@ -112,6 +115,29 @@ public class ForceFieldManager : MonoBehaviour
         if (dummyToMove != null && targetPosition != dummyToMove.transform.position)
         {
             dummyToMove.transform.position = targetPosition;
+            Debug.Log("dummyToMove.transform.position = " + dummyToMove.transform.position.ToString());
         }
+    }
+
+    public void AjarDoor(){
+        bool doorIsMoving = true;
+        UnityEngine.Debug.Log("Door ajar");
+        if (Sm != null)
+        {
+            if (!Sm.IsPPEnabled)
+            {
+                Sm.ChangePPControl(true);
+            }
+            if (!Sm.IsTracking)
+            {
+                Sm.ChangeTrackingStatus(true);
+            }
+            
+
+        }
+        Vector3 ajarPose=doorClosePose+Vector3.right*0.1f;
+        doorIsMoving = true;
+
+           
     }
 }
