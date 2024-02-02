@@ -5308,9 +5308,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8999914879231226144}
+  - component: {fileID: 4098393742606691793}
   m_Layer: 0
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: TangibleDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5333,6 +5334,18 @@ Transform:
   m_Father: {fileID: 7545987658245693260}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &4098393742606691793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8313457311155276663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7354588c42b42c342bc7f396a370014d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8580247112108285417
 GameObject:
   m_ObjectHideFlags: 0
@@ -9382,7 +9395,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 6d05a719a1d13fc4ba8d8e13e9412e0c,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6d05a719a1d13fc4ba8d8e13e9412e0c,
         type: 3}
