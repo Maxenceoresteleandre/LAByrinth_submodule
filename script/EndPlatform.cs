@@ -17,8 +17,8 @@ public class EndPlatform : MonoBehaviour
     {
         // if player is too close to the start, we reset the line in levelGrid
         if (endPlatformCenter.GetComponent<Collider>().bounds.Contains(player.position)){
-            GameObject.Find("PillarsParent").GetComponent<UnwantedChildrenKiller>().SendUnwantedChildrenToSpace();
-            
+            UnwantedChildrenKiller uck = GameObject.Find("PillarsParent").GetComponent<UnwantedChildrenKiller>();
+            StartCoroutine(uck.SendUnwantedChildrenToSpace());
         }
     }
 }
