@@ -14,7 +14,7 @@ public class ForceFieldManager : MonoBehaviour
     public Vector3 doorClosePose;
     public Vector3 doorOpenPose;
     private Vector3 covrForceFieldOffset = new Vector3(0.0f, 0f, 0f);
-    private Vector3 covrDoorOffset = new Vector3(0.65f, 0f, 0f);
+    private Vector3 covrDoorOffset = new Vector3(0.5f, 0f, 0f);
     private bool computingForceFields = false;
 
     void Start()
@@ -104,7 +104,7 @@ public class ForceFieldManager : MonoBehaviour
         {
             return;
         }
-        targetPosition = FindClosestObstacle()
+        targetPosition = FindClosestObstacle();
         if (isClosestObstacleDoor){
             targetPosition += covrDoorOffset;
         } else {
