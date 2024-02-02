@@ -46,7 +46,7 @@ public class LevelBuilder : MonoBehaviour
     {
         // Generate a random level
         System.Console.SetOut(new DebugLogWriter());
-        Debug.Log("Generating a random level...");
+        UnityEngine.Debug.Log("Generating a random level...");
         if(nSquareByColor.Count != nSunByColor.Count){
             throw new System.ArgumentException("The number of colors for squares and suns must be the same");
         }
@@ -54,22 +54,22 @@ public class LevelBuilder : MonoBehaviour
             solution = Generator.GenerateLevel(dim, dim, nWalls, nHexagon, nSquareByColor.Count, nSquareByColor, nSunByColor);
         }
         catch(System.Exception e){
-            Debug.Log(e.Message);
-            Debug.Log("Level generation failed!");
+            UnityEngine.Debug.Log(e.Message);
+            UnityEngine.Debug.Log("Level generation failed!");
             return;
         }
         panel = solution.GetPanel();
-        panel.WriteToFile(Application.dataPath + "/demoScene/LAByrinth/Levels/level1.txt");
-        Debug.Log(panel.GetStart().Second + ", " + panel.GetStart().First);
-        Debug.Log(panel.GetEnd().Second + ", " + panel.GetEnd().First);
-        //Debug.Log("Level generated!");
+        // panel.WriteToFile(Application.dataPath + "/demoScene/LAByrinth/Levels/level1.txt");
+        UnityEngine.Debug.Log(panel.GetStart().Second + ", " + panel.GetStart().First);
+        UnityEngine.Debug.Log(panel.GetEnd().Second + ", " + panel.GetEnd().First);
+        //UnityEngine.Debug.Log("Level generated!");
         gridLevel = CreateGrid();
         Vector3[] solPoints = new Vector3[solution.GetPoints().Count];
         for (int i = 0; i < solution.GetPoints().Count; i++)
         {
-            // Debug.Log("solPoint: " + solution.GetPoints()[i].Second + ", " + solution.GetPoints()[i].First);
+            // UnityEngine.Debug.Log("solPoint: " + solution.GetPoints()[i].Second + ", " + solution.GetPoints()[i].First);
             solPoints[i] = gridLevel.GetCellWorldPosition(solution.GetPoints()[i].Second, solution.GetPoints()[i].First) + new Vector3(0f, 0.15f, 0f);
-            // Debug.Log("solPoint in world: " + solPoints[i]);
+            // UnityEngine.Debug.Log("solPoint in world: " + solPoints[i]);
         }
         solutionLine.GetComponent<LineRenderer>().positionCount = solPoints.Length;
         solutionLine.GetComponent<LineRenderer>().SetPositions(solPoints);
@@ -83,10 +83,10 @@ public class LevelBuilder : MonoBehaviour
         List<Tuple<int, int>> squares = solution.GetPanel().GetSquarePositions();
         List<Tuple<int, int>> suns = solution.GetPanel().GetSunPositions();
         // foreach(Tuple<int, int> square in squares){
-        //     Debug.Log("square at " + square.Second + ", " + square.First);
+        //     UnityEngine.Debug.Log("square at " + square.Second + ", " + square.First);
         // }
         // foreach(Tuple<int, int> sun in suns){
-        //     Debug.Log("sun at " + sun.Second + ", " + sun.First);
+        //     UnityEngine.Debug.Log("sun at " + sun.Second + ", " + sun.First);
         // }
         if (dim == 3) {
             ref_obj = origin_3x3;
@@ -119,7 +119,7 @@ public class LevelBuilder : MonoBehaviour
                     yield return new WaitForSeconds(0.2f);
                     int pillar_i = dim * 2 - (j * 2 + 1);
                     int pillar_j = dim * 2 - (i * 2 + 1);
-                    // Debug.Log("pillar at " + pillar_j + ", " + pillar_i);
+                    // UnityEngine.Debug.Log("pillar at " + pillar_j + ", " + pillar_i);
                     GameObject newChild;
                     if (squares.Contains(new Tuple<int, int>(pillar_j, pillar_i))) {
                         newChild = Instantiate(squarePrefabsByColor[solution.GetPanel().GetSymbol(pillar_j, pillar_i).GetColorId()], new Vector3(), pillarsParent.transform.rotation);
@@ -136,10 +136,19 @@ public class LevelBuilder : MonoBehaviour
             }
         }
         ffm.StartComputingForceFields();
-        Debug.Log("gridLevel = " + gridLevel.ToString());
-        Debug.Log("endDoor = " + GameObject.FindObjectOfType<EndDoor>().ToString());
+        UnityEngine.Debug.Log("gridLevel = " + gridLevel.ToString());
+        UnityEngine.Debug.Log("endDoor = " + GameObject.FindObjectOfType<EndDoor>().ToString());
         GameObject.FindObjectOfType<EndDoor>().AddGridLab(gridLevel);
         mapGenerator.generateMap(this, panel);
+        if (dim == 3) {
+            // rotate the map by 45 degrees and scale it by a factor of 0.5
+            GameObject.Find("MapFond3x3").transform.Rotate(0.0f, -45.0f, 0.0f);
+            GameObject.Find("MapFond3x3").transform.localScale =  GameObject.Find("MapFond3x3").transform.localScale * 0.5f;
+        } else {
+            // rotate the map by 45 degrees and scale it by a factor of 0.5
+            GameObject.Find("MapFond4x4").transform.Rotate(0.0f, -45.0f, 0.0f);
+            GameObject.Find("MapFond4x4").transform.localScale = GameObject.Find("MapFond4x4").transform.localScale * 0.5f;
+        }
     }
 
     public static void InitiatePlayerLine(GameObject startBlock) {
@@ -174,13 +183,13 @@ public class LevelBuilder : MonoBehaviour
         newChild.GetComponent<GridLab>().SetPanel(panel);
         newChild.GetComponent<GridLab>().startingY = 0;
         foreach(Tuple<int, int> hexPos in solution.GetPanel().GetHexagonPositions()){
-            // Debug.Log("hexagon at " + hexPos.Second + ", " + hexPos.First);
+            // UnityEngine.Debug.Log("hexagon at " + hexPos.Second + ", " + hexPos.First);
             newChild.GetComponent<GridLab>().instantiateAt((int)hexPos.Second, (int)hexPos.First, hexPrefab);
         }
 
         List<Tuple<int, int>> allwalls = solution.GetPanel().GetWallPositions();
         foreach(Tuple<int, int> wallPos in allwalls){
-            // Debug.Log("wall at " + wallPos.Second + ", " + wallPos.First);
+            // UnityEngine.Debug.Log("wall at " + wallPos.Second + ", " + wallPos.First);
             newChild.GetComponent<GridLab>().ActivateWallFF((int)wallPos.Second, (int)wallPos.First, true);
         }
         // Create a List with all possible wall positions such as y%2==1

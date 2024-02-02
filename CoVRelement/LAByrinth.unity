@@ -1039,7 +1039,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotatingSpiderman: {fileID: 446871162402319833, guid: 4d812ab9f2895674bbc777c99612f6aa,
     type: 3}
-  howMany: 25
+  howMany: 10
 --- !u!1 &953965636
 GameObject:
   m_ObjectHideFlags: 0
@@ -1507,12 +1507,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b892580ad9652b4d912d0a6c1215964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dim: 3
-  nWalls: 1
+  dim: 4
+  nWalls: 2
   nFakeWalls: 0
   nHexagon: 0
-  nSquareByColor: 00000000
-  nSunByColor: 06000000
+  nSquareByColor: 0000000000000000
+  nSunByColor: 0200000004000000
   pillarsParent: {fileID: 2054776974}
   origin_4x4: {fileID: 773112275}
   origin_3x3: {fileID: 504799935}
