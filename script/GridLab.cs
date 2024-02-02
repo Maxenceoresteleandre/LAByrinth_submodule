@@ -45,6 +45,18 @@ public class GridLab : MonoBehaviour
                     Debug.Log("Validity: " + result[0] + ", " + result[1] + ", " + result[2]);
                     int [] buggy = pp.BuggyRulesSuns();
                     Debug.Log("Buggy: " + buggy[0] + ", " + buggy[1] + ", " + buggy[2]);
+                    if(buggy[0] > 0){
+                        // enable 
+                        GameObject.Find("Indice1").GetComponent<SpriteRenderer>().enabled = true;
+                    }
+                    if(buggy[1] > 0){
+                        // enable 
+                        GameObject.Find("Indice2").GetComponent<SpriteRenderer>().enabled = true;
+                    }
+                    if(buggy[2] > 0){
+                        // enable 
+                        GameObject.Find("Indice3").GetComponent<SpriteRenderer>().enabled = true;
+                    }
                     List<Tuple<int, int>> test = panel.GetPathAdjacentPillars(Utils.InvertTupleList(sequence)[3].First, Utils.InvertTupleList(sequence)[3].Second);
                     foreach (Tuple<int, int> t in test){
                         Debug.Log("Adjacent Pillars: " + t.First + ", " + t.Second);
