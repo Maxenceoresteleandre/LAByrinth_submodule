@@ -13,6 +13,8 @@ public class ForceFieldManager : MonoBehaviour
     private bool isClosestObstacleDoor = false;
     public Vector3 doorClosePose;
     public Vector3 doorOpenPose;
+    private Vector3 covrForceFieldOffset = new Vector3(0.0f, 0f, 0f);
+    private Vector3 covrDoorOffset = new Vector3(0.65f, 0f, 0f);
     private bool computingForceFields = false;
 
     void Start()
@@ -73,13 +75,13 @@ public class ForceFieldManager : MonoBehaviour
         {
             closestObstacle = door.transform.position;
             isClosestObstacleDoor = true;
-            //Debug.Log(strDists + "=> DOOR");
+            Debug.Log(strDists + "=> DOOR");
         }
         else
         {
             closestObstacle = obstaclePositions[i-1];
             isClosestObstacleDoor = false;
-            //Debug.Log(strDists + "=> FORCEFIELD");
+            Debug.Log(strDists + "=> FORCEFIELD");
         }
         return closestObstacle;
     }
@@ -102,13 +104,18 @@ public class ForceFieldManager : MonoBehaviour
         {
             return;
         }
-        targetPosition = FindClosestObstacle();
+        targetPosition = FindClosestObstacle()
+        if (isClosestObstacleDoor){
+            targetPosition += covrDoorOffset;
+        } else {
+            targetPosition += covrForceFieldOffset;
+        }
         Sm.ChangeDefaultTrackedObjectPos(targetPosition);
         // move dummy to targetPosition
         if (dummyToMove != null && targetPosition != dummyToMove.transform.position)
         {
             dummyToMove.transform.position = targetPosition;
-            //Debug.Log("dummyToMove.transform.position = " + dummyToMove.transform.position.ToString());
+            Debug.Log("dummyToMove.transform.position = " + dummyToMove.transform.position.ToString());
         }
     }
 }
