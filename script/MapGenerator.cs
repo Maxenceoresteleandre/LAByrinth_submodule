@@ -19,7 +19,9 @@ public class MapGenerator : MonoBehaviour
     public GameObject Square;
     public GameObject Sun;
     public GameObject Wall;
-    public GameObject FakeWall;
+    public GameObject FakeWall3;
+    public GameObject FakeWall4;
+
 
 
     public GameObject Starting;
@@ -27,18 +29,12 @@ public class MapGenerator : MonoBehaviour
 
     public float pos_z = 0;
 
-    // void Start(){
-    //     StartPlatform = GameObject.FindGameObjectsWithTag("Start")[0];
-    //     Debug.Log("taaaag : " + StartPlatform.tag);
-    //     // Map3x3 = GameObject.FindGameObjectsWithTag("Map3x3")[0];
-    //     // Map4x4 = GameObject.FindGameObjectsWithTag("Map4x4")[0];
 
-    // }
-    // Start is called before the first frame update
     public void generateMap(LevelBuilder level, Panel panel)
     {
-        // GameObject StartPlatform = GameObject.FindGameObjectsWithTag("Start")[0];
-        // Debug.Log("taaaag : " + StartPlatform.tag);
+        Map3x3 = GameObject.FindGameObjectWithTag("Map3x3");
+        Map4x4 = GameObject.FindGameObjectWithTag("Map4x4");        
+
         if (level.dim == 3)
         {
             Debug.Log("dimension : "+level.dim);
@@ -70,10 +66,6 @@ public class MapGenerator : MonoBehaviour
             {
                 createWall3x3((float)wallPos.Second, (float)wallPos.First);
             }
-            // foreach (Tuple<int, int> fakeWallPos in level.GetFakeWallPositions())
-            // {
-            //     createFakeWall3x3((float)fakeWallPos.Second, (float)fakeWallPos.First);
-            // }
         }
         else
         {
@@ -102,10 +94,6 @@ public class MapGenerator : MonoBehaviour
             {
                 createWall4x4((float)wallPos.Second, (float)wallPos.First);
             }
-            // foreach (Tuple<int, int> fakeWallPos in level.GetFakeWallPositions())
-            // {
-            //     createFakeWall4x4((float)fakeWallPos.Second, (float)fakeWallPos.First);
-            // }
         }
 
     }
@@ -165,25 +153,28 @@ public class MapGenerator : MonoBehaviour
 
     public void createWall3x3(float gridX, float gridY)
     {
-        GameObject wall = Instantiate(Wall, Map3x3.transform.position + new Vector3(0.3f-gridX*0.1f,-0.3f+gridY*0.1f,pos_z), Wall.transform.rotation, Map3x3.transform);
-        wall.transform.parent = Map3x3.transform;
+        if (gridX%2 == 0)
+        {
+            GameObject fakeWall = Instantiate(FakeWall3, Map3x3.transform.position + new Vector3(0.3f-gridX*0.1f,-0.3f+gridY*0.1f,pos_z), FakeWall3.transform.rotation, Map3x3.transform);
+            fakeWall.transform.parent = Map3x3.transform;
+        }
+        else
+        {
+            GameObject wall = Instantiate(Wall, Map3x3.transform.position + new Vector3(0.3f-gridX*0.1f,-0.3f+gridY*0.1f,pos_z), Wall.transform.rotation, Map3x3.transform);
+            wall.transform.parent = Map3x3.transform;
+        }
+        
     }
-
-    // public void createFakeWall3x3(float gridX, float gridY)
-    // {
-    //     GameObject fakeWall = Instantiate(FakeWall, Map3x3.transform.position + new Vector3(0.3f-gridX*0.1f,-0.3f+gridY*0.1f,pos_z), FakeWall.transform.rotation, Map3x3.transform);
-    //     fakeWall.transform.parent = Map3x3.transform;
-    // }
 
     public void createStart4x4(float gridX)
     {
-        GameObject start = Instantiate(Starting, Map4x4.transform.position + new Vector3(0.33f-gridX*0.0825f,-0.33f,pos_z), Starting.transform.rotation, Map4x4.transform);
+        GameObject start = Instantiate(Starting, Map4x4.transform.position + new Vector3(0.3f-gridX*0.075f,-0.3f,pos_z), Starting.transform.rotation, Map4x4.transform);
         start.transform.parent = Map4x4.transform;
     }
 
     public void createEnd4x4(float gridX)
     {
-        GameObject end = Instantiate(Ending, Map4x4.transform.position + new Vector3(0.33f-gridX*0.0825f,0.33f,pos_z), Ending.transform.rotation, Map4x4.transform);
+        GameObject end = Instantiate(Ending, Map4x4.transform.position + new Vector3(0.3f-gridX*0.075f,0.3f,pos_z), Ending.transform.rotation, Map4x4.transform);
         end.transform.parent = Map4x4.transform;
     }
 
@@ -192,7 +183,7 @@ public class MapGenerator : MonoBehaviour
     {
         // Debug.Log(Map3x3.transform.position.x);
         // Debug.Log(Map3x3.transform.position.y);
-        GameObject hex = Instantiate(Hex, Map4x4.transform.position + new Vector3(0.33f-gridX*0.0825f,-0.33f+gridY*0.0825f,pos_z), Hex.transform.rotation, Map4x4.transform);
+        GameObject hex = Instantiate(Hex, Map4x4.transform.position + new Vector3(0.3f-gridX*0.075f,-0.3f+gridY*0.075f,pos_z), Hex.transform.rotation, Map4x4.transform);
         hex.transform.parent = Map4x4.transform;
     }
 
@@ -207,7 +198,7 @@ public class MapGenerator : MonoBehaviour
             color = color2;
         if (colorindex == 3)
             color = color3;
-        GameObject square = Instantiate(Square, Map4x4.transform.position + new Vector3(0.33f-gridX*0.0825f,-0.33f+gridY*0.0825f,pos_z), Square.transform.rotation, Map4x4.transform);
+        GameObject square = Instantiate(Square, Map4x4.transform.position + new Vector3(0.3f-gridX*0.075f,-0.3f+gridY*0.075f,pos_z), Square.transform.rotation, Map4x4.transform);
         square.GetComponent<Renderer>().material.color = color;
         square.transform.parent = Map4x4.transform;
     }
@@ -223,20 +214,23 @@ public class MapGenerator : MonoBehaviour
             color = color2;
         if (colorindex == 3)
             color = color3;
-        GameObject sun = Instantiate(Sun, Map4x4.transform.position + new Vector3(0.33f-gridX*0.0825f,-0.33f+gridY*0.0825f,pos_z), Sun.transform.rotation, Map4x4.transform);
+        GameObject sun = Instantiate(Sun, Map4x4.transform.position + new Vector3(0.3f-gridX*0.075f,-0.3f+gridY*0.075f,pos_z), Sun.transform.rotation, Map4x4.transform);
         sun.GetComponent<Renderer>().material.color = color;
         sun.transform.parent = Map4x4.transform;
     }
 
     public void createWall4x4(float gridX, float gridY)
     {
-        GameObject wall = Instantiate(Wall, Map4x4.transform.position + new Vector3(0.33f-gridX*0.0825f,-0.33f+gridY*0.0825f,pos_z), Wall.transform.rotation, Map4x4.transform);
-        wall.transform.parent = Map4x4.transform;
+        if (gridX%2 == 0)
+        {
+            GameObject fakeWall = Instantiate(FakeWall4, Map4x4.transform.position + new Vector3(0.3f-gridX*0.075f,-0.3f+gridY*0.075f,pos_z), FakeWall4.transform.rotation, Map4x4.transform);
+            fakeWall.transform.parent = Map4x4.transform;
+        }
+        else
+        {
+            GameObject wall = Instantiate(Wall, Map4x4.transform.position + new Vector3(0.3f-gridX*0.075f,-0.3f+gridY*0.075f,pos_z), Wall.transform.rotation, Map4x4.transform);
+            wall.transform.parent = Map4x4.transform;
+        }
+        
     }
-
-    // public void createFakeWall3x3(float gridX, float gridY)
-    // {
-    //     GameObject fakeWall = Instantiate(FakeWall, Map3x3.transform.position + new Vector3(0.3f-gridX*0.1f,-0.3f+gridY*0.1f,pos_z), FakeWall.transform.rotation, Map3x3.transform);
-    //     fakeWall.transform.parent = Map3x3.transform;
-    // }
 }

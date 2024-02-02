@@ -53,7 +53,9 @@ MonoBehaviour:
   Square: {fileID: 2722807739691899936, guid: ab4488e4d6c4cd348b6ea934f4a76507, type: 3}
   Sun: {fileID: 8269362838068114961, guid: a807bbcc43445104db670f98ce1a06aa, type: 3}
   Wall: {fileID: 1063778964283973778, guid: f5506a39958b2814db909a44ecc5c7e6, type: 3}
-  FakeWall: {fileID: 7812327282815904892, guid: ce4df0ab2b13ad243986928c85482112,
+  FakeWall3: {fileID: 7812327282815904892, guid: ce4df0ab2b13ad243986928c85482112,
+    type: 3}
+  FakeWall4: {fileID: 1648092259550250200, guid: 35f7df376d9decf4cab034669691ee9a,
     type: 3}
   Starting: {fileID: 8136414617911434166, guid: 68c9e6212486b8046af3555d4294260b,
     type: 3}
