@@ -42,10 +42,21 @@ public class LevelBuilder : MonoBehaviour
     public RunBKT runBKT;
     public MapGenerator mapGenerator;
 
-    void Start()
+    private void Start() {
+        GenerateLevel();
+    }
+
+    public IEnumerator DelayedGenerateLevel() {
+        Debug.Log("hey, we should be goo here right ?");
+        yield return new WaitForSeconds(3.0f);
+        GenerateLevel(false);
+    }
+
+    public void GenerateLevel(bool resetPlayerPos = true)
     {
         // Generate a random level
         System.Console.SetOut(new DebugLogWriter());
+        solutionLine.GetComponent<LineRenderer>().positionCount = 0;
         Debug.Log("Generating a random level...");
         if(nSquareByColor.Count != nSunByColor.Count){
             throw new System.ArgumentException("The number of colors for squares and suns must be the same");
@@ -73,10 +84,10 @@ public class LevelBuilder : MonoBehaviour
         }
         solutionLine.GetComponent<LineRenderer>().positionCount = solPoints.Length;
         solutionLine.GetComponent<LineRenderer>().SetPositions(solPoints);
-        StartCoroutine(CreateLevelPillars());
+        StartCoroutine(CreateLevelPillars(resetPlayerPos));
     }
 
-    IEnumerator CreateLevelPillars() {
+    IEnumerator CreateLevelPillars(bool resetPlayerPos = true) {
         ForceFieldManager ffm = GameObject.Find("ForceFieldManager").GetComponent<ForceFieldManager>();
         //ffm.RemoveAllForceFields();
         GameObject ref_obj;
@@ -102,7 +113,9 @@ public class LevelBuilder : MonoBehaviour
                         newChild.transform.parent = pillarsParent.transform;
                         newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset - 0.5f*pillar_offset), Space.Self);
                         newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                        GameObject.Find("Player").transform.position = newChild.transform.position;
+                        if (resetPlayerPos) {
+                            GameObject.Find("Player").transform.position = newChild.transform.position;
+                        }
                         InitiatePlayerLine(newChild);
                     }
                 }
