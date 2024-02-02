@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class LevelBuilder : MonoBehaviour
 {
     public const bool SIZE_3x3 = false;
@@ -40,6 +39,7 @@ public class LevelBuilder : MonoBehaviour
     // x c'est marcher sur le côté
     private PlayerPath solution;
     private Panel panel;
+    public RunBKT runBKT;
     public MapGenerator mapGenerator;
 
     void Start()
@@ -140,8 +140,8 @@ public class LevelBuilder : MonoBehaviour
         Debug.Log("endDoor = " + GameObject.FindObjectOfType<EndDoor>().ToString());
         GameObject.FindObjectOfType<EndDoor>().AddGridLab(gridLevel);
         mapGenerator.generateMap(this, panel);
+        runBKT.runBKTwithPython(0,1);
     }
-
     public static void InitiatePlayerLine(GameObject startBlock) {
         GameObject playerLine = GameObject.Find("PlayerLine");
         playerLine.GetComponent<LineManager>().StartDrawingLine(startBlock);
