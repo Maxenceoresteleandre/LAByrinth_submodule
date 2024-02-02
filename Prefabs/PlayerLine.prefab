@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2144990663115273676}
   m_Layer: 0
   m_Name: PlayerLine
-  m_TagString: Untagged
+  m_TagString: PlayerLine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Positions: []
   m_Parameters:
     serializedVersion: 3
@@ -143,3 +143,4 @@ MonoBehaviour:
   validLineMaterial: {fileID: 2100000, guid: a51c45ba23e98f94b885cbeb0e3c14a4, type: 2}
   invalidLineMaterial: {fileID: 2100000, guid: 7ec19cc729eea30459a3c70e6eda1348, type: 2}
   updatingLine: 1
+  isLineValid: 1

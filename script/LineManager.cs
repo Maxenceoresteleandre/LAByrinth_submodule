@@ -8,13 +8,14 @@ public class LineManager : MonoBehaviour
     public Material validLineMaterial;
     public Material invalidLineMaterial;
     public bool updatingLine = true;
+    public bool isLineValid = true;
 
     public void StartDrawingLine(GameObject startBlock)
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
         Vector3 startBlockPosition = startBlock.transform.position;
-        lineRenderer.SetPosition(0, new Vector3(startBlockPosition.x, 0.1f, startBlockPosition.z));
+        lineRenderer.SetPosition(0, new Vector3(startBlockPosition.x, 0.2f, startBlockPosition.z));
     }
 
     // Update is called once per frame
@@ -26,10 +27,12 @@ public class LineManager : MonoBehaviour
             }
             Vector3 playerPosition = Camera.main.transform.position;
             // Debug.Log(lineRenderer == null);
-            lineRenderer.SetPosition(lineRenderer.positionCount-1, new Vector3(playerPosition.x, 0.1f, playerPosition.z));
+            lineRenderer.SetPosition(lineRenderer.positionCount-1, new Vector3(playerPosition.x, 0.2f, playerPosition.z));
             if (DoesLineIntersect()){
+                isLineValid = false;
                 lineRenderer.material = invalidLineMaterial;
             } else {
+                isLineValid = true;
                 lineRenderer.material = validLineMaterial;
             }
             Vector3[] newPos = new Vector3[lineRenderer.positionCount];
