@@ -8,6 +8,7 @@ public class EndDoor : MonoBehaviour
     private bool isDoorOpen = false;
     private Vector3 positionDoorOpen;
     private Vector3 positionDoorClose;
+    private GridLab gridLab;
 
     void Start()
     {
@@ -15,6 +16,11 @@ public class EndDoor : MonoBehaviour
         positionDoorClose = transform.position;
         positionDoorOpen = transform.position + new Vector3(1.0f, 0f, 0f);
         Debug.Log("ADD CHECK FOR LEVEL PATH VALIDITY HERE!");
+    }
+
+    public void AddGridLab(GridLab gridLab)
+    {
+        this.gridLab = gridLab;
     }
 
     void Update()
@@ -30,7 +36,10 @@ public class EndDoor : MonoBehaviour
         {
             tmpIsOpen = false;
         }
-        //Debug.Log("ADD CHECK FOR LEVEL PATH VALIDITY HERE!");
+        if (gridLab != null && !gridLab.CheckPathValididy())
+        {
+            tmpIsOpen = false;
+        }
         if (tmpIsOpen && !isDoorOpen)
         {
             DoorAnimation(true);

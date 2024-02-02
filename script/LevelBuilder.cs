@@ -78,7 +78,7 @@ public class LevelBuilder : MonoBehaviour
 
     IEnumerator CreateLevelPillars() {
         ForceFieldManager ffm = GameObject.Find("ForceFieldManager").GetComponent<ForceFieldManager>();
-        ffm.RemoveAllForceFields();
+        //ffm.RemoveAllForceFields();
         GameObject ref_obj;
         List<Tuple<int, int>> squares = solution.GetPanel().GetSquarePositions();
         List<Tuple<int, int>> suns = solution.GetPanel().GetSunPositions();
@@ -163,6 +163,8 @@ public class LevelBuilder : MonoBehaviour
         }
         newChild.transform.parent = pillarsParent.transform;
         newChild.transform.Translate(ref_obj.transform.position, Space.Self);
+
+        GameObject.Find("EndDoor").GetComponent<EndDoor>().AddGridLab(GridLab gridLab);
         
         newChild.GetComponent<GridLab>().startingX = solution.GetPanel().GetStart().Second;
         newChild.GetComponent<GridLab>().endingX = solution.GetPanel().GetEnd().Second;

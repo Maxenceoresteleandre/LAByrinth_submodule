@@ -58,9 +58,11 @@ public class ForceFieldManager : MonoBehaviour
         Vector3 playerPos = player.transform.position;
         Vector3 closestObstacle = Vector3.zero;
         int i;
+        string strDists = "distances :: ";
         for (i = 0; i < obstaclePositions.Count; i++)
         {
             float distance = Vector3.Distance(obstaclePositions[i], playerPos);
+            strDists += " ; [" + i + "]=" + distance;
             if (distance < minDistance)
             {
                 minDistance = distance;
@@ -68,15 +70,18 @@ public class ForceFieldManager : MonoBehaviour
         }
         Vector3 doorPos = door.transform.position;
         float distanceToDoor = Vector3.Distance(new Vector3(doorPos.x, 0f, doorPos.z), playerPos);
+        strDists += " ; door=" + distanceToDoor;
         if (distanceToDoor < minDistance)
         {
             closestObstacle = door.transform.position;
             isClosestObstacleDoor = true;
+            //Debug.Log(strDists + "=> DOOR");
         }
         else
         {
-            closestObstacle = obstaclePositions[i];
+            closestObstacle = obstaclePositions[i-1];
             isClosestObstacleDoor = false;
+            //Debug.Log(strDists + "=> FORCEFIELD");
         }
         return closestObstacle;
     }

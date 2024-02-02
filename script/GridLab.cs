@@ -30,6 +30,11 @@ public class GridLab : MonoBehaviour
         ActivateStartingCell();
     }
 
+    public void CheckPathValididy(){
+        int[] result = new PlayerPath(panel, Utils.InvertTupleList(sequence)).isPathValid();
+        return ((result[0] + result[1] + result[2]) == 0);
+    }
+
     void Update(){
         if (IsInGrid(Camera.main.transform.position)){
             Tuple<int,int> gridPosition = GetGridPosition(Camera.main.transform.position);
