@@ -69,7 +69,7 @@ public class LevelBuilder : MonoBehaviour
         for (int i = 0; i < solution.GetPoints().Count; i++)
         {
             // Debug.Log("solPoint: " + solution.GetPoints()[i].Second + ", " + solution.GetPoints()[i].First);
-            solPoints[i] = gridLevel.GetCellWorldPosition(solution.GetPoints()[i].Second, solution.GetPoints()[i].First) + new Vector3(0f, 0.1f, 0f);
+            solPoints[i] = gridLevel.GetCellWorldPosition(solution.GetPoints()[i].Second, solution.GetPoints()[i].First) + new Vector3(0f, 0.15f, 0f);
             // Debug.Log("solPoint in world: " + solPoints[i]);
         }
         solutionLine.GetComponent<LineRenderer>().positionCount = solPoints.Length;
