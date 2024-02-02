@@ -11,7 +11,7 @@ public class RunBKT : MonoBehaviour
 {
     public void runBKTwithPython(int user_id, int correct)
     {
-        string pythonPath = @"C:\Python27\python.exe";
+        string pythonPath = @"C:\Users\ameli\AppData\Local\Microsoft\WindowsApps\python.exe";
         string scriptPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/bkt.py");
         UnityEngine.Debug.Log("LAAAAAAAAAAAAAAAAAAAAAAAAAAA" + scriptPath);
 
@@ -26,6 +26,7 @@ public class RunBKT : MonoBehaviour
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.WindowStyle = ProcessWindowStyle.Normal;
             startInfo.Arguments = $"{scriptPath} {user_id} {correct}";
+            // startInfo.Arguments = scriptPath;
             startInfo.FileName = pythonPath;
             startInfo.UseShellExecute = false;
             startInfo.RedirectStandardOutput = true;
