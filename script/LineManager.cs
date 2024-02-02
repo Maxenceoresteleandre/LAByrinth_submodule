@@ -15,7 +15,7 @@ public class LineManager : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
         Vector3 startBlockPosition = startBlock.transform.position;
-        lineRenderer.SetPosition(0, new Vector3(startBlockPosition.x, 0.1f, startBlockPosition.z));
+        lineRenderer.SetPosition(0, new Vector3(startBlockPosition.x, 0.15f, startBlockPosition.z));
     }
 
     // Update is called once per frame
