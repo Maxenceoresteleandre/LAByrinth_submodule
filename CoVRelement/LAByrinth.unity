@@ -1039,8 +1039,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotatingSpiderman: {fileID: 446871162402319833, guid: 4d812ab9f2895674bbc777c99612f6aa,
     type: 3}
-  distanceFromOrigin: 100
-  howMany: 18
+  howMany: 25
 --- !u!1 &953965636
 GameObject:
   m_ObjectHideFlags: 0
