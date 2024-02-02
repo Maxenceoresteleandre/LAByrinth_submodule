@@ -6,6 +6,8 @@ public class LineResetter : MonoBehaviour
 {
     private Transform player;
     public GameObject startPlatformCenter;
+    public bool reloadLevel = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,13 @@ public class LineResetter : MonoBehaviour
         if (startPlatformCenter.GetComponent<Collider>().bounds.Contains(player.position)){
             GameObject.FindWithTag("LevelGrid").GetComponent<GridLab>().SetLastGridPositionNone();
             GridLab.ResetLine();
+
+            if (reloadLevel){
+                reloadLevel = false;
+                GameObject.Find("LevelBuilder").GetComponent<LevelBuilder>().GenerateLevel();
+                UnwantedChildrenKiller uck = GameObject.Find("PillarsParent").GetComponent<UnwantedChildrenKiller>();
+                StartCoroutine(uck.KillStartAndEnd());
+            }
         }
     }
 }

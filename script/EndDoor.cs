@@ -41,12 +41,12 @@ public class EndDoor : MonoBehaviour
         }
         if (tmpIsOpen && !isDoorOpen)
         {
-            //DoorAnimation(true);
+            DoorAnimation(true);
             isDoorOpen = true;
         } 
         else if (!tmpIsOpen && isDoorOpen)
         {
-            //DoorAnimation(false);
+            DoorAnimation(false);
             isDoorOpen = false;
         }
     }

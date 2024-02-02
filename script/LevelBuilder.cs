@@ -42,7 +42,11 @@ public class LevelBuilder : MonoBehaviour
     private Panel panel;
     public MapGenerator mapGenerator;
 
-    void Start()
+    private void Start() {
+        GenerateLevel();
+    }
+
+    public void GenerateLevel()
     {
         // Generate a random level
         System.Console.SetOut(new DebugLogWriter());

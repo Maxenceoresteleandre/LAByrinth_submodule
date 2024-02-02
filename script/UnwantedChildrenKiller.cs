@@ -18,8 +18,18 @@ public class UnwantedChildrenKiller : MonoBehaviour
         InstantiateGround();
     }
 
+    public IEnumerator KillStartAndEnd(){
+        foreach (Transform child in transform)
+        {
+            if (child.tag == "Start" || child.tag == "End"){
+                child.gameObject.AddComponent<GoDieInSpace>();
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+    }
+
     private void InstantiateGround(){
-        Instantiate(bigGround, new Vector3(0f, 0f, 0f), Quaternion.identity);
+        Instantiate(bigGround, new Vector3(2.5f, 0f, 0f), Quaternion.identity);
     }
 
     public bool IsTagToKeep(string tag){
