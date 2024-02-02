@@ -75,13 +75,13 @@ public class ForceFieldManager : MonoBehaviour
         {
             closestObstacle = door.transform.position;
             isClosestObstacleDoor = true;
-            Debug.Log(strDists + "=> DOOR");
+            //Debug.Log(strDists + "=> DOOR");
         }
         else
         {
             closestObstacle = obstaclePositions[i-1];
             isClosestObstacleDoor = false;
-            Debug.Log(strDists + "=> FORCEFIELD");
+            //Debug.Log(strDists + "=> FORCEFIELD");
         }
         return closestObstacle;
     }
