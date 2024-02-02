@@ -2278,6 +2278,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Low Crawl
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1b0dec8b6ee33fa41b7d19e63c034a8f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b0dec8b6ee33fa41b7d19e63c034a8f, type: 3}
 --- !u!4 &1649825958 stripped

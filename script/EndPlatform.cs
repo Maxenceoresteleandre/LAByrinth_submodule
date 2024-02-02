@@ -18,6 +18,7 @@ public class EndPlatform : MonoBehaviour
         // if player is too close to the start, we reset the line in levelGrid
         if (endPlatformCenter.GetComponent<Collider>().bounds.Contains(player.position)){
             // GO TO NEXT LEVEL
+            Debug.Log("You win!");
         }
     }
 }
