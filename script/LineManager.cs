@@ -27,7 +27,7 @@ public class LineManager : MonoBehaviour
             }
             Vector3 playerPosition = Camera.main.transform.position;
             // Debug.Log(lineRenderer == null);
-            lineRenderer.SetPosition(lineRenderer.positionCount-1, new Vector3(playerPosition.x, 0.1f, playerPosition.z));
+            lineRenderer.SetPosition(lineRenderer.positionCount-1, new Vector3(playerPosition.x, 0.15f, playerPosition.z));
             if (DoesLineIntersect()){
                 isLineValid = false;
                 lineRenderer.material = invalidLineMaterial;
