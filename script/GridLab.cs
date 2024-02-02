@@ -40,8 +40,16 @@ public class GridLab : MonoBehaviour
                     Debug.Log("Player has reached the end of the maze!");
                     currentSequenceOfPositions.Add(gridPosition);
                     List<Tuple<int,int>> sequence = stopRecordingSequence();
-                    int[] result = new PlayerPath(panel, Utils.InvertTupleList(sequence)).isPathValid();
+                    PlayerPath pp = new PlayerPath(panel, Utils.InvertTupleList(sequence));
+                    int[] result = pp.isPathValid();
                     Debug.Log("Validity: " + result[0] + ", " + result[1] + ", " + result[2]);
+                    int [] buggy = pp.BuggyRulesSuns();
+                    Debug.Log("Buggy: " + buggy[0] + ", " + buggy[1] + ", " + buggy[2]);
+                    List<Tuple<int, int>> test = panel.GetPathAdjacentPillars(Utils.InvertTupleList(sequence)[3].First, Utils.InvertTupleList(sequence)[3].Second);
+                    foreach (Tuple<int, int> t in test){
+                        Debug.Log("Adjacent Pillars: " + t.First + ", " + t.Second);
+                    }
+
                 }
                 if (gridPosition.First == startingPosition.First && gridPosition.Second == startingPosition.Second){
                     Debug.Log("Player has reached the start of the maze!");
