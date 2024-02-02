@@ -59,7 +59,7 @@ public class LevelBuilder : MonoBehaviour
             return;
         }
         panel = solution.GetPanel();
-        panel.WriteToFile(Application.dataPath + "/demoScene/LAByrinth/Levels/level1.txt");
+        //panel.WriteToFile(Application.dataPath + "/demoScene/LAByrinth/Levels/level1.txt");
         Debug.Log(panel.GetStart().Second + ", " + panel.GetStart().First);
         Debug.Log(panel.GetEnd().Second + ", " + panel.GetEnd().First);
         //Debug.Log("Level generated!");
