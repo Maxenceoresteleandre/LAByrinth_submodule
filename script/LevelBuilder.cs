@@ -140,7 +140,7 @@ public class LevelBuilder : MonoBehaviour
         Debug.Log("endDoor = " + GameObject.FindObjectOfType<EndDoor>().ToString());
         GameObject.FindObjectOfType<EndDoor>().AddGridLab(gridLevel);
         mapGenerator.generateMap(this, panel);
-        runBKT.runBKTwithPython(0,1);
+        runBKT.runBKTwithPython(0,1,0);
     }
     public static void InitiatePlayerLine(GameObject startBlock) {
         GameObject playerLine = GameObject.Find("PlayerLine");

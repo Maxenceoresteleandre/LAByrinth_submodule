@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 public class RunBKT : MonoBehaviour
 {
-    public void runBKTwithPython(int user_id, int correct)
+    public void runBKTwithPython(int user_id, int skill_id, int correct)
     {
         string pythonPath = @"C:\Users\ameli\AppData\Local\Microsoft\WindowsApps\python.exe";
         string scriptPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/bkt.py");
@@ -25,7 +25,7 @@ public class RunBKT : MonoBehaviour
             // Créer le processus pour exécuter le script Python
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.WindowStyle = ProcessWindowStyle.Normal;
-            startInfo.Arguments = $"{scriptPath} {user_id} {correct}";
+            startInfo.Arguments = $"{scriptPath} {user_id} {skill_id} {correct}";
             // startInfo.Arguments = scriptPath;
             startInfo.FileName = pythonPath;
             startInfo.UseShellExecute = false;
