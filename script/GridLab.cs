@@ -35,7 +35,7 @@ public class GridLab : MonoBehaviour
             Tuple<int,int> gridPosition = GetGridPosition(Camera.main.transform.position);
             if (gridPosition.First != lastGridPosition.First || gridPosition.Second != lastGridPosition.Second){
                 ActivateNeighboursOnly(gridPosition.First, gridPosition.Second);
-                Debug.Log("Player is in grid cell: " + gridPosition.First + ", " + gridPosition.Second);
+                //Debug.Log("Player is in grid cell: " + gridPosition.First + ", " + gridPosition.Second);
                 if (gridPosition.First == endingPosition.First && gridPosition.Second == endingPosition.Second){
                     Debug.Log("Player has reached the end of the maze!");
                     currentSequenceOfPositions.Add(gridPosition);

@@ -14,11 +14,13 @@ public class ForceFieldManager : MonoBehaviour
     private bool isClosestObstacleDoor = false;
     public Vector3 doorClosePose;
     public Vector3 doorOpenPose;
+    private bool computingForceFields = false;
 
-    void Start()
+    public void StartComputingForceFields()
     {
         iTween.Defaults.easeType = iTween.EaseType.easeInOutQuad;
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.Find("Player");
+        Debug.Log("player = " + player.ToString());
         door = GameObject.FindGameObjectWithTag("TangibleDoor");
         doorPosition = door.transform.position;
 
@@ -28,11 +30,23 @@ public class ForceFieldManager : MonoBehaviour
         if (secu != null)
         {
             Sm = secu.GetComponent<SecurityManager>();
+            Debug.Log("found security controller");
         }
         else
         {
             Debug.Log("can't find security controller");
         }
+        computingForceFields = true;
+        PrintObstacles("Start");
+    }
+
+    private void PrintObstacles(string prefix){
+        string str = prefix;
+        for (int i = 0; i < obstaclePositions.Count; i++)
+        {
+            str += " ; obstaclePositions[" + i + "]=" + obstaclePositions[i].ToString();
+        }
+        Debug.Log(str);
     }
 
     private Vector3 FindClosestObstacle()
@@ -62,19 +76,20 @@ public class ForceFieldManager : MonoBehaviour
     public void AddForceField(Vector3 position)
     {
         obstaclePositions.Add(position);
-        for (int i = 0; i < obstaclePositions.Count; i++)
-        {
-            Debug.Log("obstaclePositions[" + i + "] = " + obstaclePositions[i].ToString());
-        }
+        PrintObstacles("AddForceField");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (! computingForceFields)
+        {
+            return;
+        }
         targetPosition = FindClosestObstacle();
         Sm.ChangeDefaultTrackedObjectPos(targetPosition);
         // move dummy to targetPosition
-        if (dummyToMove != null)
+        if (dummyToMove != null && targetPosition != dummyToMove.transform.position)
         {
             dummyToMove.transform.position = targetPosition;
             Debug.Log("dummyToMove.transform.position = " + dummyToMove.transform.position.ToString());
