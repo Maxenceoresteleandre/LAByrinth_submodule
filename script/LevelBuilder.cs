@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class LevelBuilder : MonoBehaviour
 {
     public const bool SIZE_3x3 = false;
@@ -40,13 +39,25 @@ public class LevelBuilder : MonoBehaviour
     // x c'est marcher sur le côté
     private PlayerPath solution;
     private Panel panel;
+    public RunBKT runBKT;
     public MapGenerator mapGenerator;
 
-    void Start()
+    private void Start() {
+        GenerateLevel();
+    }
+
+    public IEnumerator DelayedGenerateLevel() {
+        Debug.Log("hey, we should be goo here right ?");
+        yield return new WaitForSeconds(3.0f);
+        GenerateLevel(false);
+    }
+
+    public void GenerateLevel(bool resetPlayerPos = true)
     {
         // Generate a random level
         System.Console.SetOut(new DebugLogWriter());
-        UnityEngine.Debug.Log("Generating a random level...");
+        solutionLine.GetComponent<LineRenderer>().positionCount = 0;
+        Debug.Log("Generating a random level...");
         if(nSquareByColor.Count != nSunByColor.Count){
             throw new System.ArgumentException("The number of colors for squares and suns must be the same");
         }
@@ -60,9 +71,9 @@ public class LevelBuilder : MonoBehaviour
         }
         panel = solution.GetPanel();
         // panel.WriteToFile(Application.dataPath + "/demoScene/LAByrinth/Levels/level1.txt");
-        UnityEngine.Debug.Log(panel.GetStart().Second + ", " + panel.GetStart().First);
-        UnityEngine.Debug.Log(panel.GetEnd().Second + ", " + panel.GetEnd().First);
-        //UnityEngine.Debug.Log("Level generated!");
+        // Debug.Log(panel.GetStart().Second + ", " + panel.GetStart().First);
+        // Debug.Log(panel.GetEnd().Second + ", " + panel.GetEnd().First);
+        //Debug.Log("Level generated!");
         gridLevel = CreateGrid();
         Vector3[] solPoints = new Vector3[solution.GetPoints().Count];
         for (int i = 0; i < solution.GetPoints().Count; i++)
@@ -73,10 +84,10 @@ public class LevelBuilder : MonoBehaviour
         }
         solutionLine.GetComponent<LineRenderer>().positionCount = solPoints.Length;
         solutionLine.GetComponent<LineRenderer>().SetPositions(solPoints);
-        StartCoroutine(CreateLevelPillars());
+        StartCoroutine(CreateLevelPillars(resetPlayerPos));
     }
 
-    IEnumerator CreateLevelPillars() {
+    IEnumerator CreateLevelPillars(bool resetPlayerPos = true) {
         ForceFieldManager ffm = GameObject.Find("ForceFieldManager").GetComponent<ForceFieldManager>();
         //ffm.RemoveAllForceFields();
         GameObject ref_obj;
@@ -102,7 +113,9 @@ public class LevelBuilder : MonoBehaviour
                         newChild.transform.parent = pillarsParent.transform;
                         newChild.transform.Translate(ref_obj.transform.position + new Vector3(i*pillar_offset, 0f, j*pillar_offset - 0.5f*pillar_offset), Space.Self);
                         newChild.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                        GameObject.Find("Player").transform.position = newChild.transform.position;
+                        if (resetPlayerPos) {
+                            GameObject.Find("Player").transform.position = newChild.transform.position;
+                        }
                         InitiatePlayerLine(newChild);
                     }
                 }
@@ -149,8 +162,8 @@ public class LevelBuilder : MonoBehaviour
             GameObject.Find("MapFond4x4").transform.Rotate(0.0f, -45.0f, 0.0f);
             GameObject.Find("MapFond4x4").transform.localScale = GameObject.Find("MapFond4x4").transform.localScale * 0.5f;
         }
+        runBKT.runBKTwithPython(0,1,0);
     }
-
     public static void InitiatePlayerLine(GameObject startBlock) {
         GameObject playerLine = GameObject.Find("PlayerLine");
         playerLine.GetComponent<LineManager>().StartDrawingLine(startBlock);
