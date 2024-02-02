@@ -29,7 +29,7 @@ public class UnwantedChildrenKiller : MonoBehaviour
     }
 
     private void InstantiateGround(){
-        GameObject ground = Instantiate(bigGround, new Vector3(2.5f, 0f, 0f), Quaternion.identity);
+        GameObject ground = Instantiate(bigGround, new Vector3(2.5f, -0.3f, 0f), Quaternion.identity);
         ground.transform.parent = GameObject.Find("PillarsParent").transform;
         ground.GetComponent<HeightInterpolator>().StartInterpolation();
     }
