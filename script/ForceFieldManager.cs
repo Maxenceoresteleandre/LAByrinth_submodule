@@ -20,7 +20,12 @@ public class ForceFieldManager : MonoBehaviour
     void Start()
     {
         obstaclePositions.Clear();
-        PrintObstacles("VERYSTART");
+    }
+
+    public void StopComputingForceFields()
+    {
+        computingForceFields = false;
+        obstaclePositions.Clear();
     }
 
     public void StartComputingForceFields()

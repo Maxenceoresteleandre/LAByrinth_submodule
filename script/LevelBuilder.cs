@@ -46,10 +46,17 @@ public class LevelBuilder : MonoBehaviour
         GenerateLevel();
     }
 
+    public IEnumerator DelayedGenerateLevel() {
+        Debug.Log("hey, we should be goo here right ?");
+        yield return new WaitForSeconds(3.0f);
+        GenerateLevel();
+    }
+
     public void GenerateLevel()
     {
         // Generate a random level
         System.Console.SetOut(new DebugLogWriter());
+        solutionLine.GetComponent<LineRenderer>().positionCount = 0;
         Debug.Log("Generating a random level...");
         if(nSquareByColor.Count != nSunByColor.Count){
             throw new System.ArgumentException("The number of colors for squares and suns must be the same");

@@ -22,8 +22,17 @@ public class EndPlatform : MonoBehaviour
         // if player is too close to the start, we reset the line in levelGrid
         if (endPlatformCenter.GetComponent<Collider>().bounds.Contains(player.position)){
             isLevelFinished = true;
-            UnwantedChildrenKiller uck = GameObject.Find("PillarsParent").GetComponent<UnwantedChildrenKiller>();
-            StartCoroutine(uck.SendUnwantedChildrenToSpace());
+            SetLevelEnd();
         }
+    }
+
+    void SetLevelEnd(){
+        // ForceFieldManager
+        GameObject.Find("ForceFieldManager").GetComponent<ForceFieldManager>().StopComputingForceFields();
+        // Kill all children
+        UnwantedChildrenKiller uck = GameObject.Find("PillarsParent").GetComponent<UnwantedChildrenKiller>();
+        StartCoroutine(uck.SendUnwantedChildrenToSpace());
+        // Prepare level reload
+        GameObject.FindGameObjectWithTag("Start").GetComponent<LineResetter>().reloadLevel = true;
     }
 }

@@ -7,6 +7,7 @@ public class LineResetter : MonoBehaviour
     private Transform player;
     public GameObject startPlatformCenter;
     public bool reloadLevel = false;
+    private bool isLevelFinished = false;
 
     // Start is called before the first frame update
     void Start()
@@ -17,17 +18,24 @@ public class LineResetter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isLevelFinished){
+            return;
+        }
         // if player is too close to the start, we reset the line in levelGrid
         if (startPlatformCenter.GetComponent<Collider>().bounds.Contains(player.position)){
-            GameObject.FindWithTag("LevelGrid").GetComponent<GridLab>().SetLastGridPositionNone();
-            GridLab.ResetLine();
-
             if (reloadLevel){
-                reloadLevel = false;
-                GameObject.Find("LevelBuilder").GetComponent<LevelBuilder>().GenerateLevel();
-                UnwantedChildrenKiller uck = GameObject.Find("PillarsParent").GetComponent<UnwantedChildrenKiller>();
-                StartCoroutine(uck.KillStartAndEnd());
+                isLevelFinished = true;
+                CreateNewLevel();
+            } else {
+                GameObject.FindWithTag("LevelGrid").GetComponent<GridLab>().SetLastGridPositionNone();
+                GridLab.ResetLine();
             }
         }
+    }
+
+    void CreateNewLevel(){
+        UnwantedChildrenKiller uck = GameObject.Find("PillarsParent").GetComponent<UnwantedChildrenKiller>();
+        StartCoroutine(uck.KillStartAndEnd());
+        StartCoroutine(GameObject.Find("LevelBuilder").GetComponent<LevelBuilder>().DelayedGenerateLevel());
     }
 }
