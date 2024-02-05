@@ -61,14 +61,16 @@ public class GridLab : MonoBehaviour
                     Debug.Log("Validity: " + result[0] + ", " + result[1] + ", " + result[2]);
                     int [] buggy = pp.BuggyRulesSuns();
                     Debug.Log("Buggy: " + buggy[0] + ", " + buggy[1] + ", " + buggy[2]);
-                    if(buggy[0] == 0){
-                        GameObject.Find("Indice1").GetComponent<SpriteRenderer>().enabled = true;
-                    }
-                    else if(buggy[1] == 0){
-                        GameObject.Find("Indice2").GetComponent<SpriteRenderer>().enabled = true;
-                    }
-                    else if(buggy[2] == 0){
-                        GameObject.Find("Indice3").GetComponent<SpriteRenderer>().enabled = true;
+                    if((result[0] + result[1] + result[2]) != 0){
+                        if(buggy[0] == 0){
+                            GameObject.Find("Indice1").GetComponent<SpriteRenderer>().enabled = true;
+                        }
+                        else if(buggy[1] == 0){
+                            GameObject.Find("Indice2").GetComponent<SpriteRenderer>().enabled = true;
+                        }
+                        else if(buggy[2] == 0){
+                            GameObject.Find("Indice3").GetComponent<SpriteRenderer>().enabled = true;
+                        }
                     }
 
                 }

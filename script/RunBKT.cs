@@ -17,14 +17,21 @@ public class RunBKT : MonoBehaviour
     /// <param name="skill_id">L'ID de la compétence.</param>
     /// <param name="correct">Indique si le niveau est reussi (1) ou non (0).</param>
     /// <returns>La probabilité de success, ou 0 si une erreur se produit.</returns>
+    public void Start()
+    {
+
+        runBKT_partial_fit(1, 1, 1);
+        runBKT_p_success(1, 1, 1);
+    }
+
     public float runBKT_p_success(int user_id, int skill_id, int correct)
     {
-        string pythonPath = @"C:\Users\ameli\AppData\Local\Microsoft\WindowsApps\python.exe";
+        string pythonPath = @"C:\Users\atram\AppData\Local\Microsoft\WindowsApps\python.exe";
         // Chemin vers le script Python à exécuter
         // string scriptPath = @"chemin\vers\votre_script.py";
-        string scriptPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/bkt.py");
-        string fileToReadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/data/all_data.csv");
-        string fileToLoadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/model.pkl");
+        string scriptPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/CoPillars-model/bkt.py");
+        string fileToReadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/CoPillars-model/all_data.csv");
+        string fileToLoadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/CoPillars-model/model.pkl");
 
         // UnityEngine.Debug.Log("LAAAAAAAAAAAAAAAAAAAAAAAAAAA" + scriptPath);
 
@@ -81,10 +88,10 @@ public class RunBKT : MonoBehaviour
         
         // Chemin vers le script Python à exécuter
         // string scriptPath = @"chemin\vers\votre_script.py";
-        string pythonPath = @"C:\Users\ameli\AppData\Local\Microsoft\WindowsApps\python.exe";
-        string scriptPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/partial_fit.py");
+        string pythonPath = @"C:\Users\atram\AppData\Local\Microsoft\WindowsApps\python.exe";
+        string scriptPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/CoPillars-model/partial_fit.py");
         // string fileToReadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/data/all_data.csv");
-        string fileToLoadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/model.pkl");
+        string fileToLoadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/CoPillars-model/model.pkl");
 
         // UnityEngine.Debug.Log("LAAAAAAAAAAAAAAAAAAAAAAAAAAA" + scriptPath);
 

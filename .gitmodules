@@ -1,3 +1,6 @@
 [submodule "script/LevelGenerator"]
 	path = script/LevelGenerator
 	url = https://github.com/b0gz1b/LevelGenerator.git
+[submodule "script/CoPillars-model"]
+	path = script/CoPillars-model
+	url = https://github.com/Ameliouse/CoPillars-model
