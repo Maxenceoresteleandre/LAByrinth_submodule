@@ -42,10 +42,6 @@ public class LevelBuilder : MonoBehaviour
     public RunBKT runBKT;
     public MapGenerator mapGenerator;
 
-    private void Start() {
-        
-    }
-
     public IEnumerator DelayedGenerateLevel() {
         Debug.Log("hey, we should be goo here right ?");
         yield return new WaitForSeconds(3.0f);
@@ -167,7 +163,8 @@ public class LevelBuilder : MonoBehaviour
             GameObject.Find("MapFond4x4").transform.Rotate(0.0f, -45.0f, 0.0f);
             GameObject.Find("MapFond4x4").transform.localScale = GameObject.Find("MapFond4x4").transform.localScale * 0.5f;
         }
-        runBKT.runBKTwithPython(0,1,0);
+        // float proba = runBKT.runBKT_p_success(0,1,0);
+        // Debug.Log("probaaaaaaaaaaaaa"+ proba.ToString());
     }
     public static void InitiatePlayerLine(GameObject startBlock) {
         GameObject playerLine = GameObject.Find("PlayerLine");
