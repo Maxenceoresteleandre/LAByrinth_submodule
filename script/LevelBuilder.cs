@@ -43,16 +43,17 @@ public class LevelBuilder : MonoBehaviour
     public MapGenerator mapGenerator;
 
     private void Start() {
-        GenerateLevel();
+        
     }
 
     public IEnumerator DelayedGenerateLevel() {
         Debug.Log("hey, we should be goo here right ?");
         yield return new WaitForSeconds(3.0f);
-        GenerateLevel(false);
+        GenerateLevel();
+        CreateLevel(false);
     }
 
-    public void GenerateLevel(bool resetPlayerPos = true)
+    public float GenerateLevel()
     {
         // Generate a random level
         System.Console.SetOut(new DebugLogWriter());
@@ -67,13 +68,17 @@ public class LevelBuilder : MonoBehaviour
         catch(System.Exception e){
             UnityEngine.Debug.Log(e.Message);
             UnityEngine.Debug.Log("Level generation failed!");
-            return;
+            return -1f;
         }
         panel = solution.GetPanel();
         // panel.WriteToFile(Application.dataPath + "/demoScene/LAByrinth/Levels/level1.txt");
         // Debug.Log(panel.GetStart().Second + ", " + panel.GetStart().First);
         // Debug.Log(panel.GetEnd().Second + ", " + panel.GetEnd().First);
         //Debug.Log("Level generated!");
+        return DifficultyLevel();
+    }
+
+    public void CreateLevel(bool resetPlayerPos = true) {
         gridLevel = CreateGrid();
         Vector3[] solPoints = new Vector3[solution.GetPoints().Count];
         for (int i = 0; i < solution.GetPoints().Count; i++)
@@ -235,6 +240,17 @@ public class LevelBuilder : MonoBehaviour
 
         // Create a List with all
         return newChild.GetComponent<GridLab>();
+    }
+
+    public float DifficultyLevel(){
+        float difficulty = 0f;
+        difficulty += dim - 3;
+        difficulty += nFakeWalls / (2*dim-2);
+        int nreg = solution.GetPanel().GetRegions(solution.GetPoints()).Count;
+        difficulty += nreg / dim;
+        difficulty /= 3;
+        return difficulty;
+
     }
 }
 
