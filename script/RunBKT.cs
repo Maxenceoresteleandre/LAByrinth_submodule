@@ -9,17 +9,24 @@ using System.Diagnostics;
 
 public class RunBKT : MonoBehaviour
 {
+
+
+    /// Exécute le script Python bkt.py et retourne un float représentant la probabilité de réussir un niveau avec skill_id.
+    /// </summary>
+    /// <param name="user_id">L'ID de l'utilisateur.</param>
+    /// <param name="skill_id">L'ID de la compétence.</param>
+    /// <param name="correct">Indique si le niveau est reussi (1) ou non (0).</param>
+    /// <returns>La probabilité de success, ou 0 si une erreur se produit.</returns>
     public float runBKT_p_success(int user_id, int skill_id, int correct)
     {
         string pythonPath = @"C:\Users\ameli\AppData\Local\Microsoft\WindowsApps\python.exe";
+        // Chemin vers le script Python à exécuter
+        // string scriptPath = @"chemin\vers\votre_script.py";
         string scriptPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/bkt.py");
         string fileToReadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/data/all_data.csv");
         string fileToLoadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/model.pkl");
 
-        UnityEngine.Debug.Log("LAAAAAAAAAAAAAAAAAAAAAAAAAAA" + scriptPath);
-
-        // Chemin vers le script Python à exécuter
-        // string scriptPath = @"chemin\vers\votre_script.py";
+        // UnityEngine.Debug.Log("LAAAAAAAAAAAAAAAAAAAAAAAAAAA" + scriptPath);
 
         // Vérifiez si les fichiers existent avant de les exécuter
 
@@ -52,7 +59,7 @@ public class RunBKT : MonoBehaviour
             // Lire la sortie standard du processus (si nécessaire)
             string output = process.StandardOutput.ReadToEnd();
             process.WaitForExit(); // Attendre la fin de l'exécution du processus
-            UnityEngine.Debug.Log("Sortie de Python : " + output);
+            UnityEngine.Debug.Log("Sortie de Python p_success : " + output);
             
             return float.Parse(RemplacerPointParVirgule(output));
         }
@@ -63,31 +70,23 @@ public class RunBKT : MonoBehaviour
         return 0f;
     }
 
-    static string RemplacerPointParVirgule(string chaine)
-    {
-        char[] caracteres = chaine.ToCharArray();
-
-        for (int i = 0; i < caracteres.Length; i++)
-        {
-            if (caracteres[i] == '.')
-            {
-                caracteres[i] = ',';
-            }
-        }
-
-        return new string(caracteres);
-    }
+    /// <summary>
+    /// partial fit le model avec un nouveau vecteur (user_id, skill_id, correct)
+    /// </summary>
+    /// <param name="user_id">L'ID de l'utilisateur.</param>
+    /// <param name="skill_id">L'ID de la compétence.</param>
+    /// <param name="correct">Indique si le niveau est reussi (1) ou non (0).</param>
     public void runBKT_partial_fit(int user_id, int skill_id, int correct)
     {
+        
+        // Chemin vers le script Python à exécuter
+        // string scriptPath = @"chemin\vers\votre_script.py";
         string pythonPath = @"C:\Users\ameli\AppData\Local\Microsoft\WindowsApps\python.exe";
         string scriptPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/partial_fit.py");
         // string fileToReadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/data/all_data.csv");
         string fileToLoadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/model.pkl");
 
-        UnityEngine.Debug.Log("LAAAAAAAAAAAAAAAAAAAAAAAAAAA" + scriptPath);
-
-        // Chemin vers le script Python à exécuter
-        // string scriptPath = @"chemin\vers\votre_script.py";
+        // UnityEngine.Debug.Log("LAAAAAAAAAAAAAAAAAAAAAAAAAAA" + scriptPath);
 
         // Vérifiez si les fichiers existent avant de les exécuter
 
@@ -106,26 +105,41 @@ public class RunBKT : MonoBehaviour
             // Démarrer le processus
             Process process = new Process();
             process.StartInfo = startInfo;
+
+            process.Exited += (sender, e) =>
+            {
+                // Cette méthode sera appelée lorsque le processus se termine
+                UnityEngine.Debug.Log("Le processus Python s'est terminé.");
+            };
+            
             process.Start();
-
-            // process.Start();
-
-            // process.Exited += (sender, e) =>
-            // {
-            //     // Cette méthode sera appelée lorsque le processus se termine
-            //     UnityEngine.Debug.Log("Le processus Python s'est terminé.");
-            // };
 
 
             // Lire la sortie standard du processus (si nécessaire)
             string output = process.StandardOutput.ReadToEnd();
             process.WaitForExit(); // Attendre la fin de l'exécution du processus
-            UnityEngine.Debug.Log("Sortie de Python : " + output);
+            UnityEngine.Debug.Log("Sortie de Partial Fit : " + output);
         }
         else
         {
             UnityEngine.Debug.LogError("Les fichiers spécifiés n'existent pas.");
         }
+    }
+
+    //pour remplacer le point du output en virgule
+    static string RemplacerPointParVirgule(string chaine)
+    {
+        char[] caracteres = chaine.ToCharArray();
+
+        for (int i = 0; i < caracteres.Length; i++)
+        {
+            if (caracteres[i] == '.')
+            {
+                caracteres[i] = ',';
+            }
+        }
+
+        return new string(caracteres);
     }
 }
 
