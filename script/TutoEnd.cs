@@ -5,6 +5,7 @@ using UnityEngine;
 public class TutoEnd : MonoBehaviour
 {
     public GameObject platformEnd;
+    private bool isLevelFinished = false;
 
     void Start()
     {
@@ -15,8 +16,13 @@ public class TutoEnd : MonoBehaviour
 
     void Update()
     {
+        if (isLevelFinished)
+        {
+            return;
+        }
         if (platformEnd.GetComponent<Collider>().bounds.Contains(Camera.main.transform.position))
         {
+            isLevelFinished = true;
             StartCoroutine(EndTuto());
         }        
     }
