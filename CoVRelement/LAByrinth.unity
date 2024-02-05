@@ -1144,7 +1144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32e8787dfb1abd54c98bf9abc2a08c31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformEnd: {fileID: 0}
+  platformEnd: {fileID: 1884473962}
 --- !u!1 &808347830
 GameObject:
   m_ObjectHideFlags: 0
@@ -2785,7 +2785,7 @@ GameObject:
   - component: {fileID: 1884473964}
   - component: {fileID: 1884473967}
   m_Layer: 0
-  m_Name: StartPlatformTuto (7)
+  m_Name: PlatformTutoEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

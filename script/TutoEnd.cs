@@ -6,6 +6,12 @@ public class TutoEnd : MonoBehaviour
 {
     public GameObject platformEnd;
 
+    void Start()
+    {
+        GameObject.Find("Player").transform.position = new Vector3(2.768f,0.386f,3f);
+        GameObject.Find("Player").transform.rotation = Quaternion.Euler(0f, 180.0f, 0f);
+    }
+
     void Update()
     {
         if (platformEnd.GetComponent<Collider>().bounds.Contains(Camera.main.transform.position))
