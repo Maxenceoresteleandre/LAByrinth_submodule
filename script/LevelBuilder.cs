@@ -42,17 +42,13 @@ public class LevelBuilder : MonoBehaviour
     public RunBKT runBKT;
     public MapGenerator mapGenerator;
 
-    private void Start() {
-        GenerateLevel();
-    }
-
     public IEnumerator DelayedGenerateLevel() {
         Debug.Log("hey, we should be goo here right ?");
         yield return new WaitForSeconds(3.0f);
         GenerateLevel(false);
     }
 
-    public void GenerateLevel(bool resetPlayerPos = true)
+    public void GenerateLevel(bool resetPlayerPos = false)
     {
         // Generate a random level
         System.Console.SetOut(new DebugLogWriter());
