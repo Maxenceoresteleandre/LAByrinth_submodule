@@ -39,7 +39,7 @@ public class LevelSequencer : MonoBehaviour
         if(learning){
             int i = 0;
             if(p_hex < p_seuil){
-                while(nextDifficulty <= 0 && i < 50){
+                while(nextDifficulty <= lastDifficulty && i < 50){
                     Debug.Log("HEXAGON: " + nextDifficulty + " < " + lastDifficulty);
                     if(levelBuilder.nHexagon < 5){
                         if(levelBuilder.nHexagon % 2 == 1){

@@ -245,10 +245,10 @@ public class LevelBuilder : MonoBehaviour
     public float DifficultyLevel(){
         float difficulty = 0f;
         difficulty += dim - 3;
-        difficulty += nFakeWalls / (2*dim-2);
-        int nreg = solution.GetPanel().GetRegions(solution.GetPoints()).Count;
-        difficulty += nreg / dim;
-        difficulty /= 3;
+        difficulty += nFakeWalls / (2*(float)dim-2);
+        float nreg = solution.GetPanel().GetRegions(solution.GetPoints()).Count;
+        difficulty += nreg / (float)dim;
+        difficulty /= 3f;
         return difficulty;
 
     }
