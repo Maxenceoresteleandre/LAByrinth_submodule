@@ -27,6 +27,7 @@ public class GridLab : MonoBehaviour
         endingPosition = Tuple.New(endingX, endingY);
         playerLine = GameObject.Find("PlayerLine");
         lineRenderer = playerLine.GetComponent<LineRenderer>();
+        ResetLine();
         // Deactivate all cells in the grid except the starting cell
         ActivateStartingCell();
     }
