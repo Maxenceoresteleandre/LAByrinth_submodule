@@ -22,9 +22,9 @@ public class RunBKT : MonoBehaviour
         string pythonPath = @"C:\Users\ameli\AppData\Local\Microsoft\WindowsApps\python.exe";
         // Chemin vers le script Python à exécuter
         // string scriptPath = @"chemin\vers\votre_script.py";
-        string scriptPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/bkt.py");
-        string fileToReadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/data/all_data.csv");
-        string fileToLoadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/model.pkl");
+        string scriptPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/model/CoPillars-model/bkt.py");
+        string fileToReadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/model/CoPillars-model/data/all_data.csv");
+        string fileToLoadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/model/CoPillars-model/model.pkl");
 
         // UnityEngine.Debug.Log("LAAAAAAAAAAAAAAAAAAAAAAAAAAA" + scriptPath);
 
@@ -82,9 +82,9 @@ public class RunBKT : MonoBehaviour
         // Chemin vers le script Python à exécuter
         // string scriptPath = @"chemin\vers\votre_script.py";
         string pythonPath = @"C:\Users\ameli\AppData\Local\Microsoft\WindowsApps\python.exe";
-        string scriptPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/partial_fit.py");
+        string scriptPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/model/CoPillars-model/partial_fit.py");
         // string fileToReadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/data/all_data.csv");
-        string fileToLoadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/model.pkl");
+        string fileToLoadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/model/CoPillars-model/model.pkl");
 
         // UnityEngine.Debug.Log("LAAAAAAAAAAAAAAAAAAAAAAAAAAA" + scriptPath);
 

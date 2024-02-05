@@ -51,6 +51,7 @@ public class LevelBuilder : MonoBehaviour
     public void GenerateLevel(bool resetPlayerPos = false)
     {
         // Generate a random level
+        
         System.Console.SetOut(new DebugLogWriter());
         solutionLine.GetComponent<LineRenderer>().positionCount = 0;
         Debug.Log("Generating a random level...");
