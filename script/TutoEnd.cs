@@ -10,8 +10,8 @@ public class TutoEnd : MonoBehaviour
     void Start()
     {
         GameObject player = GameObject.Find("Player");
-        player.transform.position = new Vector3(2.768f,0.386f,-0.5f);
-        player.transform.rotation = Quaternion.Euler(0f, 0.0f, 0f);
+        player.transform.position = new Vector3(2.768f,0.386f,3f);
+        player.transform.rotation = Quaternion.Euler(0f, 180.0f, 0f);
     }
 
     void Update()
@@ -36,5 +36,7 @@ public class TutoEnd : MonoBehaviour
         }
         yield return new WaitForSeconds(0.8f);
         GameObject.Find("LevelBuilder").GetComponent<LevelBuilder>().GenerateLevel();  
+        yield return new WaitForSeconds(0.8f);
+        Destroy(gameObject);
     }
 }
