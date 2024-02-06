@@ -7,7 +7,7 @@ public class LevelSequencer : MonoBehaviour
     private LevelBuilder levelBuilder;
     private RunBKT runBKT;
 
-    private float lastDifficulty = 0f;
+    private float lastDifficulty = 0.001f;
 
     public float p_hex = 0.5f;
     public float p_sq = 0.5f;
@@ -32,15 +32,14 @@ public class LevelSequencer : MonoBehaviour
         levelBuilder.dim = 3;
         levelBuilder.nWalls = 0;
         levelBuilder.nFakeWalls = 0;
-        levelBuilder.nHexagon = 0;
-        levelBuilder.nSquareByColor = new List<int>();
-        levelBuilder.nSunByColor = new List<int>();
         if(learning){
             int i = 0;
             if(p_hex < p_seuil){
-                while(nextDifficulty <= lastDifficulty +0.1f && i < 50){
+                levelBuilder.nSquareByColor = new List<int>();
+                levelBuilder.nSunByColor = new List<int>();
+                while(nextDifficulty <= lastDifficulty && i < 50){
                     Debug.Log("HEXAGON: " + nextDifficulty + " < " + lastDifficulty);
-                    if(levelBuilder.nHexagon < 5){
+                    if(i != 5){
                         // if(levelBuilder.nHexagon % 2 == 1){
                         //     levelBuilder.nWalls += 1;
                         //     levelBuilder.nFakeWalls += 1;
@@ -62,8 +61,11 @@ public class LevelSequencer : MonoBehaviour
             else if(p_sq < p_seuil){
                 int nCol = 2;
                 i = 0;
+                levelBuilder.nHexagon = 0;
+                levelBuilder.nSquareByColor = new List<int>();
+                levelBuilder.nSunByColor = new List<int>();
                 if (lastLearning == 0){
-                    lastDifficulty = 0;
+                    lastDifficulty = 0.001f;
                 }
                 while(levelBuilder.nSquareByColor.Count < nCol){
                     levelBuilder.nSquareByColor.Add(1);
@@ -112,8 +114,11 @@ public class LevelSequencer : MonoBehaviour
                 }
             }
             else if(p_su < p_seuil){
+                levelBuilder.nHexagon = 0;
+                levelBuilder.nSquareByColor = new List<int>();
+                levelBuilder.nSunByColor = new List<int>();
                 if (lastLearning == 1){
-                    lastDifficulty = 0;
+                    lastDifficulty = 0.001f;
                 }
                 int nCol = 1;
                 i = 0;
@@ -168,6 +173,9 @@ public class LevelSequencer : MonoBehaviour
             }
         }
         else{
+            levelBuilder.nHexagon = 0;
+            levelBuilder.nSquareByColor = new List<int>();
+            levelBuilder.nSunByColor = new List<int>();
             levelBuilder.dim = 4;
             while(nextDifficulty <= lastDifficulty){
                 levelBuilder.nWalls = Random.Range(0, 5);
