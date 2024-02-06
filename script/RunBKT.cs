@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 public class RunBKT : MonoBehaviour
 {
-
+    public string pythonPath = @"C:\Users\atram\AppData\Local\Microsoft\WindowsApps\python.exe";
 
     /// Exécute le script Python bkt.py et retourne un float représentant la probabilité de réussir un niveau avec skill_id.
     /// </summary>
@@ -20,13 +20,12 @@ public class RunBKT : MonoBehaviour
     public void Start()
     {
 
-        runBKT_partial_fit(1, 1, 1);
-        runBKT_p_success(1, 1, 1);
+        // runBKT_partial_fit(1, 1, 1);
+        // runBKT_p_success(1, 1, 1);
     }
 
     public float runBKT_p_success(int user_id, int skill_id, int correct)
     {
-        string pythonPath = @"C:\Users\atram\AppData\Local\Microsoft\WindowsApps\python.exe";
         // Chemin vers le script Python à exécuter
         // string scriptPath = @"chemin\vers\votre_script.py";
         string scriptPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/CoPillars-model/bkt.py");
@@ -88,7 +87,6 @@ public class RunBKT : MonoBehaviour
         
         // Chemin vers le script Python à exécuter
         // string scriptPath = @"chemin\vers\votre_script.py";
-        string pythonPath = @"C:\Users\atram\AppData\Local\Microsoft\WindowsApps\python.exe";
         string scriptPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/CoPillars-model/partial_fit.py");
         // string fileToReadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "../model/CoPillars-model/data/all_data.csv");
         string fileToLoadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/CoPillars-model/model.pkl");

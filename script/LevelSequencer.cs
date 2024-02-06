@@ -41,10 +41,10 @@ public class LevelSequencer : MonoBehaviour
                 while(nextDifficulty <= lastDifficulty +0.1f && i < 50){
                     Debug.Log("HEXAGON: " + nextDifficulty + " < " + lastDifficulty);
                     if(levelBuilder.nHexagon < 5){
-                        if(levelBuilder.nHexagon % 2 == 1){
-                            levelBuilder.nWalls += 1;
-                            levelBuilder.nFakeWalls += 1;
-                        }
+                        // if(levelBuilder.nHexagon % 2 == 1){
+                        //     levelBuilder.nWalls += 1;
+                        //     levelBuilder.nFakeWalls += 1;
+                        // }
                         levelBuilder.nHexagon += 1;
                         lastLearning = 0;
                         nextDifficulty = levelBuilder.GenerateLevel() * (1 - p_hex);
@@ -62,6 +62,9 @@ public class LevelSequencer : MonoBehaviour
             else if(p_sq < p_seuil){
                 int nCol = 2;
                 i = 0;
+                if (lastLearning == 0){
+                    lastDifficulty = 0;
+                }
                 while(levelBuilder.nSquareByColor.Count < nCol){
                     levelBuilder.nSquareByColor.Add(1);
                     levelBuilder.nSunByColor.Add(0);
@@ -109,6 +112,9 @@ public class LevelSequencer : MonoBehaviour
                 }
             }
             else if(p_su < p_seuil){
+                if (lastLearning == 1){
+                    lastDifficulty = 0;
+                }
                 int nCol = 1;
                 i = 0;
                 while(levelBuilder.nSunByColor.Count < nCol){
