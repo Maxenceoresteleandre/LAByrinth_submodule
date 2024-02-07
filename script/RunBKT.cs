@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 public class RunBKT : MonoBehaviour
 {
-    public string pythonPath = @"C:\Users\atram\AppData\Local\Microsoft\WindowsApps\python.exe";
+    public string pythonPath = "cf WherePython.cs dans scripts";
 
     /// Exécute le script Python bkt.py et retourne un float représentant la probabilité de réussir un niveau avec skill_id.
     /// </summary>
@@ -19,7 +19,7 @@ public class RunBKT : MonoBehaviour
     /// <returns>La probabilité de success, ou 0 si une erreur se produit.</returns>
     public void Start()
     {
-
+        pythonPath = WherePython.pythonPath;
         // runBKT_partial_fit(1, 1, 1);
         // runBKT_p_success(1, 1, 1);
     }

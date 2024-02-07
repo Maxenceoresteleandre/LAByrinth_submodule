@@ -1683,7 +1683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c487a55c9d6c3c43a3111b4b03309c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pythonPath: C:\Users\atram\AppData\Local\Microsoft\WindowsApps\python.exe
+  pythonPath: 
 --- !u!4 &1099618570
 Transform:
   m_ObjectHideFlags: 0
