@@ -8,11 +8,14 @@ public class LineResetter : MonoBehaviour
     public GameObject startPlatformCenter;
     public bool reloadLevel = false;
     private bool isLevelFinished = false;
+    private LevelSequencer levelSequencer;
 
     // Start is called before the first frame update
     void Start()
     {
         player = Camera.main.transform;
+        
+        levelSequencer = GameObject.Find("LevelSequencer").GetComponent<LevelSequencer>();
     }
 
     // Update is called once per frame
@@ -36,6 +39,7 @@ public class LineResetter : MonoBehaviour
     void CreateNewLevel(){
         UnwantedChildrenKiller uck = GameObject.Find("PillarsParent").GetComponent<UnwantedChildrenKiller>();
         StartCoroutine(uck.KillStartAndEnd());
-        StartCoroutine(GameObject.Find("LevelBuilder").GetComponent<LevelBuilder>().DelayedGenerateLevel());
+        //StartCoroutine(GameObject.Find("LevelBuilder").GetComponent<LevelBuilder>().DelayedGenerateLevel());
+        StartCoroutine(levelSequencer.DelayedNextLevel());
     }
 }
