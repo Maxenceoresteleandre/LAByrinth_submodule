@@ -120,7 +120,7 @@ public class ForceFieldManager : MonoBehaviour
         if (dummyToMove != null && targetPosition != dummyToMove.transform.position)
         {
             dummyToMove.transform.position = targetPosition;
-            Debug.Log("dummyToMove.transform.position = " + dummyToMove.transform.position.ToString());
+            // Debug.Log("dummyToMove.transform.position = " + dummyToMove.transform.position.ToString());
         }
     }
 

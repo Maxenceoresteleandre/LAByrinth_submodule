@@ -8,11 +8,14 @@ public class LineResetter : MonoBehaviour
     public GameObject startPlatformCenter;
     public bool reloadLevel = false;
     private bool isLevelFinished = false;
+    private LevelSequencer levelSequencer;
 
     // Start is called before the first frame update
     void Start()
     {
         player = Camera.main.transform;
+        
+        levelSequencer = GameObject.Find("LevelSequencer").GetComponent<LevelSequencer>();
     }
 
     // Update is called once per frame
@@ -25,7 +28,7 @@ public class LineResetter : MonoBehaviour
         if (startPlatformCenter.GetComponent<Collider>().bounds.Contains(player.position)){
             if (reloadLevel){
                 isLevelFinished = true;
-                CreateNewLevel();
+                levelSequencer.NextLevel();
             } else {
                 GameObject.FindWithTag("LevelGrid").GetComponent<GridLab>().SetLastGridPositionNone();
                 GridLab.ResetLine();

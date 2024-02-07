@@ -35,7 +35,7 @@ public class TutoEnd : MonoBehaviour
             yield return new WaitForSeconds(0.2f);  
         }
         yield return new WaitForSeconds(0.8f);
-        GameObject.Find("LevelBuilder").GetComponent<LevelBuilder>().GenerateLevel();  
+        GameObject.Find("LevelSequencer").GetComponent<LevelSequencer>().NextLevel();  
         yield return new WaitForSeconds(0.8f);
         Destroy(gameObject);
     }
