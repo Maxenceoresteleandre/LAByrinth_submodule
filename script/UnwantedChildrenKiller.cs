@@ -12,7 +12,7 @@ public class UnwantedChildrenKiller : MonoBehaviour
             if (IsTagToKeep(child.tag)){
                 continue;
             }
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
             child.gameObject.AddComponent<GoDieInSpace>();
         }
         InstantiateGround();

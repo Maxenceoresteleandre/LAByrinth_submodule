@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 441674151518922686}
   - component: {fileID: 7998778237770358339}
-  - component: {fileID: 351571209255248659}
+  - component: {fileID: 8854109478230770379}
   m_Layer: 0
   m_Name: FakeShield
   m_TagString: Untagged
@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 72825986544487899}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &351571209255248659
+--- !u!23 &8854109478230770379
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f0e40fc865770de4cb1577c051163a9d, type: 2}
+  - {fileID: 2100000, guid: 5e53c7a8c2e563c4c90a8fa620eebc2c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

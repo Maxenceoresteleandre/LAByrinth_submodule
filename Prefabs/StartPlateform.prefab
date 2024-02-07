@@ -231,6 +231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPlatformCenter: {fileID: 8648870939156657168}
+  reloadLevel: 0
 --- !u!1 &5729956432714927120
 GameObject:
   m_ObjectHideFlags: 0

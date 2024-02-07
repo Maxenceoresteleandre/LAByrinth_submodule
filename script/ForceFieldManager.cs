@@ -8,7 +8,7 @@ public class ForceFieldManager : MonoBehaviour
     private SecurityManager Sm=null;
     private List<Vector3> obstaclePositions = new List<Vector3>();
     public GameObject door;
-    private GameObject player;
+    private Transform player;
     public GameObject dummyToMove;
     private bool isClosestObstacleDoor = false;
     public Vector3 doorClosePose;
@@ -31,7 +31,7 @@ public class ForceFieldManager : MonoBehaviour
     public void StartComputingForceFields()
     {
         iTween.Defaults.easeType = iTween.EaseType.easeInOutQuad;
-        player = GameObject.Find("Player");
+        player = Camera.main.transform;
         door = GameObject.FindGameObjectWithTag("EndDoor");
 
         GameObject secu = GameObject.FindGameObjectWithTag("ColumControl");
@@ -60,7 +60,7 @@ public class ForceFieldManager : MonoBehaviour
     private Vector3 FindClosestObstacle()
     {
         float minDistance = Mathf.Infinity;
-        Vector3 playerPos = player.transform.position;
+        Vector3 playerPos = player.position;
         Vector3 closestObstacle = Vector3.zero;
         int i;
         string strDists = "distances :: ";
