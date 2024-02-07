@@ -28,7 +28,7 @@ public class LineResetter : MonoBehaviour
         if (startPlatformCenter.GetComponent<Collider>().bounds.Contains(player.position)){
             if (reloadLevel){
                 isLevelFinished = true;
-                levelSequencer.NextLevel();
+                CreateNewLevel();
             } else {
                 GameObject.FindWithTag("LevelGrid").GetComponent<GridLab>().SetLastGridPositionNone();
                 GridLab.ResetLine();
@@ -39,6 +39,7 @@ public class LineResetter : MonoBehaviour
     void CreateNewLevel(){
         UnwantedChildrenKiller uck = GameObject.Find("PillarsParent").GetComponent<UnwantedChildrenKiller>();
         StartCoroutine(uck.KillStartAndEnd());
-        StartCoroutine(GameObject.Find("LevelBuilder").GetComponent<LevelBuilder>().DelayedGenerateLevel());
+        //StartCoroutine(GameObject.Find("LevelBuilder").GetComponent<LevelBuilder>().DelayedGenerateLevel());
+        StartCoroutine(levelSequencer.DelayedNextLevel());
     }
 }

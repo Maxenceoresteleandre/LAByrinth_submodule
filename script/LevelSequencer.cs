@@ -26,6 +26,11 @@ public class LevelSequencer : MonoBehaviour
         // levelBuilder.CreateLevel();
     }
 
+    public IEnumerator DelayedNextLevel() {
+        yield return new WaitForSeconds(3.0f);
+        NextLevel();
+    }
+
     public void NextLevel()
     {
         float nextDifficulty = lastDifficulty;

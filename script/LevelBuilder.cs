@@ -43,7 +43,6 @@ public class LevelBuilder : MonoBehaviour
     public MapGenerator mapGenerator;
 
     public IEnumerator DelayedGenerateLevel() {
-        Debug.Log("hey, we should be goo here right ?");
         yield return new WaitForSeconds(3.0f);
         GenerateLevel();
         CreateLevel(false);
@@ -74,7 +73,7 @@ public class LevelBuilder : MonoBehaviour
         return DifficultyLevel();
     }
 
-    public void CreateLevel(bool resetPlayerPos = true) {
+    public void CreateLevel(bool resetPlayerPos = false) {
         gridLevel = CreateGrid();
         Vector3[] solPoints = new Vector3[solution.GetPoints().Count];
         for (int i = 0; i < solution.GetPoints().Count; i++)
