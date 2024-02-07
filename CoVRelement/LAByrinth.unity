@@ -1728,7 +1728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   p_hex: 0.9
-  p_sq: 0.75
+  p_sq: 0.9
   p_su: 0.75
 --- !u!4 &1171195335
 Transform:
