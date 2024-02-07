@@ -30,6 +30,7 @@ public class EndDoor : MonoBehaviour
     public void CheckIfDoorOpened()
     {
         bool tmpIsOpen = true;
+        bool isPlayerCloseToDoor = Vector3.Distance(Camera.main.transform.position, transform.position) < 1.0f;
 
         if (!playerLine.GetComponent<LineManager>().isLineValid)
         {
@@ -39,7 +40,7 @@ public class EndDoor : MonoBehaviour
         {
             tmpIsOpen = false;
         }
-        if (tmpIsOpen && !isDoorOpen)
+        if (tmpIsOpen && !isDoorOpen && isPlayerCloseToDoor)
         {
             DoorAnimation(true);
             isDoorOpen = true;
