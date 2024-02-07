@@ -46,6 +46,11 @@ public class GridLab : MonoBehaviour
         return ((result[0] + result[1] + result[2]) == 0);
     }
 
+    public bool IsPlayerAtEnd(){
+        Tuple<int,int> gridPosition = GetGridPosition(Camera.main.transform.position);
+        return gridPosition.First == endingPosition.First && gridPosition.Second == endingPosition.Second;
+    }
+
     void Update(){
         if (IsInGrid(Camera.main.transform.position)){
             Tuple<int,int> gridPosition = GetGridPosition(Camera.main.transform.position);
@@ -62,10 +67,10 @@ public class GridLab : MonoBehaviour
                     int [] buggy = pp.BuggyRulesSuns();
                     Debug.Log("Buggy: " + buggy[0] + ", " + buggy[1] + ", " + buggy[2]);
                     if((result[0] + result[1] + result[2]) != 0){
-                        if(buggy[0] == 0){
+                        if(buggy[0] == 0 && panel.GetSunPositions().Count > 2){
                             GameObject.Find("Indice1").GetComponent<SpriteRenderer>().enabled = true;
                         }
-                        else if(buggy[1] == 0){
+                        else if(buggy[1] == 0 && panel.GetSunPositions().Count > 2){
                             GameObject.Find("Indice2").GetComponent<SpriteRenderer>().enabled = true;
                         }
                         else if(buggy[2] == 0){

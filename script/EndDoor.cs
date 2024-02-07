@@ -30,15 +30,18 @@ public class EndDoor : MonoBehaviour
     public void CheckIfDoorOpened()
     {
         bool tmpIsOpen = true;
-        bool isPlayerCloseToDoor = Vector3.Distance(Camera.main.transform.position, transform.position) < 1.0f;
+        bool isPlayerCloseToDoor = true; //Vector3.Distance(Camera.main.transform.position, transform.position) < 1.0f;
 
         if (!playerLine.GetComponent<LineManager>().isLineValid)
         {
             tmpIsOpen = false;
         }
-        if (gridLab != null && !gridLab.CheckPathValididy())
-        {
-            tmpIsOpen = false;
+        if (gridLab != null) {
+            isPlayerCloseToDoor = gridLab.IsPlayerAtEnd();
+            if (!gridLab.CheckPathValididy())
+            {
+                tmpIsOpen = false;
+            }
         }
         if (tmpIsOpen && !isDoorOpen && isPlayerCloseToDoor)
         {
