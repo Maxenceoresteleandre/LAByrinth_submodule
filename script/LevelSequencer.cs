@@ -72,6 +72,7 @@ public class LevelSequencer : MonoBehaviour
                 if (lastLearning == 0){
                     lastDifficulty = 0.001f;
                 }
+                lastLearning = 1;
                 while(levelBuilder.nSquareByColor.Count < nCol){
                     levelBuilder.nSquareByColor.Add(1);
                     levelBuilder.nSunByColor.Add(0);
@@ -113,7 +114,6 @@ public class LevelSequencer : MonoBehaviour
                     else{
                         levelBuilder.nWalls += 1;
                     }
-                    lastLearning = 1;
                     nextDifficulty = levelBuilder.GenerateLevel() * (1 - p_sq);
                     i += 1;
                 }
@@ -125,6 +125,7 @@ public class LevelSequencer : MonoBehaviour
                 if (lastLearning == 1){
                     lastDifficulty = 0.001f;
                 }
+                lastLearning = 2;
                 int nCol = 1;
                 i = 0;
                 while(levelBuilder.nSunByColor.Count < nCol){
@@ -133,10 +134,8 @@ public class LevelSequencer : MonoBehaviour
                 }
                 nextDifficulty = levelBuilder.GenerateLevel() * (1 - p_su);
                 while(nextDifficulty <= lastDifficulty){
-                    if(i==5){
-                        nCol += 1;
-                    }
-                    if(i==10){
+                    nCol += Random.Range(0, 2);
+                    if(i==3){
                         levelBuilder.dim = 4;
                         nCol = 1;
                         levelBuilder.nWalls = 0;
@@ -154,21 +153,20 @@ public class LevelSequencer : MonoBehaviour
                     // draw a random color
                     int col = Random.Range(0, nCol);
                     levelBuilder.nSunByColor[col] += 2;
-                    int newWall = Random.Range(0, 4);
+                    int newWall = Random.Range(0, 7);
                     if(newWall == 0){
                         levelBuilder.nWalls += 1;
                     }
                     else{
                         levelBuilder.nFakeWalls += 1;
                     }
-                    int newFake = Random.Range(0, 4);
+                    int newFake = Random.Range(0, 7);
                     if(newFake == 0){
                         levelBuilder.nFakeWalls += 1;
                     }
                     else{
                         levelBuilder.nWalls += 1;
                     }
-                    lastLearning = 2;
                     nextDifficulty = levelBuilder.GenerateLevel() * (1 - p_su);
                     i += 1;
                 }
@@ -208,7 +206,10 @@ public class LevelSequencer : MonoBehaviour
                 nextDifficulty = levelBuilder.GenerateLevel() * (1-p);
             }
         }
+        Debug.Log("LAST DIFFICULTY: " + lastDifficulty);
         Debug.Log("NEXT DIFFICULTY: " + nextDifficulty);
+        Debug.Log("LAST LEARNING: " + lastLearning);
+        lastDifficulty = nextDifficulty;
         levelBuilder.CreateLevel();
     }
 }
