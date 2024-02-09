@@ -29,8 +29,7 @@ public class RunBKT : MonoBehaviour
         // Chemin vers le script Python à exécuter
         // string scriptPath = @"chemin\vers\votre_script.py";
         string scriptPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/CoPillars-model/bkt.py");
-        string fileToReadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/CoPillars-model/all_data.csv");
-        string fileToLoadPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/CoPillars-model/model.pkl");
+        string path = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets/demoScene/LAByrinth/script/CoPillars-model/");
 
         // UnityEngine.Debug.Log("LAAAAAAAAAAAAAAAAAAAAAAAAAAA" + scriptPath);
 
@@ -41,7 +40,7 @@ public class RunBKT : MonoBehaviour
             // Créer le processus pour exécuter le script Python
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.WindowStyle = ProcessWindowStyle.Normal;
-            startInfo.Arguments = $"{scriptPath} {user_id} {skill_id} {correct} {fileToReadPath} {fileToLoadPath}";
+            startInfo.Arguments = $"{scriptPath} {user_id} {skill_id} {correct} {path}";
             // startInfo.Arguments = scriptPath;
             startInfo.FileName = pythonPath;
             startInfo.UseShellExecute = false;
