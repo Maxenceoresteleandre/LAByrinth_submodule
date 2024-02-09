@@ -51,7 +51,7 @@ public class LevelSequencer : MonoBehaviour
                         // }
                         levelBuilder.nHexagon += 1;
                         lastLearning = 0;
-                        nextDifficulty = levelBuilder.GenerateLevel() * (1 - p_hex);
+                        nextDifficulty = levelBuilder.GenerateLevel() * (2 - p_hex);
                     }
                     else{
                         levelBuilder.dim = 4;
@@ -77,7 +77,7 @@ public class LevelSequencer : MonoBehaviour
                     levelBuilder.nSquareByColor.Add(1);
                     levelBuilder.nSunByColor.Add(0);
                 }
-                nextDifficulty = levelBuilder.GenerateLevel() * (1 - p_sq);
+                nextDifficulty = levelBuilder.GenerateLevel() * (2 - p_sq);
                 while(nextDifficulty <= lastDifficulty){
                     if(i==5){
                         nCol += 1;
@@ -114,7 +114,7 @@ public class LevelSequencer : MonoBehaviour
                     else{
                         levelBuilder.nWalls += 1;
                     }
-                    nextDifficulty = levelBuilder.GenerateLevel() * (1 - p_sq);
+                    nextDifficulty = levelBuilder.GenerateLevel() * (2 - p_sq);
                     i += 1;
                 }
             }
@@ -132,7 +132,7 @@ public class LevelSequencer : MonoBehaviour
                     levelBuilder.nSunByColor.Add(2);
                     levelBuilder.nSquareByColor.Add(0);
                 }
-                nextDifficulty = levelBuilder.GenerateLevel() * (1 - p_su);
+                nextDifficulty = levelBuilder.GenerateLevel() * (2 - p_su);
                 while(nextDifficulty <= lastDifficulty){
                     nCol += Random.Range(0, 2);
                     if(i==3){
@@ -167,20 +167,26 @@ public class LevelSequencer : MonoBehaviour
                     else{
                         levelBuilder.nWalls += 1;
                     }
-                    nextDifficulty = levelBuilder.GenerateLevel() * (1 - p_su);
+                    nextDifficulty = levelBuilder.GenerateLevel() * (2 - p_su);
                     i += 1;
                 }
             }
             else{
                 learning = false;
+                NextLevel();
             }
         }
         else{
+            if(lastLearning == 2){
+                lastDifficulty = 0.001f;
+            }
+            lastLearning = -1;
             levelBuilder.nHexagon = 0;
             levelBuilder.nSquareByColor = new List<int>();
             levelBuilder.nSunByColor = new List<int>();
             levelBuilder.dim = 4;
             while(nextDifficulty <= lastDifficulty){
+                Debug.Log("LAST DIFFICULTY: " + lastDifficulty);
                 levelBuilder.nWalls = Random.Range(0, 5);
                 levelBuilder.nFakeWalls = Random.Range(0, 4);
                 levelBuilder.nHexagon = Random.Range(0, 5);
@@ -203,7 +209,21 @@ public class LevelSequencer : MonoBehaviour
                 if(levelBuilder.nSunByColor.Count > 0){
                     p *= p_su;
                 }
-                nextDifficulty = levelBuilder.GenerateLevel() * (1-p);
+                Debug.Log("HEXAGON: " + levelBuilder.nHexagon);
+                Debug.Log("COLORS: " + levelBuilder.nSquareByColor.Count);
+                string s = "";
+                for(int i = 0; i < levelBuilder.nSquareByColor.Count; i++){
+                    s += levelBuilder.nSquareByColor[i] + " ";
+                }
+                Debug.Log("SQUARES: " + s);
+                s = "";
+                for(int i = 0; i < levelBuilder.nSunByColor.Count; i++){
+                    s += levelBuilder.nSunByColor[i] + " ";
+                }
+                Debug.Log("SUNS: " + s);
+                Debug.Log("P: " + p);
+
+                nextDifficulty = levelBuilder.GenerateLevel() * (2-p);
             }
         }
         Debug.Log("LAST DIFFICULTY: " + lastDifficulty);
