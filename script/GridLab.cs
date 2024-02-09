@@ -9,9 +9,13 @@ public class GridLab : MonoBehaviour
     private List<Tuple<int,int>> currentSequenceOfPositions = new List<Tuple<int,int>>();
     static private List<Tuple<int,int>> currentPathOnGrid = new List<Tuple<int,int>>();
     private Panel panel;
+    private RunBKT runBKT;
+
     public static List<Vector3> playerPosPath = new List<Vector3>();
     public GameObject playerLine;
     private LineRenderer lineRenderer;
+    private LevelSequencer levelSequencer;
+
     
     private Tuple<int,int> startingPosition;
     private Tuple<int,int> endingPosition;
@@ -20,6 +24,7 @@ public class GridLab : MonoBehaviour
     public int startingY;
     public int endingX;
     public int endingY;
+
     
     void Start()
     {
@@ -63,6 +68,43 @@ public class GridLab : MonoBehaviour
                     sequence.Add(gridPosition);
                     PlayerPath pp = new PlayerPath(panel, Utils.InvertTupleList(sequence));
                     int[] result = pp.isPathValid();
+                    int player_id = 0;
+                    if (panel.GetHexagonPositions().Count > 0)
+                    {
+                        //niveau hex success
+                        if (result[0] == 0)
+                        {
+                            levelSequencer.Set_p_hex(runBKT.runBKT_p_success(player_id,0,1));
+                        }
+                        else
+                        {
+                            levelSequencer.Set_p_hex(runBKT.runBKT_p_success(player_id,0,0));
+                        }
+                    }
+                   if (panel.GetSquarePositions().Count > 0)
+                    {
+                        //niveau carre success
+                        if (result[1] == 0)
+                        {
+                            levelSequencer.Set_p_sq(runBKT.runBKT_p_success(player_id,1,1));
+                        }
+                        else
+                        {
+                            levelSequencer.Set_p_sq(runBKT.runBKT_p_success(player_id,1,0));
+                        }
+                    }
+                    if (panel.GetSunPositions().Count > 0)
+                    {
+                        //niveau sun success
+                        if (result[2] == 0)
+                        {
+                            levelSequencer.Set_p_su(runBKT.runBKT_p_success(player_id,3,1));
+                        }
+                        else
+                        {
+                            levelSequencer.Set_p_su(runBKT.runBKT_p_success(player_id,3,0));
+                        }
+                    }
                     Debug.Log("Validity: " + result[0] + ", " + result[1] + ", " + result[2]);
                     int [] buggy = pp.BuggyRulesSuns();
                     Debug.Log("Buggy: " + buggy[0] + ", " + buggy[1] + ", " + buggy[2]);

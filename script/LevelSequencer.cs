@@ -232,4 +232,13 @@ public class LevelSequencer : MonoBehaviour
         lastDifficulty = nextDifficulty;
         levelBuilder.CreateLevel();
     }
+    public void Set_p_hex(float p){
+        this.p_hex = p;
+    }
+    public void Set_p_sq(float p){
+        this.p_sq = p;
+    }
+    public void Set_p_su(float p){
+        this.p_su = p;
+    }
 }
