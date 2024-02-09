@@ -38,7 +38,13 @@ Il est également recommandé de renommer le dossier `LAByrinth_submodule` en `L
 
 ## Utilisation
 
-Pour lancer le projet, il vous faudra avoir Unity installé sur votre machine. Ouvrez Unity Hub, cliquez sur "Add -> Add project from disk"  et sélectionnez le dossier `parentwithsubmodule`. Le projet doit être ouvert avec la version 2020.3.19f1 de l'éditeur Unity. La première fois que vous ouvrirez le projet, Unity vous fera les importations et la serialization des assets, cela peut prendre un certain temps. Une fois que c'est fait, vous pouvez ouvrir la scène `Assets/CoVrToolKit/CoVRIntegration/Persistence.unity`, c'est la scène qui représente virtuellement la plateforme CoVR. En mode "Play", l'opérateur peur selectionner Scene Loader et lancer LAByrinth.
+Pour lancer le projet, il vous faudra avoir Unity installé sur votre machine. Ouvrez Unity Hub, cliquez sur "Add -> Add project from disk"  et sélectionnez le dossier `parentwithsubmodule`. Le projet doit être ouvert avec la version 2020.3.19f1 de l'éditeur Unity. La première fois que vous ouvrirez le projet, Unity vous fera les importations et la serialization des assets, cela peut prendre un certain temps. Une fois que c'est fait, vous pouvez ouvrir la scène `Assets/CoVrToolKit/CoVRIntegration/Persistence.unity`, c'est la scène qui représente virtuellement la plateforme CoVR. Il faut également modifier dans `Assets\demoScene\LAByrinth\script\WherePython.cs` la variable `pythonPath` pour qu'elle pointe vers votre installation de Python. Enfin, il faut installer les dépendances Python pour le projet LAByrinth. Pour cela, exécutez la commande suivante :
+
+```bash
+pip install pyBKT
+```
+
+En mode "Play", l'opérateur peur selectionner Scene Loader et lancer LAByrinth.
 
 ## Organisation du dépôt
 
