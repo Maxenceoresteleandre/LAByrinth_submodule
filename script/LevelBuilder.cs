@@ -40,7 +40,7 @@ public class LevelBuilder : MonoBehaviour
     private PlayerPath solution;
     private Panel panel;
     private RunBKT runBKT;
-    private MapGenerator mapGenerator;
+    public MapGenerator mapGenerator;
 
     public IEnumerator DelayedGenerateLevel() {
         yield return new WaitForSeconds(3.0f);
