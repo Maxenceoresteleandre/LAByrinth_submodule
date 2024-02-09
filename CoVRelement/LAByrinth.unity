@@ -2210,7 +2210,7 @@ MonoBehaviour:
   endPlatform: {fileID: 6313905040306165968, guid: bc601d4fa922c4446af1c2f0b0accc6d,
     type: 3}
   solutionLine: {fileID: 2061907608}
-  runBKT: {fileID: 0}
+  runBKT: {fileID: 1099618569}
   mapGenerator: {fileID: 976853242}
 --- !u!4 &1323785763
 Transform:
